@@ -8,7 +8,7 @@ import { PageNavLink } from 'shared/models';
 import { GuildRouteNames } from 'pages/Guilds/constants';
 import { GeneralGuildStats } from 'pages/Guilds/models';
 
-import { GotchiIcon, H1SealedPortalIcon } from 'components/Icons/Icons';
+import { GotchiIcon, GotchiverseIcon, H1SealedPortalIcon } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
 
 import { guildNavStyles } from './styles';
@@ -36,6 +36,12 @@ export function GuildNav() {
       icon: <H1SealedPortalIcon width={24} height={24} />,
       isLoading: isGuildStatsLoading,
       count: guildStats.portalsCount
+    },
+    {
+      path: GuildRouteNames.Realm,
+      icon: <GotchiverseIcon width={24} height={24} />,
+      isLoading: isGuildStatsLoading,
+      count: guildStats.realmCount
     }
   ];
 

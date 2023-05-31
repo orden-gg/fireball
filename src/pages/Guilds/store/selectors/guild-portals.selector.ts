@@ -18,17 +18,12 @@ export const getGuildPortals = createSelector(
   (state: GuildPortalsState): GuildPortal[] => state.guildPortals.data
 );
 
-export const getGuildPortalsCount = createSelector(
+export const getIsGuildPortalsLoading = createSelector(
   guildPortalsStateSelector,
-  (state: GuildPortalsState): number => state.guildPortals.data.length
+  (state: GuildPortalsState): boolean => state.guildPortals.isLoading
 );
 
 export const getGuildPortalsSorting = createSelector(
   guildPortalsStateSelector,
   (state: GuildPortalsState): SortingItem => state.guildPortalsSorting
-);
-
-export const getIsGuildPortalsLoading = createSelector(
-  guildPortalsStateSelector,
-  (state: GuildPortalsState): boolean => state.guildPortals.isLoading
 );

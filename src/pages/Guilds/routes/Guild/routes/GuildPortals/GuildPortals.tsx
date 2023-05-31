@@ -49,7 +49,7 @@ export function GuildPortals() {
   const dispatch = useAppDispatch();
 
   const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
-  const getGuildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
+  const guildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
   const guildPortals: GuildPortal[] = useAppSelector(fromGuildsStore.getGuildPortals);
   const guildPortalsSorting: SortingItem = useAppSelector(fromGuildsStore.getGuildPortalsSorting);
   const isGuildPortalsLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildPortalsLoading);
@@ -59,10 +59,10 @@ export function GuildPortals() {
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
-    if (guildMembers.length > 0 && getGuildStats.portalsCount !== 0) {
-      dispatch(fromGuildsStore.onLoadGuildPortals(guildMembers, getGuildStats.portalsCount));
+    if (guildMembers.length > 0 && guildStats.portalsCount !== 0) {
+      dispatch(fromGuildsStore.onLoadGuildPortals(guildMembers, guildStats.portalsCount));
     }
-  }, [guildMembers, getGuildStats.portalsCount]);
+  }, [guildMembers, guildStats.portalsCount]);
 
   useEffect(() => {
     setCurrentFilters((currentFiltersCache: CustomAny) =>

@@ -6,9 +6,9 @@ import { TheGraphResponse } from 'shared/models';
 import { GotchiUtils, GraphUtils } from 'utils';
 
 import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
-import { GuildPortal } from '../models';
+import { GuildPortal, GuildRealm } from '../models';
 import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
-import { guildGotchisQuery, portalsByAddressesQuery } from '../queries';
+import { guildGotchisQuery, portalsByAddressesQuery, realmByAddressesQuery } from '../queries';
 import {
   guildByIdQuery,
   guildPlayersStatsQuery,
@@ -55,9 +55,15 @@ export class GuildGraphApi {
     });
   }
 
-  public static getPlayersPortals(first: number, skip: number, playersAddresses: string[]): Promise<GuildPortal[]> {
+  public static getGuildPortals(first: number, skip: number, playersAddresses: string[]): Promise<GuildPortal[]> {
     return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, portalsByAddressesQuery(first, skip, playersAddresses)).then(
       (res: TheGraphResponse<{ portals: GuildPortal[] }>) => res.data.portals
+    );
+  }
+
+  public static getGuildRealm(first: number, skip: number, playersAddresses: string[]): Promise<GuildRealm[]> {
+    return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, realmByAddressesQuery(first, skip, playersAddresses)).then(
+      (res: TheGraphResponse<{ parcels: GuildRealm[] }>) => res.data.parcels
     );
   }
 }

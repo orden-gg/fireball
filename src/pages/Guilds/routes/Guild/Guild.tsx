@@ -17,12 +17,8 @@ import { ContentInner } from 'components/Content/ContentInner';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 
 import { GuildBanner, GuildDetails, GuildNav, JoinGuildModal } from './components';
-import { GuildGotchis, GuildHome, GuildPortals, GuildWarehouse } from './routes';
+import { GuildGotchis, GuildHome, GuildPortals, GuildRealm, GuildWarehouse } from './routes';
 import { guildStyles } from './styles';
-
-// import { GuildLendings } from './components/GuildLendings';
-// import { GuildNav } from './components/GuildNav';
-// import { GuildsRealm } from './components/GuildsRealm';
 
 export function Guild() {
   const classes = guildStyles();
@@ -123,10 +119,9 @@ export function Guild() {
             <Routes>
               <Route path={GuildRouteNames.Home} element={<GuildHome />} />
               <Route path={GuildRouteNames.Gotchis} element={<GuildGotchis />} />
-              <Route path={GuildRouteNames.Portals} element={<GuildPortals />} />
               <Route path={GuildRouteNames.Warehouse} element={<GuildWarehouse />} />
-              {/* <Route path='lendings' element={<GuildLendings />} />
-          <Route path='realm' element={<GuildsRealm />} /> */}
+              <Route path={GuildRouteNames.Portals} element={<GuildPortals />} />
+              <Route path={GuildRouteNames.Realm} element={<GuildRealm />} />
               <Route path='*' element={<Navigate to='home' replace />} />
             </Routes>
           </Box>

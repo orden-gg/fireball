@@ -2,10 +2,10 @@ import { GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
-import { MAX_ITEMS_PER_QUERY } from 'shared/constants';
 import { SortingItem } from 'shared/models';
 
 import { GuildPortal } from 'pages/Guilds/models';
+import { GuildUtils } from 'pages/Guilds/utils';
 
 import { CommonUtils } from 'utils';
 
@@ -18,12 +18,12 @@ export const onLoadGuildPortals =
     dispatch(guildPortalsSlices.loadGuildPortals());
 
     const portalsSorting: SortingItem = getState().guilds.guildPortals.guildPortalsSorting;
-    const graphQueryParams: { first: number; skip: number }[] = getGraphQueryParams(portalsCount);
+    const graphQueryParams: { first: number; skip: number }[] = GuildUtils.getFirstAndSkipParamsByCount(portalsCount);
 
     const promises: Promise<GuildPortal[]>[] = [];
 
     for (const params of graphQueryParams) {
-      promises.push(GuildGraphApi.getPlayersPortals(params.first, params.skip, addresses));
+      promises.push(GuildGraphApi.getGuildPortals(params.first, params.skip, addresses));
     }
 
     Promise.all(promises)
@@ -39,28 +39,3 @@ export const onLoadGuildPortals =
       })
       .catch(() => dispatch(guildPortalsSlices.loadGuildPortalsFailed()));
   };
-
-const getGraphQueryParams = (portalsCount: number): { first: number; skip: number }[] => {
-  let skip: number = 0;
-  const graphQueryParams: { first: number; skip: number }[] = [];
-
-  if (portalsCount <= MAX_ITEMS_PER_QUERY) {
-    graphQueryParams.push({ first: portalsCount, skip: 0 });
-  } else {
-    while (skip < portalsCount) {
-      if (skip + MAX_ITEMS_PER_QUERY < portalsCount) {
-        graphQueryParams.push({ first: MAX_ITEMS_PER_QUERY, skip });
-
-        skip += MAX_ITEMS_PER_QUERY;
-      } else {
-        const remainingCount = portalsCount - skip;
-
-        graphQueryParams.push({ first: remainingCount, skip });
-
-        skip += MAX_ITEMS_PER_QUERY;
-      }
-    }
-  }
-
-  return graphQueryParams;
-};

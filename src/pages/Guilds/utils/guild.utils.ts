@@ -1,5 +1,7 @@
 import { EthersApi } from 'api';
 
+import { MAX_ITEMS_PER_QUERY } from 'shared/constants';
+
 import { GuildPlayerRealmStats, GuildPlayerStats, GuildRealmStats, GuildStats } from '../models';
 
 export class GuildUtils {
@@ -43,5 +45,30 @@ export class GuildUtils {
         votingPower: 0
       }
     );
+  }
+
+  public static getFirstAndSkipParamsByCount(itemsCount: number): { first: number; skip: number }[] {
+    let skip: number = 0;
+    const graphQueryParams: { first: number; skip: number }[] = [];
+
+    if (itemsCount <= MAX_ITEMS_PER_QUERY) {
+      graphQueryParams.push({ first: itemsCount, skip: 0 });
+    } else {
+      while (skip < itemsCount) {
+        if (skip + MAX_ITEMS_PER_QUERY < itemsCount) {
+          graphQueryParams.push({ first: MAX_ITEMS_PER_QUERY, skip });
+
+          skip += MAX_ITEMS_PER_QUERY;
+        } else {
+          const remainingCount = itemsCount - skip;
+
+          graphQueryParams.push({ first: remainingCount, skip });
+
+          skip += MAX_ITEMS_PER_QUERY;
+        }
+      }
+    }
+
+    return graphQueryParams;
   }
 }
