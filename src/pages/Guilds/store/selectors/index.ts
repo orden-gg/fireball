@@ -3,4 +3,4 @@ export * from './guild-portals.selector';
 export * from './guild-realm.selector';
 export * from './guild.selector';
 export * from './guilds.selector';
-export * from './warehouse.selector';
+export * from './guild-wearables.selector';

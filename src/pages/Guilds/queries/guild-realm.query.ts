@@ -1,7 +1,7 @@
 export const realmByAddressesQuery = (first: number, skip: number, playersAddresses: string[]): string => {
   return `{
     parcels(
-      first: ${first},
+      first: ${first}
       skip: ${skip}
       where: {
         owner_in: [${playersAddresses.map((address) => `"${address}"`)}]

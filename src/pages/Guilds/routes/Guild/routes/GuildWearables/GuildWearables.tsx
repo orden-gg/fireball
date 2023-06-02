@@ -13,29 +13,21 @@ import { CustomParsedQuery, SortingItem } from 'shared/models';
 import { Warehouse } from 'pages/Client/models';
 import { warehouseQueryParams } from 'pages/Guilds/constants';
 import { warehouseSorting } from 'pages/Guilds/data';
+import { GeneralGuildStats } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { WarehouseIcon } from 'components/Icons/Icons';
-import {
-  CardBalance,
-  CardGroup,
-  CardImage,
-  CardListing,
-  CardName,
-  CardSlot,
-  CardStats,
-  CardTotalPrice
-} from 'components/ItemCard/components';
+import { CardBalance, CardGroup, CardImage, CardName, CardSlot, CardStats } from 'components/ItemCard/components';
 import { ItemCard } from 'components/ItemCard/containers';
 import { ItemsLazy } from 'components/Lazy/ItemsLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
 import { CommonUtils, FilterUtils, ItemUtils } from 'utils';
 
-import { GuildWarehouseStyles } from './styles';
+import { guildWearablesStyles } from './styles';
 
-export function GuildWarehouse() {
-  const classes = GuildWarehouseStyles();
+export function GuildWearables() {
+  const classes = guildWearablesStyles();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -43,9 +35,17 @@ export function GuildWarehouse() {
 
   const dispatch = useAppDispatch();
 
-  const warehouse: Warehouse[] = useAppSelector(fromGuildsStore.getWarehouse);
-  const isInitialWarehouseLoading: boolean = useAppSelector(fromGuildsStore.getIsInitialWarehouseLoading);
-  const defaultSorting: SortingItem = useAppSelector(fromGuildsStore.getWarehouseSorting);
+  const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
+  const guildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
+  const guildWearables: Warehouse[] = useAppSelector(fromGuildsStore.getGuildWearables);
+  const isGuildWearablesLoading: boolean = useAppSelector(fromGuildsStore.getIsGuildWearablesLoading);
+  const guildWearablesSorting: SortingItem = useAppSelector(fromGuildsStore.getGuildWearablesSorting);
+
+  useEffect(() => {
+    if (guildMembers.length > 0 && guildStats.itemsCount !== 0) {
+      dispatch(fromGuildsStore.onLoadWarehouse(guildMembers, guildStats.itemsCount));
+    }
+  }, [guildMembers, guildStats]);
 
   useEffect(() => {
     const { sort, dir } = queryParams as CustomParsedQuery;
@@ -53,15 +53,19 @@ export function GuildWarehouse() {
     if (sort && dir) {
       const key: CustomAny = warehouseSorting.find((sorting) => sorting.paramKey === sort)?.key;
 
-      dispatch(fromGuildsStore.setWarehouseSorting({ type: key, dir }));
+      dispatch(fromGuildsStore.setGuildWearablesSorting({ type: key, dir }));
     }
   }, []);
 
   useEffect(() => {
-    const sortedItems: Warehouse[] = CommonUtils.basicSort(warehouse, defaultSorting.type, defaultSorting.dir);
+    const sortedItems: Warehouse[] = CommonUtils.basicSort(
+      guildWearables,
+      guildWearablesSorting.type,
+      guildWearablesSorting.dir
+    );
 
-    dispatch(fromGuildsStore.setWarehouseItems([...sortedItems]));
-  }, [isInitialWarehouseLoading, defaultSorting]);
+    dispatch(fromGuildsStore.setGuildWearables([...sortedItems]));
+  }, [guildWearablesSorting]);
 
   const updateSortQueryParams = useCallback(
     (prop: string, dir: string) => {
@@ -73,13 +77,13 @@ export function GuildWarehouse() {
   );
 
   const onSortingChange = (prop: string, dir: string) => {
-    dispatch(fromGuildsStore.setWarehouseSorting({ type: prop, dir }));
+    dispatch(fromGuildsStore.setGuildWearablesSorting({ type: prop, dir }));
     updateSortQueryParams(prop, dir);
   };
 
   const sorting: CustomAny = {
     sortingList: warehouseSorting,
-    sortingDefaults: defaultSorting,
+    sortingDefaults: guildWearablesSorting,
     onSortingChange: onSortingChange
   };
 
@@ -94,18 +98,17 @@ export function GuildWarehouse() {
     <>
       <SortFilterPanel
         sorting={sorting}
-        itemsLength={warehouse.length}
+        itemsLength={guildWearables.length}
         placeholder={<WarehouseIcon width={20} height={20} />}
       />
 
-      <ContentInner dataLoading={isInitialWarehouseLoading}>
+      <ContentInner dataLoading={isGuildWearablesLoading} className={classes.container}>
         <ItemsLazy
-          items={warehouse}
+          items={guildWearables}
           component={(wearable: Warehouse) => (
             <ItemCard id={wearable.id} category={wearable.category} type={wearable.rarity}>
               <CardGroup name='header'>
                 <CardSlot id={wearable.id} />
-                <CardTotalPrice balance={wearable.balance} priceInWei={wearable.priceInWei} />
                 <CardBalance balance={wearable.balance} holders={wearable.holders} />
               </CardGroup>
               <CardGroup name='body'>
@@ -118,9 +121,6 @@ export function GuildWarehouse() {
                     {wearable.benefit.first}, {wearable.benefit.second}
                   </span>
                 </div>
-              </CardGroup>
-              <CardGroup name='footer'>
-                <CardListing />
               </CardGroup>
             </ItemCard>
           )}

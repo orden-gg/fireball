@@ -1,7 +1,7 @@
 export enum GuildRouteNames {
   Home = 'home',
   Gotchis = 'gotchis',
-  Warehouse = 'warehouse',
+  Wearables = 'wearables',
   Portals = 'portals',
   Realm = 'realm'
 }

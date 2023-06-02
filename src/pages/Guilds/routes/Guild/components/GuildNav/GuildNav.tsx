@@ -8,7 +8,7 @@ import { PageNavLink } from 'shared/models';
 import { GuildRouteNames } from 'pages/Guilds/constants';
 import { GeneralGuildStats } from 'pages/Guilds/models';
 
-import { GotchiIcon, GotchiverseIcon, H1SealedPortalIcon } from 'components/Icons/Icons';
+import { GotchiIcon, GotchiverseIcon, H1SealedPortalIcon, WarehouseIcon } from 'components/Icons/Icons';
 import { PageNav } from 'components/PageNav/PageNav';
 
 import { guildNavStyles } from './styles';
@@ -30,6 +30,12 @@ export function GuildNav() {
       icon: <GotchiIcon width={24} height={24} />,
       isLoading: isGuildStatsLoading,
       count: guildStats.gotchisCount
+    },
+    {
+      path: GuildRouteNames.Wearables,
+      icon: <WarehouseIcon width={24} height={24} />,
+      isLoading: false,
+      count: guildStats.itemsCount
     },
     {
       path: GuildRouteNames.Portals,

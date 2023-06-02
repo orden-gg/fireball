@@ -1,14 +1,19 @@
 import { TheGraphCoreApi } from 'api';
 
-import { GRAPH_CORE_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
 import { TheGraphResponse } from 'shared/models';
 
 import { GotchiUtils, GraphUtils } from 'utils';
 
 import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
-import { GuildPortal, GuildRealm } from '../models';
+import { GuildPortal, GuildRealm, GuildWearable } from '../models';
 import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
-import { guildGotchisQuery, portalsByAddressesQuery, realmByAddressesQuery } from '../queries';
+import {
+  guildGotchisQuery,
+  portalsByAddressesQuery,
+  realmByAddressesQuery,
+  wearablesByAddressesQuery
+} from '../queries';
 import {
   guildByIdQuery,
   guildPlayersStatsQuery,
@@ -53,6 +58,13 @@ export class GuildGraphApi {
 
       return GotchiUtils.modifyTraits(GraphUtils.flatGraphItems(responses, ['aavegotchis']));
     });
+  }
+
+  public static getGuildWearables(first: number, skip: number, playersAddresses: string[]): Promise<GuildWearable[]> {
+    return TheGraphCoreApi.getGraphData(
+      GRAPH_FIREBALL_MAIN_API,
+      wearablesByAddressesQuery(first, skip, playersAddresses)
+    ).then((res: TheGraphResponse<{ erc1155Items: GuildWearable[] }>) => res.data.erc1155Items);
   }
 
   public static getGuildPortals(first: number, skip: number, playersAddresses: string[]): Promise<GuildPortal[]> {

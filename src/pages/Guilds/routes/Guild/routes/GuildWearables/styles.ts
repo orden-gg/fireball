@@ -1,7 +1,10 @@
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const GuildWarehouseStyles = makeStyles((theme) =>
+export const guildWearablesStyles = makeStyles((theme) =>
   createStyles({
+    container: {
+      padding: '0px 8px'
+    },
     benefits: {
       display: 'flex',
       flexDirection: 'column',
