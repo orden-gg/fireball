@@ -37,11 +37,11 @@ export const initialFilters: CustomAny = {
   search: { ...filtersData.search }
 };
 
-export const warehouseSorting: SortingListItem[] = [
+export const wearablesSorting: SortingListItem[] = [
   {
     name: 'rarity',
     key: 'rarityId',
-    paramKey: 'rarity',
+    paramKey: 'rarityId',
     tooltip: 'rarity',
     icon: <GrainIcon fontSize='small' />
   },

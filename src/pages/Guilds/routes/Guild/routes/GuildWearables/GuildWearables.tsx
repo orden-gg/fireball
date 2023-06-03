@@ -12,7 +12,7 @@ import { CustomParsedQuery, SortingItem } from 'shared/models';
 
 import { Warehouse } from 'pages/Client/models';
 import { warehouseQueryParams } from 'pages/Guilds/constants';
-import { warehouseSorting } from 'pages/Guilds/data';
+import { wearablesSorting } from 'pages/Guilds/data';
 import { GeneralGuildStats } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
@@ -51,9 +51,9 @@ export function GuildWearables() {
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: CustomAny = warehouseSorting.find((sorting) => sorting.paramKey === sort)?.key;
+      const key = wearablesSorting.find((sorting) => sorting.paramKey === sort)?.key;
 
-      dispatch(fromGuildsStore.setGuildWearablesSorting({ type: key, dir }));
+      onSortingChange(key!, dir);
     }
   }, []);
 
@@ -65,6 +65,7 @@ export function GuildWearables() {
     );
 
     dispatch(fromGuildsStore.setGuildWearables([...sortedItems]));
+    updateSortQueryParams(guildWearablesSorting.type, guildWearablesSorting.dir);
   }, [guildWearablesSorting]);
 
   const updateSortQueryParams = useCallback(
@@ -78,11 +79,10 @@ export function GuildWearables() {
 
   const onSortingChange = (prop: string, dir: string) => {
     dispatch(fromGuildsStore.setGuildWearablesSorting({ type: prop, dir }));
-    updateSortQueryParams(prop, dir);
   };
 
   const sorting: CustomAny = {
-    sortingList: warehouseSorting,
+    sortingList: wearablesSorting,
     sortingDefaults: guildWearablesSorting,
     onSortingChange: onSortingChange
   };
