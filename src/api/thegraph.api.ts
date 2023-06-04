@@ -432,7 +432,7 @@ export class TheGraphApi {
       const queries: CustomAny[] = [];
 
       for (let i = 0; i < 5; i++) {
-        queries.push(realmQuery(address.toString().toLowerCase(), i * 1000));
+        queries.push(realmQuery(address, i * 1000));
       }
 
       return queries;
