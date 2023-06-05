@@ -18,6 +18,7 @@ import { PageNavLink } from 'shared/models';
 import { RealmSwitchButton } from 'pages/Client/components/RealmSwitchButton/RealmSwitchButton';
 
 import {
+  AlloyIcon,
   AnvilIcon,
   BaazarIcon,
   FakeGotchisIcon,
@@ -36,6 +37,7 @@ import { RealmView } from './constants';
 import { ClientAccount } from './routes/ClientAccount';
 import { ClientFakeGotchis } from './routes/ClientFakeGotchis';
 import { ClientForSale } from './routes/ClientForSale';
+import { ClientForge } from './routes/ClientForge';
 import { ClientGotchis } from './routes/ClientGotchis';
 import { ClientInstallations } from './routes/ClientInstallations';
 import { ClientPortals } from './routes/ClientPortals';
@@ -85,6 +87,8 @@ export function ClientRoutes() {
   const realmView: RealmView = useAppSelector(fromClientStore.getRealmView);
   const fakeGotchisCount: number = useAppSelector(fromClientStore.getFakeGotchisCount);
   const isInitialFakeGotchisLoading: boolean = useAppSelector(fromClientStore.getIsInitialFakeGotchisLoading);
+  const forgeItemsCount: number = useAppSelector(fromClientStore.getForgeItemsCount);
+  const getIsInitialForgeLoading: boolean = useAppSelector(fromClientStore.getIsInitialForgeLoading);
   const itemsForSaleCount: number = useAppSelector(fromClientStore.getItemsForSaleCount);
   const isInitialItemsForSaleLoading: boolean = useAppSelector(fromClientStore.getIsInitialItemsForSaleLoading);
 
@@ -159,6 +163,12 @@ export function ClientRoutes() {
       icon: <FakeGotchisIcon width={24} height={24} />,
       isLoading: isInitialFakeGotchisLoading,
       count: fakeGotchisCount
+    },
+    {
+      path: 'forge',
+      icon: <AlloyIcon width={24} height={20} />,
+      isLoading: getIsInitialForgeLoading,
+      count: forgeItemsCount
     },
     {
       path: 'for-sale',
@@ -259,6 +269,7 @@ export function ClientRoutes() {
         <Route path='tickets' element={<ClientTickets />} />
         <Route path='realm/*' element={<ClientRealm />} />
         <Route path='fake-gotchis' element={<ClientFakeGotchis />} />
+        <Route path='forge' element={<ClientForge />} />
         <Route path='for-sale' element={<ClientForSale />} />
         <Route path='*' element={<Navigate to='gotchis' replace />} />
       </Routes>

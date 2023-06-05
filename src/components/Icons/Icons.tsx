@@ -5,6 +5,9 @@ import gotchiLoadingGif from 'assets/images/animated/gotchi-loading.gif';
 import gotchiverseGif from 'assets/images/animated/gotchiverse.gif';
 import h1OpenedPortalGif from 'assets/images/animated/h1-opened.gif';
 import realmGif from 'assets/images/animated/realm.gif';
+// forge
+import alloy from 'assets/images/forge/alloy.svg';
+// placeholder
 import gotchi from 'assets/images/gotchi-placeholder.svg';
 // icons
 import activity from 'assets/images/icons/activity.svg';
@@ -366,4 +369,9 @@ export const MarketCardIcon = ({ width, height }: IconProps) => {
 
 export const RafflesCardIcon = ({ width, height }: IconProps) => {
   return <img width={width} height={height} src={rafflesCard} alt='raffles' />;
+};
+
+// forge icons
+export const AlloyIcon = ({ width, height }: IconProps) => {
+  return <img width={width} height={height} src={alloy} alt='alloy' />;
 };

@@ -1,6 +1,12 @@
 import { TheGraphCoreApi } from 'api';
 
-import { Erc721Categories, GRAPH_CORE_API, GRAPH_FAKE_GOTCHIS_API, GRAPH_FIREBALL_API } from 'shared/constants';
+import {
+  Erc721Categories,
+  GRAPH_CORE_API,
+  GRAPH_FAKE_GOTCHIS_API,
+  GRAPH_FIREBALL_API,
+  GRAPH_FIREBALL_FORGE_API
+} from 'shared/constants';
 import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
 
 import { Erc721ForSaleDTO, Erc1155ForSaleDTO, FakeItemsDTO, ParcelForSaleDTO } from '../models';
@@ -51,6 +57,12 @@ export class ClientApi {
   public static async getErc1155ListingsBySeller(seller: string): Promise<Erc1155ForSaleDTO[]> {
     return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, erc1155ListingsBySellerQuery(seller)).then(
       (response: TheGraphResponse<{ erc1155Listings: Erc1155ForSaleDTO[] }>) => response.data.erc1155Listings
+    );
+  }
+
+  public static async getForgeItems(query: string): Promise<CustomAny> {
+    return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_FORGE_API, query).then(
+      (res: TheGraphResponse<CustomAny>) => res
     );
   }
 }

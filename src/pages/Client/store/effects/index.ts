@@ -10,3 +10,4 @@ export * from './realm.effect';
 export * from './tickets.effect';
 export * from './tiles.effect';
 export * from './warehouse.effect';
+export * from './forge.effect';
