@@ -7,7 +7,7 @@ import {
   GRAPH_FIREBALL_API,
   GRAPH_FIREBALL_FORGE_API
 } from 'shared/constants';
-import { Erc721ListingsBatch, TheGraphResponse } from 'shared/models';
+import { Erc721ListingsBatch, ForgeItem, TheGraphResponse } from 'shared/models';
 
 import { Erc721ForSaleDTO, Erc1155ForSaleDTO, FakeItemsDTO, ParcelForSaleDTO } from '../models';
 import { getErc721ListingsByCategoriesQuery } from '../queries';
@@ -60,9 +60,9 @@ export class ClientApi {
     );
   }
 
-  public static async getForgeItems(query: string): Promise<CustomAny> {
+  public static async getForgeItems(query: string): Promise<ForgeItem[]> {
     return TheGraphCoreApi.getGraphData(GRAPH_FIREBALL_FORGE_API, query).then(
-      (res: TheGraphResponse<CustomAny>) => res
+      (res: TheGraphResponse<{ forgeItems: ForgeItem[] }>) => res.data.forgeItems
     );
   }
 }

@@ -1,9 +1,10 @@
 import { ForgeTypes } from 'shared/constants';
+import { ForgeItem } from 'shared/models/forge.model';
 
-import { ItemUtils } from './item.utils';
+import { ItemUtils } from 'utils';
 
 export class ForgeUtils {
-  public static getItemImage(item: CustomAny): CustomAny {
+  public static getItemImage(item: ForgeItem): string {
     let path: string = '';
 
     if (item.category === ForgeTypes.Alloy) {
@@ -26,7 +27,7 @@ export class ForgeUtils {
       return require('../assets/images/image-placeholder.svg').default;
     }
   }
-  public static getItemName(item: CustomAny): CustomAny {
+  public static getItemName(item: ForgeItem): string {
     switch (item.category) {
       case ForgeTypes.Alloy:
         return item.category;

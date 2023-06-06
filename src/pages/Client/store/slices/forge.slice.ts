@@ -1,8 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { ForgeItem } from 'shared/models';
+
 export interface ClientForgeState {
   forge: {
-    data: CustomAny;
+    data: ForgeItem[];
     isLoading: boolean;
     isLoaded: boolean;
     isError: boolean;
@@ -32,7 +34,7 @@ export const forgeSlice = createSlice({
         isError: false
       };
     },
-    loadForgeItemsSucceded: (state, action: PayloadAction<CustomAny>): void => {
+    loadForgeItemsSucceded: (state, action: PayloadAction<ForgeItem[]>): void => {
       state.forge = {
         data: action.payload,
         isLoading: false,
@@ -53,7 +55,7 @@ export const forgeSlice = createSlice({
     },
     resetForgeItems: (state): void => {
       state.forge = {
-        data: null,
+        data: [],
         isLoading: false,
         isLoaded: false,
         isError: false

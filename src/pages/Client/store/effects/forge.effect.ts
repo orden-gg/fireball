@@ -2,6 +2,8 @@ import { ClientApi } from 'pages/Client/api';
 
 import { AppThunk } from 'core/store/store';
 
+import { ForgeItem } from 'shared/models';
+
 import { getForgeItemsByAddressQuery } from 'pages/Client/queries/forge-query';
 
 // slices
@@ -13,10 +15,10 @@ export const onLoadForge =
     dispatch(forgeSlices.loadForgeItems());
 
     ClientApi.getForgeItems(getForgeItemsByAddressQuery(address))
-      .then((res: CustomAny) => {
-        dispatch(forgeSlices.loadForgeItemsSucceded(res.data.forgeItems));
+      .then((forgeItems: ForgeItem[]) => {
+        dispatch(forgeSlices.loadForgeItemsSucceded(forgeItems));
 
-        return res.data.forgeItems;
+        return forgeItems;
       })
       .catch(() => dispatch(forgeSlices.loadForgeItemsFailed()))
       .finally(() => dispatch(forgeSlices.setIsInitialForgeLoading(false)));
