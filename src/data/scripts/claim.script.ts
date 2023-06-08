@@ -25,7 +25,7 @@ import {
 // @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
-const txCostLimit = 450 * 1e9;
+const txCostLimit = 400 * 1e9;
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
 
@@ -42,21 +42,21 @@ const TOKENS = [
 // const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
 
 const OWNER_IN = ['0xc46d3c9d93febdd5027c9b696fe576dc654c66de', '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0'];
+// const OWNER_IN = ['0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667'];
 
-const GET_BALANCE = false; // retrieve gotchis balance (took pretty much time)
+const GET_BALANCE = true; // retrieve gotchis balance (took pretty much time)
 // ! the bigger the chunk size the faster the script will run but the more likely it will fail (also quantity of TOKENS affects it)
 const BALANCE_CHUNK_SIZE = 20; // chunk size for retrieving balance requests
 const TRANSACTION_CHUNK_SIZE = 20; // chunk size for batch requests
 // ! BE CERAFUL with this one, it will finish rent for all gotchis
 const FINISH_LENDING = false; // finish rent after claiming or not (true or false)
-const EXECUTE = true; // execute transactions or not (true or false)
+const EXECUTE = false; // execute transactions or not (true or false)
 
 // borrower_not: "0x0000000000000000000000000000000000000000",
 // borrower: "0x8ba922eb891a734f17b14e7ff8800e6626912e5d",
 const lendingsQuery = `{
   gotchiLendings(
     first: 1000,
-    skip: 720,
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
@@ -184,32 +184,40 @@ const claim = async () => {
 
       // loop through chunks
       for (let i = 0; i < chunk.length; i++) {
-        await MAIN_CONTRACT_WITH_SIGNER[FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
-          chunk[i],
-          // { gasPrice: gasBoosted, gasLimit: 9000000 } // TODO: gas limit is required when you ending lending
-          { gasPrice: gasBoosted, gasLimit: 10000000 }
-        ).then(async (tx: ContractTransaction) => {
-          console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
-          console.log('waiting Tx approval...');
+        await callWithRetries(
+          MAIN_CONTRACT_WITH_SIGNER,
+          FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending',
+          3,
+          5,
+          [chunk[i], { gasPrice: gasBoosted }]
+        )
+          // await MAIN_CONTRACT_WITH_SIGNER[FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
+          //   chunk[i],
+          //   // { gasPrice: gasBoosted, gasLimit: 9000000 } // TODO: gas limit is required when you ending lending
+          //   { gasPrice: gasBoosted }
+          // )
+          .then(async (tx: ContractTransaction) => {
+            console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+            console.log('waiting Tx approval...');
 
-          // wait for transaction to display result
-          await tx
-            .wait()
-            .then(() => {
-              console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), chunk[i].length);
-              console.log(chunk[i]);
+            // wait for transaction to display result
+            await tx
+              .wait()
+              .then(() => {
+                console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), chunk[i].length);
+                console.log(chunk[i]);
 
-              processed += chunk[i].length;
-              console.log('done', processed, 'of', gotchiIds.length);
+                processed += chunk[i].length;
+                console.log('done', processed, 'of', gotchiIds.length);
 
-              return true;
-            })
-            .catch((error: any) => {
-              console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+                return true;
+              })
+              .catch((error: any) => {
+                console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
 
-              return false;
-            });
-        });
+                return false;
+              });
+          });
       }
     } else {
       console.log(paint('no gotchis to claim :(', CONSOLE_COLORS.Red));
