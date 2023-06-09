@@ -22,7 +22,7 @@ export function ClientForge() {
       <ItemsLazy
         items={forgeItems}
         component={(forgeItem: ForgeItem) => (
-          <ItemCard type='default'>
+          <ItemCard type={forgeItem.category}>
             <CardGroup name='header'>
               {forgeItem.slot ? <CardSlot>{forgeItem.slot}</CardSlot> : <></>}
               <CardBalance balance={forgeItem.amount} />

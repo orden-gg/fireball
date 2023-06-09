@@ -69,6 +69,31 @@ export const styles = makeStyles((theme) =>
       '&.unknown': {
         backgroundColor: alpha(theme.palette.primary.main, 0.1),
         color: lighten(theme.palette.primary.main, 0.2)
+      },
+      '&.alloy': {
+        backgroundColor: alpha(theme.palette.forge.alloy, 0.1),
+        color: lighten(theme.palette.forge.alloy, 0.7),
+        borderColor: theme.palette.forge.alloy
+      },
+      '&.essence': {
+        backgroundColor: alpha(theme.palette.forge.essence, 0.1),
+        color: lighten(theme.palette.forge.essence, 0.7),
+        borderColor: theme.palette.forge.essence
+      },
+      '&.geode': {
+        backgroundColor: alpha(theme.palette.forge.geode, 0.1),
+        color: lighten(theme.palette.forge.geode, 0.7),
+        borderColor: theme.palette.forge.geode
+      },
+      '&.core': {
+        backgroundColor: alpha(theme.palette.forge.core, 0.1),
+        color: lighten(theme.palette.forge.core, 0.7),
+        borderColor: theme.palette.forge.core
+      },
+      '&.schematic': {
+        backgroundColor: alpha(theme.palette.forge.schematic, 0.1),
+        color: lighten(theme.palette.forge.schematic, 0.7),
+        borderColor: theme.palette.forge.schematic
       }
     },
     cardVertical: {

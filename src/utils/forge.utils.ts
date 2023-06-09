@@ -15,8 +15,6 @@ export class ForgeUtils {
       path = `geodes/${item.rarity}`;
     } else if (item.category === ForgeTypes.Core) {
       path = `cores/${item.category}_${item.slot}_${item.rarity}`;
-
-      console.log(`../assets/images/forge/${path}.svg`);
     } else if (item.category === ForgeTypes.Schematic) {
       path = `schematics/${item.tokenId}`;
     }
