@@ -1,14 +1,11 @@
 import axios from 'axios';
 import 'dotenv/config';
 import { ContractTransaction, ethers } from 'ethers';
-import { exit } from 'process';
 
 import {
-  CONSOLE_COLORS,
   MAIN_CONTRACT_WITH_SIGNER,
   SCRIPT_WALLET_ADDRESS,
-  getGasPrice,
-  paint // @ts-ignore
+  getGasPrice // @ts-ignore
 } from './api/scripts.api.js';
 
 // @ts-ignore
@@ -90,7 +87,7 @@ const collectIds = async (name: string, address: string): Promise<Gotchi[]> => {
       console.log(`👀 operator is approved: ${res.toString()}`);
 
       if (!res) {
-        console.log(`terminated!`);
+        console.log('terminated!');
 
         return [];
       }
