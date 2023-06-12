@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from '@mui/material';
-
 // store
 import * as fromGuildsStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
+
+import { GuildButton } from 'pages/Guilds/components';
 
 import { ContentInner } from 'components/Content/ContentInner';
 
@@ -35,24 +35,25 @@ export function GuildsPreview() {
   };
 
   return (
-    <ContentInner dataLoading={getIsGuildsLoading}>
-      <div className={classes.guildsWrapper}>
+    <div className={classes.guildsWrapper}>
+      <h1 className={classes.guildsPreviewTitle}>Aavegotchi guilds</h1>
+      {connectedWallet && (
+        <GuildButton
+          className={classes.guildCreate}
+          variant='outlined'
+          size='large'
+          onClick={() => onRedirectToCreateGuild()}
+        >
+          Create Guild
+        </GuildButton>
+      )}
+      <ContentInner dataLoading={getIsGuildsLoading} className={classes.guildsPreviewContent}>
         <ul className={classes.guildsList}>
           {guilds.map((guild: Guild, index: number) => (
             <GuildCard guild={guild} stats={guildsStats[guild.safeAddress]} key={index} />
           ))}
         </ul>
-        {connectedWallet && (
-          <Button
-            className={classes.guildCreate}
-            variant='contained'
-            size='large'
-            onClick={() => onRedirectToCreateGuild()}
-          >
-            Create Guild
-          </Button>
-        )}
-      </div>
-    </ContentInner>
+      </ContentInner>
+    </div>
   );
 }

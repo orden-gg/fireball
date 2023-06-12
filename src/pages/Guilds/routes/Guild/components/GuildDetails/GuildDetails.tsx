@@ -10,7 +10,7 @@ export function GuildDetails({ guild }: { guild: Guild }) {
   return (
     <>
       <div className={classes.detailsWrapper}>
-        <div className={classes.detailBody}>
+        <div className={classes.detailsBody}>
           <Typography className={classes.detailText}>{guild.description}</Typography>
         </div>
       </div>

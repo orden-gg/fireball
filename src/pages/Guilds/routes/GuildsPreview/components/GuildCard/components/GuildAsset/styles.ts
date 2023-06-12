@@ -14,15 +14,16 @@ export const guildAssetStyles = makeStyles((theme) =>
         marginRight: theme.spacing(1)
       }
     },
-    guildAssetItemIcon: {
-      width: 24,
-      maxWidth: 24,
-      maxHeight: 24,
-      [theme.breakpoints.down('md')]: {
-        width: 20,
-        maxWidth: 20,
-        maxHeight: 20
-      }
+    guildAssetIconWrap: {
+      display: 'flex',
+      width: 20,
+      height: 16
+    },
+    guildAssetIcon: {
+      margin: 'auto',
+      height: '100%',
+      maxWidth: '100%',
+      maxheight: '100%'
     },
     guildAssetAmountLoader: {
       minWidth: 30,

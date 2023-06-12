@@ -1,3 +1,4 @@
+import { lighten } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const guildDetailsStyles = makeStyles((theme) =>
@@ -36,10 +37,9 @@ export const guildDetailsStyles = makeStyles((theme) =>
       }
     },
     detailsWrapper: {
-      margin: theme.spacing(3, 0),
+      margin: theme.spacing(2, 1),
       opacity: 0,
       animation: '2s ease-out 1s forwards $show',
-      textAlign: 'center',
       [theme.breakpoints.down('md')]: {
         margin: theme.spacing(2, 0)
       },
@@ -68,17 +68,8 @@ export const guildDetailsStyles = makeStyles((theme) =>
     },
     detailsBody: {
       backgroundColor: theme.palette.background.secondary,
-      marginTop: theme.spacing(3),
-      borderRadius: theme.spacing(1.5),
-      padding: theme.spacing(4, 6),
-      [theme.breakpoints.down('md')]: {
-        marginTop: theme.spacing(2),
-        borderRadius: theme.spacing(1),
-        padding: theme.spacing(3)
-      },
-      [theme.breakpoints.down('sm')]: {
-        padding: theme.spacing(2)
-      }
+      border: `1px solid ${lighten('#000', 0.25)}`,
+      padding: theme.spacing(1, 1, 1, 2)
     },
     detailsList: {
       listStyle: 'none',
@@ -105,20 +96,10 @@ export const guildDetailsStyles = makeStyles((theme) =>
         fontSize: 18
       }
     },
-    detailBody: {
-      marginTop: theme.spacing(1.5),
-      [theme.breakpoints.down('md')]: {
-        marginTop: theme.spacing(1)
-      },
-      [theme.breakpoints.down('sm')]: {
-        marginTop: theme.spacing(0.5)
-      }
-    },
     detailText: {
-      fontSize: 16,
-      textAlign: 'center',
+      fontSize: 14,
       [theme.breakpoints.down('md')]: {
-        fontSize: 14
+        fontSize: 12
       }
     },
     guildWearables: {

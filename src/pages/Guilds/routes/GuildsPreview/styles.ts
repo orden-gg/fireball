@@ -6,23 +6,33 @@ export const guildsPreviewStyles = makeStyles((theme) =>
     guildsWrapper: {
       position: 'relative',
       width: '100%',
-      maxWidth: 1920,
-      padding: theme.spacing(7, 2, 2),
-      margin: 'auto',
+      padding: theme.spacing(1, 2, 2),
       backgroundColor: darken(theme.palette.background.secondary, 0.2),
+      flex: '1 1 auto',
+      display: 'flex',
+      flexDirection: 'column',
       [theme.breakpoints.down('md')]: {
-        padding: theme.spacing(5, 1.5, 1.5)
+        padding: theme.spacing(2, 1.5, 1.5)
       },
       [theme.breakpoints.down('sm')]: {
         padding: theme.spacing(1)
       }
+    },
+    guildsPreviewTitle: {
+      textAlign: 'center'
+    },
+    guildsPreviewContent: {
+      marginTop: theme.spacing(2),
+      width: '100%',
+      margin: 'auto',
+      maxWidth: 1920,
+      background: 'none'
     },
     guildsList: {
       padding: 0,
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(380px,1fr))',
       gridGap: theme.spacing(2),
-      marginTop: theme.spacing(4),
       [theme.breakpoints.down('md')]: {
         gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))',
         gridGap: theme.spacing(2),
@@ -136,10 +146,8 @@ export const guildsPreviewStyles = makeStyles((theme) =>
       opacity: 0.5
     },
     guildCreate: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      bottom: theme.spacing(1),
-      zIndex: 1
+      margin: 'auto',
+      width: 'auto'
     }
   })
 );

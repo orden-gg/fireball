@@ -6,7 +6,7 @@ import { Divider } from '@mui/material';
 import { useAppDispatch } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
-import { GuildLogo, GuildWearables } from 'pages/Guilds/components';
+import { GuildButton, GuildLogo, GuildWearables } from 'pages/Guilds/components';
 import { GeneralGuildStats, Guild } from 'pages/Guilds/models';
 
 import {
@@ -20,8 +20,8 @@ import {
 } from 'components/Icons/Icons';
 
 import { useHoverRotation } from '../../hooks';
-import { GuildAsset, GuildDescription } from './components';
-import { GuildCardButton, guildCardStyles } from './styles';
+import { GuildAsset } from './components';
+import { guildCardStyles } from './styles';
 
 export function GuildCard({ guild, stats }: { guild: Guild; stats: GeneralGuildStats }) {
   const classes = guildCardStyles();
@@ -72,10 +72,8 @@ export function GuildCard({ guild, stats }: { guild: Guild; stats: GeneralGuildS
         <div className={classes.guildContent}>
           <Divider className={classes.divider} />
 
-          <GuildDescription truncate={145}>{guild.description}</GuildDescription>
-
           <div className={classes.guildFooter}>
-            <GuildCardButton
+            <GuildButton
               className={classes.guildButton}
               variant='outlined'
               onClick={() => {
@@ -83,7 +81,7 @@ export function GuildCard({ guild, stats }: { guild: Guild; stats: GeneralGuildS
               }}
             >
               View guild
-            </GuildCardButton>
+            </GuildButton>
           </div>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
 export const guildStyles = makeStyles((theme) =>
@@ -17,8 +18,10 @@ export const guildStyles = makeStyles((theme) =>
       position: 'relative',
       backgroundColor: theme.palette.background.default,
       boxShadow: `5px 0 5px 0 ${theme.palette.secondary.dark}`,
-      paddingBottom: theme.spacing(4),
+      paddingBottom: theme.spacing(3),
       zIndex: 3,
+      display: 'flex',
+      flexDirection: 'column',
       [theme.breakpoints.down('md')]: {
         maxWidth: '30%'
       },
@@ -26,6 +29,9 @@ export const guildStyles = makeStyles((theme) =>
         maxWidth: 'none',
         paddingBottom: 0
       }
+    },
+    guildSidebarFooter: {
+      marginTop: 'auto'
     },
     guildContent: {
       flexGrow: 1,
@@ -65,10 +71,14 @@ export const guildStyles = makeStyles((theme) =>
       }
     },
     guildJoin: {
-      position: 'absolute',
-      left: theme.spacing(1),
-      bottom: theme.spacing(1),
-      zIndex: 1
+      zIndex: 1,
+      margin: 'auto',
+      border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
+      background: theme.palette.background.secondary
+    },
+    joinButtonProgress: {
+      color: alpha(theme.palette.common.white, 0.2),
+      marginLeft: theme.spacing(1)
     },
     guildEdit: {
       position: 'absolute',

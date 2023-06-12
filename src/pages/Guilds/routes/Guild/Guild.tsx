@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { LoadingButton } from '@mui/lab';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Button, CircularProgress, IconButton, Tooltip } from '@mui/material';
 import { Box } from '@mui/system';
 
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
+import { GuildButton } from 'pages/Guilds/components';
 import { GuildRouteNames } from 'pages/Guilds/constants';
 import { Guild as GuildModel } from 'pages/Guilds/models';
 
@@ -86,25 +86,27 @@ export function Guild() {
               </IconButton>
             </Tooltip>
 
-            {canJoinGuild && (
-              <>
-                <LoadingButton
-                  className={classes.guildJoin}
-                  variant='contained'
-                  size='large'
-                  loading={isContractRequestInProgress}
-                  loadingPosition='center'
-                  disabled={isContractRequestInProgress}
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Join Guild
-                </LoadingButton>
+            <div className={classes.guildSidebarFooter}>
+              {canJoinGuild && (
+                <>
+                  <GuildButton
+                    className={classes.guildJoin}
+                    size='large'
+                    disabled={isContractRequestInProgress}
+                    onClick={() => setIsModalOpen(true)}
+                  >
+                    Join Guild{' '}
+                    {isContractRequestInProgress && (
+                      <CircularProgress size={20} className={classes.joinButtonProgress} />
+                    )}
+                  </GuildButton>
 
-                <CustomModal modalOpen={isModalOpen} setModalOpen={setIsModalOpen}>
-                  <JoinGuildModal onHandleCancel={onHandleCloseModal} onHandleSubmit={onHandleJoinGuild} />
-                </CustomModal>
-              </>
-            )}
+                  <CustomModal modalOpen={isModalOpen} setModalOpen={setIsModalOpen}>
+                    <JoinGuildModal onHandleCancel={onHandleCloseModal} onHandleSubmit={onHandleJoinGuild} />
+                  </CustomModal>
+                </>
+              )}
+            </div>
 
             {isGuildOwner && (
               <Button className={classes.guildEdit} variant='contained' size='large' disabled={true}>

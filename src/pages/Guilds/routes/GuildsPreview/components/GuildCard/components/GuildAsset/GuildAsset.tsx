@@ -25,7 +25,9 @@ export function GuildAsset({ Icon, title, value }: GuildAssetProps) {
   return (
     <CustomTooltip title={title} followCursor placement='top'>
       <li className={classes.guildAssetItem}>
-        <Icon className={classes.guildAssetItemIcon} />
+        <div className={classes.guildAssetIconWrap}>
+          <Icon className={classes.guildAssetIcon} />
+        </div>
         <span className={classes.guildAssetAmount}>{CommonUtils.convertFloatNumberToSuffixNumber(value)}</span>
       </li>
     </CustomTooltip>

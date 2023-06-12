@@ -1,5 +1,5 @@
-import { Button, alpha, lighten } from '@mui/material';
-import { createStyles, makeStyles, styled } from '@mui/styles';
+import { alpha } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 export const guildCardStyles = makeStyles((theme) =>
   createStyles({
@@ -9,7 +9,10 @@ export const guildCardStyles = makeStyles((theme) =>
     guildCardInner: {
       border: `1px solid ${alpha(theme.palette.common.white, 0.06)}`,
       backgroundColor: `${alpha(theme.palette.common.black, 0.2)}`,
+      display: 'flex',
+      flexDirection: 'column',
       position: 'relative',
+      height: '100%',
       transition: 'background .3s',
       '&:hover': {
         backgroundColor: `${alpha(theme.palette.common.black, 0.25)}`
@@ -24,6 +27,7 @@ export const guildCardStyles = makeStyles((theme) =>
       minHeight: '100%',
       position: 'relative',
       paddingBottom: '30%',
+      backgroundColor: alpha(theme.palette.common.black, 0.2),
       zIndex: 1
     },
     guildLogoImage: {
@@ -65,7 +69,6 @@ export const guildCardStyles = makeStyles((theme) =>
       listStyle: 'none',
       padding: 0,
       textTransform: 'none',
-      margin: theme.spacing(0, 0, 1, 0),
       display: 'flex',
       flexWrap: 'wrap'
     },
@@ -78,31 +81,19 @@ export const guildCardStyles = makeStyles((theme) =>
       margin: theme.spacing(0, 1)
     },
     guildContent: {
-      paddingBottom: theme.spacing(2)
-    },
-    guildDescription: {
-      textAlign: 'left',
-      fontWeight: 300,
-      lineHeight: 1.6,
-      margin: theme.spacing(1)
+      paddingBottom: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%'
     },
     guildFooter: {
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      marginTop: 'auto'
     },
     guildButton: {
       display: 'block',
-      margin: theme.spacing(1, 1, 0),
-      width: 150
+      margin: theme.spacing(2, 1, 0)
     }
   })
 );
-
-export const GuildCardButton = styled(Button)(({ theme }) => ({
-  color: alpha(theme.palette.common.white, 0.5),
-  borderColor: lighten(theme.palette.background.default, 0.25),
-  '&:hover': {
-    borderColor: lighten(theme.palette.background.default, 0.25),
-    backgroundColor: alpha(theme.palette.background.default, 0.35)
-  }
-}));
