@@ -1,5 +1,6 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { LoadingButton } from '@mui/lab';
-import { Button } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 
 import { Field, Form, Formik } from 'formik';
 
@@ -54,15 +55,6 @@ export function GuildForm({
               <Field component={GuildFormTextareaRow} fieldData={guildFormData.description} />
 
               <div className={classes.formFooter}>
-                <Button
-                  type='button'
-                  size='large'
-                  variant='contained'
-                  className={classes.formSubmitButton}
-                  onClick={() => onHandleBackTo()}
-                >
-                  {secondaryButtonText}
-                </Button>
                 <LoadingButton
                   type='submit'
                   size='large'
@@ -75,6 +67,11 @@ export function GuildForm({
                   {primaryButtonText}
                 </LoadingButton>
               </div>
+              <Tooltip title={secondaryButtonText}>
+                <IconButton className={classes.formBackButton} onClick={() => onHandleBackTo()}>
+                  <ArrowBackIcon />
+                </IconButton>
+              </Tooltip>
             </Form>
           </div>
         )}

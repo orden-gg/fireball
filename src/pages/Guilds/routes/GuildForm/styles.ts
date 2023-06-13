@@ -28,7 +28,7 @@ export const guildFormStyles = makeStyles((theme) =>
       }
     },
     formContent: {
-      postion: 'relative',
+      position: 'relative',
       zIndex: 1,
       maxWidth: 1000,
       width: '100%',
@@ -50,9 +50,14 @@ export const guildFormStyles = makeStyles((theme) =>
       display: 'flex',
       justifyContent: 'center'
     },
+    formBackButton: {
+      position: 'absolute',
+      left: theme.spacing(1),
+      top: theme.spacing(1)
+    },
     formSubmitButton: {
       width: 240,
-      margin: 'auto'
+      margin: theme.spacing(0, 1)
     }
   })
 );
