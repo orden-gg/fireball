@@ -37,11 +37,11 @@ export function GuildHome(): JSX.Element {
                     {stats.bestGotchi ? (
                       <GotchiSvg className={classes.playerBestGotchi} id={stats.bestGotchi.id} size='100%' />
                     ) : (
-                      'no gotchi'
+                      <GotchiIcon className={classes.playerBestGotchi} width='100%' />
                     )}
                   </GuildCard.Image>
                   <GuildCard.Body>
-                    <GuildCard.Name>{stats.bestGotchi ? stats.bestGotchi.name : 'unknown'}</GuildCard.Name>
+                    <GuildCard.Name>{stats.bestGotchi ? stats.bestGotchi.name : `Member ${index + 1}`}</GuildCard.Name>
 
                     <GuildCard.AssetsList>
                       <GuildCard.Asset title='Gotchis' Icon={GotchiIcon} value={stats.gotchisCount} />
