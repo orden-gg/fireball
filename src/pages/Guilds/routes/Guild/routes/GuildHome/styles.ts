@@ -3,17 +3,24 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const guildHomeStyles = makeStyles((theme) =>
   createStyles({
     guildInfoWrapper: {
-      height: '100%',
       padding: '8px 16px'
     },
     guildInfoList: {
-      listStyle: 'none',
-      padding: 0,
-      textTransform: 'none',
-      margin: theme.spacing(0, 0, 1, 0)
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(380px,1fr))',
+      gridGap: theme.spacing(2),
+      [theme.breakpoints.down('md')]: {
+        gridTemplateColumns: 'repeat(auto-fill, minmax(260px,1fr))',
+        gridGap: theme.spacing(2),
+        marginTop: theme.spacing(2)
+      },
+      [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px,1fr))',
+        gridGap: theme.spacing(1)
+      }
     },
-    guildInfoListItem: {
-      display: 'flex'
+    playerBestGotchi: {
+      position: 'absolute'
     },
     guildInfoAddress: {
       display: 'flex',

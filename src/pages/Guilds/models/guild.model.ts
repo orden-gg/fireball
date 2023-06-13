@@ -1,3 +1,5 @@
+import { GuildPlayerBestGotchiStats } from './guild-gotchi.model';
+
 export interface Guild {
   id: string;
   safeAddress: string;
@@ -8,6 +10,11 @@ export interface Guild {
   members: {
     id: string;
   }[];
+}
+
+export interface GuildPlayerBestGotchi {
+  id: string;
+  gotchisOriginalOwned: GuildPlayerBestGotchiStats;
 }
 
 export interface GuildPlayerStats {
@@ -44,4 +51,5 @@ export interface GuildRealmStats {
 
 export interface GeneralGuildStats extends GuildStats, GuildRealmStats {
   id?: string;
+  bestGotchi?: GuildPlayerBestGotchiStats;
 }

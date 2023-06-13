@@ -1,5 +1,12 @@
 import { FireballGotchi } from 'shared/models';
 
+export interface GuildPlayerBestGotchiStats {
+  id: string;
+  name: string;
+  baseRarityScore: string;
+  modifiedRarityScore: string;
+}
+
 export interface GuildGotchi {
   id: string;
   name: string;

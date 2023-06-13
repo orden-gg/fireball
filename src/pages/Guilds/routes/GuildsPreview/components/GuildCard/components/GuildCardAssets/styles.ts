@@ -1,9 +1,16 @@
 import { alpha } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const guildAssetStyles = makeStyles((theme) =>
+export const guildAssetsStyles = makeStyles((theme) =>
   createStyles({
-    guildAssetItem: {
+    guildCardAssetsList: {
+      listStyle: 'none',
+      padding: 0,
+      textTransform: 'none',
+      display: 'flex',
+      flexWrap: 'wrap'
+    },
+    guildCardAssetItem: {
       display: 'flex',
       alignItems: 'center',
       margin: theme.spacing(1, 0.5, 0, 0),
@@ -14,24 +21,24 @@ export const guildAssetStyles = makeStyles((theme) =>
         marginRight: theme.spacing(1)
       }
     },
-    guildAssetIconWrap: {
+    guildCardAssetIconWrap: {
       display: 'flex',
       width: 20,
       height: 16
     },
-    guildAssetIcon: {
+    guildCardAssetIcon: {
       margin: 'auto',
       height: '100%',
       maxWidth: '100%',
       maxheight: '100%'
     },
-    guildAssetAmountLoader: {
+    guildCardAssetAmountLoader: {
       minWidth: 30,
       [theme.breakpoints.down('md')]: {
         minWidth: 20
       }
     },
-    guildAssetAmount: {
+    guildCardAssetAmount: {
       display: 'inline-block',
       marginLeft: theme.spacing(1),
       [theme.breakpoints.down('md')]: {

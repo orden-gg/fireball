@@ -1,9 +1,13 @@
-const guildGotchiQuery = `
+const memberBestGotchi = `
   id
-  name
-  numericTraits
   baseRarityScore
   modifiedRarityScore
+  name
+`;
+
+const guildGotchiQuery = `
+  ${memberBestGotchi}
+  numericTraits
   collateral
   hauntId
   usedSkillPoints
@@ -21,6 +25,21 @@ export const guildGotchisQuery = (address: string, skip: number): string => {
       where: { originalOwner: "${address}" }
     ) {
       ${guildGotchiQuery}
+    }
+  }`;
+};
+
+export const guildMemberBestGotchiQuery = (addresses: string[]): string => {
+  return `{
+    users(where: { id_in: ${JSON.stringify(addresses)} }) {
+      id
+      gotchisOriginalOwned(
+        first:1,
+        orderBy:modifiedRarityScore, 
+        orderDirection:desc
+      ) {
+        ${memberBestGotchi}
+      }
     }
   }`;
 };

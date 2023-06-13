@@ -6,10 +6,11 @@ import { TheGraphResponse } from 'shared/models';
 import { GotchiUtils, GraphUtils } from 'utils';
 
 import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
-import { GuildPortal, GuildRealm, GuildWearable } from '../models';
+import { GuildPlayerBestGotchi, GuildPortal, GuildRealm, GuildWearable } from '../models';
 import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
 import {
   guildGotchisQuery,
+  guildMemberBestGotchiQuery,
   portalsByAddressesQuery,
   realmByAddressesQuery,
   wearablesByAddressesQuery
@@ -76,6 +77,12 @@ export class GuildGraphApi {
   public static getGuildRealm(first: number, skip: number, playersAddresses: string[]): Promise<GuildRealm[]> {
     return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, realmByAddressesQuery(first, skip, playersAddresses)).then(
       (res: TheGraphResponse<{ parcels: GuildRealm[] }>) => res.data.parcels
+    );
+  }
+
+  public static getPlayerBestGotchis(playersAddresses: string[]): CustomAny {
+    return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, guildMemberBestGotchiQuery(playersAddresses)).then(
+      (res: TheGraphResponse<{ users: GuildPlayerBestGotchi[] }>) => res.data.users
     );
   }
 }

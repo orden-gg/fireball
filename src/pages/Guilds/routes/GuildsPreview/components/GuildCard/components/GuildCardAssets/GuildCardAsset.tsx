@@ -2,7 +2,7 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CommonUtils } from 'utils';
 
-import { guildAssetStyles } from './styles';
+import { guildAssetsStyles } from './styles';
 
 interface GuildAssetProps {
   Icon: (className, width, height) => JSX.Element;
@@ -10,8 +10,8 @@ interface GuildAssetProps {
   value: number;
 }
 
-export function GuildAsset({ Icon, title, value }: GuildAssetProps) {
-  const classes = guildAssetStyles();
+export function GuildCardAsset({ Icon, title, value }: GuildAssetProps) {
+  const classes = guildAssetsStyles();
 
   // TODO Use in the future or remove
   // const setNumber = amount => {
@@ -24,11 +24,11 @@ export function GuildAsset({ Icon, title, value }: GuildAssetProps) {
 
   return (
     <CustomTooltip title={title} followCursor placement='top'>
-      <li className={classes.guildAssetItem}>
-        <div className={classes.guildAssetIconWrap}>
-          <Icon className={classes.guildAssetIcon} />
+      <li className={classes.guildCardAssetItem}>
+        <div className={classes.guildCardAssetIconWrap}>
+          <Icon className={classes.guildCardAssetIcon} />
         </div>
-        <span className={classes.guildAssetAmount}>{CommonUtils.convertFloatNumberToSuffixNumber(value)}</span>
+        <span className={classes.guildCardAssetAmount}>{CommonUtils.convertFloatNumberToSuffixNumber(value)}</span>
       </li>
     </CustomTooltip>
   );

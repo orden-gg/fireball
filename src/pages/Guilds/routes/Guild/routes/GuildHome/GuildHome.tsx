@@ -2,10 +2,11 @@ import * as fromGuildsStore from '../../../../store';
 import { useAppSelector } from 'core/store/hooks';
 
 import { GeneralGuildStats } from 'pages/Guilds/models';
-import { GuildAsset } from 'pages/Guilds/routes/GuildsPreview/components';
+import { GuildCard } from 'pages/Guilds/routes/GuildsPreview/components';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { EthAddress } from 'components/EthAddress/EthAddress';
+import { GotchiSvg } from 'components/Gotchi/GotchiImage/GotchiSvg';
 import {
   AltarIcon,
   GotchiIcon,
@@ -27,27 +28,45 @@ export function GuildHome(): JSX.Element {
   return (
     <ContentInner dataLoading={isGuildStatsLoading} className={classes.guildInfoWrapper}>
       {guildPlayersStats.length > 0 ? (
-        <div className={classes.guildInfoList}>
-          {guildPlayersStats.map((info: GeneralGuildStats, index: number) => (
-            <div className={classes.guildInfoListItem} key={index}>
-              <div className={classes.guildInfoAddress}>
-                <EthAddress
-                  address={info.id!}
-                  isShowIcon={true}
-                  isClientLink={true}
-                  isCopyButton={true}
-                  isPolygonButton={true}
-                />
-              </div>
-              <GuildAsset title='Gotchis' Icon={GotchiIcon} value={info.gotchisCount} />
-              <GuildAsset title='Wearables' Icon={WarehouseIcon} value={info.itemsCount} />
-              <GuildAsset title='Portals' Icon={H1SealedPortalIcon} value={info.portalsCount} />
-              <GuildAsset title='Realm' Icon={GotchiverseIcon} value={info.realmCount} />
-              <GuildAsset title='Installations' Icon={AltarIcon} value={info.installationsCount} />
-              <GuildAsset title='Tiles' Icon={TileIcon} value={info.tilesCount} />
-              <GuildAsset title='Voting power' Icon={VoteIcon} value={info.votingPower} />
-            </div>
-          ))}
+        <div>
+          <div className={classes.guildInfoList}>
+            {guildPlayersStats.map((stats: GeneralGuildStats, index: number) => (
+              <GuildCard key={index}>
+                <GuildCard.Top>
+                  <GuildCard.Image>
+                    {stats.bestGotchi ? (
+                      <GotchiSvg className={classes.playerBestGotchi} id={stats.bestGotchi.id} size='100%' />
+                    ) : (
+                      'no gotchi'
+                    )}
+                  </GuildCard.Image>
+                  <GuildCard.Body>
+                    <GuildCard.Name>{stats.bestGotchi ? stats.bestGotchi.name : 'unknown'}</GuildCard.Name>
+
+                    <GuildCard.AssetsList>
+                      <GuildCard.Asset title='Gotchis' Icon={GotchiIcon} value={stats.gotchisCount} />
+                      <GuildCard.Asset title='Wearables' Icon={WarehouseIcon} value={stats.itemsCount} />
+                      <GuildCard.Asset title='Portals' Icon={H1SealedPortalIcon} value={stats.portalsCount} />
+                      <GuildCard.Asset title='Realm' Icon={GotchiverseIcon} value={stats.realmCount} />
+                      <GuildCard.Asset title='Installations' Icon={AltarIcon} value={stats.installationsCount} />
+                      <GuildCard.Asset title='Tiles' Icon={TileIcon} value={stats.tilesCount} />
+                      <GuildCard.Asset title='Voting power' Icon={VoteIcon} value={stats.votingPower} />
+                    </GuildCard.AssetsList>
+                  </GuildCard.Body>
+                </GuildCard.Top>
+
+                <GuildCard.Footer>
+                  <EthAddress
+                    address={stats.id!}
+                    isShowIcon={true}
+                    isClientLink={true}
+                    isCopyButton={true}
+                    isPolygonButton={true}
+                  />
+                </GuildCard.Footer>
+              </GuildCard>
+            ))}
+          </div>
         </div>
       ) : (
         <div className={classes.guildInfoEmptyState}>There is no members info to display</div>
