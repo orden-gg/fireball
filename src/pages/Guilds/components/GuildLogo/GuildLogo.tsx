@@ -1,6 +1,10 @@
+import { useState } from 'react';
+
 import classNames from 'classnames';
 
-import { ReactComponent as Placeholder } from 'assets/images/icons/ghst.svg';
+import placeholder from 'assets/images/navigation/guilds.jpg';
+
+import { guildLogoStyles } from './styles';
 
 interface GuildLogoProps {
   logo: string;
@@ -8,9 +12,20 @@ interface GuildLogoProps {
 }
 
 export function GuildLogo({ logo, className }: GuildLogoProps) {
-  try {
-    return <img src={logo} className={className} alt='guild logo' />;
-  } catch (error) {
-    return <Placeholder className={classNames(className, 'placeholder')} />;
-  }
+  const classes = guildLogoStyles();
+
+  const [isNoGuildLogo, setIsNoGuildLogo] = useState(false);
+
+  const handleImageError = () => {
+    setIsNoGuildLogo(true);
+  };
+
+  return (
+    <img
+      src={!isNoGuildLogo ? logo : placeholder}
+      onError={handleImageError}
+      alt='guild logo'
+      className={classNames(className, isNoGuildLogo && classes.isNoGuildLogo)}
+    />
+  );
 }
