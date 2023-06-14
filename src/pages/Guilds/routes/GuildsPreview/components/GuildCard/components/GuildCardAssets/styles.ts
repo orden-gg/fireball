@@ -19,6 +19,25 @@ export const guildAssetsStyles = makeStyles((theme) =>
       border: `1px solid ${alpha(theme.palette.common.white, 0.05)}`,
       [theme.breakpoints.down('md')]: {
         marginRight: theme.spacing(1)
+      },
+      '&.zero': {
+        opacity: 0.3
+      },
+      '&.card': {
+        display: 'block',
+        textAlign: 'center',
+        border: `1px solid ${alpha(theme.palette.common.black, 0.2)}`,
+        borderRadius: 4,
+        padding: theme.spacing(1, 2, 1, 2),
+        '& $guildCardAssetIconWrap': {
+          display: 'block',
+          margin: 'auto',
+          width: 40,
+          height: 32
+        },
+        '& $guildCardAssetAmount': {
+          margin: '4px 0 0'
+        }
       }
     },
     guildCardAssetIconWrap: {
@@ -44,6 +63,11 @@ export const guildAssetsStyles = makeStyles((theme) =>
       [theme.breakpoints.down('md')]: {
         fontSize: 12,
         marginLeft: theme.spacing(0.5)
+      }
+    },
+    '@keyframes fadeIn': {
+      '100%': {
+        opacity: 1
       }
     }
   })

@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { CommonUtils } from 'utils';
@@ -8,9 +10,10 @@ interface GuildAssetProps {
   Icon: (className, width, height) => JSX.Element;
   title: string;
   value: number;
+  cardStyle?: boolean;
 }
 
-export function GuildCardAsset({ Icon, title, value }: GuildAssetProps) {
+export function GuildCardAsset({ Icon, title, value, cardStyle = false }: GuildAssetProps) {
   const classes = guildAssetsStyles();
 
   // TODO Use in the future or remove
@@ -24,7 +27,7 @@ export function GuildCardAsset({ Icon, title, value }: GuildAssetProps) {
 
   return (
     <CustomTooltip title={title} followCursor placement='top'>
-      <li className={classes.guildCardAssetItem}>
+      <li className={classNames(classes.guildCardAssetItem, cardStyle && 'card', value === 0 && 'zero')}>
         <div className={classes.guildCardAssetIconWrap}>
           <Icon className={classes.guildCardAssetIcon} />
         </div>

@@ -11,11 +11,21 @@ import * as fromGuildsStore from 'pages/Guilds/store';
 
 import { GuildButton } from 'pages/Guilds/components';
 import { GuildRouteNames } from 'pages/Guilds/constants';
-import { Guild as GuildModel } from 'pages/Guilds/models';
+import { GeneralGuildStats, Guild as GuildModel } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { CustomModal } from 'components/CustomModal/CustomModal';
+import {
+  AltarIcon,
+  GotchiIcon,
+  GotchiverseIcon,
+  H1SealedPortalIcon,
+  TileIcon,
+  VoteIcon,
+  WarehouseIcon
+} from 'components/Icons/Icons';
 
+import { GuildCard } from '../GuildsPreview/components';
 import { GuildBanner, GuildDetails, GuildNav, JoinGuildModal } from './components';
 import { GuildGotchis, GuildHome, GuildPortals, GuildRealm, GuildWearables } from './routes';
 import { guildStyles } from './styles';
@@ -29,6 +39,7 @@ export function Guild() {
   const dispatch = useAppDispatch();
 
   const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
+  const currentGuildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
   const isCurrentGuildLoading: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoading);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
   const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
@@ -73,7 +84,49 @@ export function Guild() {
           <div className={classes.guildSidebar}>
             <GuildBanner guild={currentGuild} />
 
-            <GuildDetails guild={currentGuild} />
+            {currentGuild.description && <GuildDetails guild={currentGuild} />}
+
+            <div className={classes.guildAssets}>
+              <GuildCard.AssetsList>
+                <GuildCard.Asset
+                  title='Gotchis'
+                  Icon={GotchiIcon}
+                  value={currentGuildStats.gotchisCount}
+                  cardStyle={true}
+                />
+                <GuildCard.Asset
+                  title='Wearables'
+                  Icon={WarehouseIcon}
+                  value={currentGuildStats.itemsCount}
+                  cardStyle={true}
+                />
+                <GuildCard.Asset
+                  title='Portals'
+                  Icon={H1SealedPortalIcon}
+                  value={currentGuildStats.portalsCount}
+                  cardStyle={true}
+                />
+                <GuildCard.Asset
+                  title='Realm'
+                  Icon={GotchiverseIcon}
+                  value={currentGuildStats.realmCount}
+                  cardStyle={true}
+                />
+                <GuildCard.Asset
+                  title='Installations'
+                  Icon={AltarIcon}
+                  value={currentGuildStats.installationsCount}
+                  cardStyle={true}
+                />
+                <GuildCard.Asset title='Tiles' Icon={TileIcon} value={currentGuildStats.tilesCount} cardStyle={true} />
+                <GuildCard.Asset
+                  title='Voting power'
+                  Icon={VoteIcon}
+                  value={currentGuildStats.votingPower}
+                  cardStyle={true}
+                />
+              </GuildCard.AssetsList>
+            </div>
 
             <Tooltip title='Back to guilds'>
               <IconButton

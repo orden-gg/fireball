@@ -42,6 +42,12 @@ export const guildStyles = makeStyles((theme) =>
         paddingTop: theme.spacing(1)
       }
     },
+    guildAssets: {
+      padding: theme.spacing(0, 1),
+      '& > div': {
+        justifyContent: 'center'
+      }
+    },
     backButton: {
       position: 'absolute',
       left: '100%',
