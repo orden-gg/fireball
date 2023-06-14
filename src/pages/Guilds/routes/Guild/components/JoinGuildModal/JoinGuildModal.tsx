@@ -12,20 +12,21 @@ export function JoinGuildModal({ onHandleCancel, onHandleSubmit }: JoinGuildModa
 
   return (
     <div className={classes.joinGuildModalContainer}>
-      <div className={classes.joinGuildModalHeader}>Join Guild</div>
+      <h2 className={classes.joinGuildModalHeader}>Join Guild</h2>
       <div className={classes.joinGuildModalBody}>
         Please note, if you join this guild, you will be dropped from your current guild.
       </div>
       <div className={classes.joinGuildModalFooter}>
         <Button
-          className={classes.joinGuildModalCancelButton}
+          className={classes.joinGuildModalButton}
           variant='contained'
           color='secondary'
+          size='large'
           onClick={onHandleCancel}
         >
           Cancel
         </Button>
-        <Button variant='contained' onClick={onHandleSubmit}>
+        <Button className={classes.joinGuildModalButton} variant='contained' onClick={onHandleSubmit} size='large'>
           Join
         </Button>
       </div>

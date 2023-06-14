@@ -1,27 +1,34 @@
+import { lighten } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 
-export const joinGuildModaStyles = makeStyles(() =>
+export const joinGuildModaStyles = makeStyles((theme) =>
   createStyles({
     joinGuildModalContainer: {
-      maxWidth: 320,
-      padding: '4px 12px'
+      width: 720,
+      padding: theme.spacing(3, 2)
     },
     joinGuildModalHeader: {
-      padding: '8px 0',
-      textAlign: 'center'
+      textAlign: 'center',
+      margin: 0
     },
     joinGuildModalBody: {
-      margin: '12px 0px',
+      backgroundColor: theme.palette.background.default,
+      border: `1px solid ${lighten(theme.palette.common.black, 0.25)}`,
+      color: theme.palette.warning.light,
+      maxWidth: 500,
+      margin: theme.spacing(3, 'auto'),
+      padding: theme.spacing(2),
       textAlign: 'center',
-      color: 'orange'
+      lineHeight: 1.7
     },
     joinGuildModalFooter: {
-      padding: '8px 0',
       display: 'flex',
-      justifyContent: 'flex-end'
+      justifyContent: 'center',
+      marginTop: theme.spacing(4)
     },
-    joinGuildModalCancelButton: {
-      marginRight: 8
+    joinGuildModalButton: {
+      margin: theme.spacing(0, 1),
+      width: 160
     }
   })
 );

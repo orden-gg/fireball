@@ -68,7 +68,7 @@ export const guildDetailsStyles = makeStyles((theme) =>
     },
     detailsBody: {
       backgroundColor: theme.palette.background.secondary,
-      border: `1px solid ${lighten('#000', 0.25)}`,
+      border: `1px solid ${lighten(theme.palette.common.black, 0.25)}`,
       padding: theme.spacing(1, 1, 1, 2)
     },
     detailsList: {
