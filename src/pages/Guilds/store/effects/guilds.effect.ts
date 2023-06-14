@@ -91,7 +91,7 @@ export const onCreateGuild =
 
         if (res) {
           snackbarData = {
-            message: 'Guild was successfully created!',
+            message: 'Guild was successfully created! It will appear in the list in a few seconds.',
             severity: 'success',
             horizontal: 'center',
             vertical: 'top'
