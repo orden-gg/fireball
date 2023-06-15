@@ -164,7 +164,7 @@ const pet = async () => {
 
         return true;
       })
-      .catch((error: any) => {
+      .catch((error: CustomAny) => {
         console.log(`${'Tx failed!'}, reason: ${error.reason}, ${error.code}`);
         console.log('next pet in', repeatTimer / 60000, 'minutes');
 

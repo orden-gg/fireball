@@ -91,7 +91,7 @@ const claim = async () => {
     }
 
     const lendings = response.data.data.gotchiLendings;
-    const toClaim: any = [];
+    const toClaim: CustomAny = [];
 
     console.log('sumonning', lendings.length, 'lendings');
 
@@ -103,7 +103,7 @@ const claim = async () => {
       let processed = 0;
 
       for (let i = 0; i < chunk.length; i++) {
-        const promises = chunk[i].map((lending: any) => tokensPromises(lending.gotchi.escrow));
+        const promises = chunk[i].map((lending: CustomAny) => tokensPromises(lending.gotchi.escrow));
 
         await Promise.all(promises)
           .then((tokensResponse) => {
@@ -124,7 +124,7 @@ const claim = async () => {
           .catch(() => console.log('something went wrong!'));
       }
     } else {
-      lendings.forEach((lending: any) => {
+      lendings.forEach((lending: CustomAny) => {
         toClaim.push({
           lendingId: lending.id,
           gotchiId: lending.gotchiTokenId
@@ -212,7 +212,7 @@ const claim = async () => {
 
                 return true;
               })
-              .catch((error: any) => {
+              .catch((error: CustomAny) => {
                 console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
 
                 return false;
@@ -229,7 +229,7 @@ claim();
 
 const tokensPromises = async (address: string) => {
   const promises = TOKENS.map(async (token: string) =>
-    callWithRetries(TOKEN_CONTRACT_WITH_SIGNER(token), 'balanceOf', 3, 5, [address]).then((amount: any) => ({
+    callWithRetries(TOKEN_CONTRACT_WITH_SIGNER(token), 'balanceOf', 3, 5, [address]).then((amount: CustomAny) => ({
       name: getTokenName(token),
       amount: Number(ethers.utils.formatUnits(amount)).toFixed(amount > 0 ? 1 : 0)
     }))
@@ -238,6 +238,6 @@ const tokensPromises = async (address: string) => {
   return await Promise.all(promises);
 };
 
-const calculateToken = (array: any[], token: string) => {
+const calculateToken = (array: CustomAny[], token: string) => {
   return Number(array.reduce((acc, gotchi) => acc + Number(gotchi[token]), 0).toFixed(0));
 };

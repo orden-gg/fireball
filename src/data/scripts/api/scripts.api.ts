@@ -70,8 +70,8 @@ export const getTokenName = (token: string) => {
   }
 };
 
-export const chunkArray = (array: any[], chunkSize: number) => {
-  const result: any[] = [];
+export const chunkArray = (array: CustomAny[], chunkSize: number) => {
+  const result: CustomAny[] = [];
 
   for (let i = 0; i < array.length; i += chunkSize) {
     result.push(array.slice(i, i + chunkSize));
@@ -85,7 +85,7 @@ export const callWithRetries = async (
   method: string,
   retries: number,
   delay: number, // seconds
-  args: any[] = [] // Set the default value for args to an empty array
+  args: CustomAny[] = [] // Set the default value for args to an empty array
 ): Promise<ethers.ContractTransaction> => {
   while (retries > 0) {
     try {
