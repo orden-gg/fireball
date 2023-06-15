@@ -7,7 +7,7 @@ PET_ADDRESS='0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667'
 
 # -->lendings<--
 
-# address for petting [lend, claim, agree]
+# addresses to manage [lend, claim, agree]
 ADDRESSES_TO_MANAGE=['0xc46d3c9d93febdd5027c9b696fe576dc654c66de','0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0']
 # whitelist id [agree, lend]
 WHITELIST=6329
