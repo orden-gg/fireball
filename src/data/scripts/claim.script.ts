@@ -16,6 +16,7 @@ import {
   CONSOLE_COLORS,
   MAIN_CONTRACT_WITH_SIGNER,
   SCRIPT_WALLET_ADDRESS,
+  SETTINGS,
   TOKEN_CONTRACT_WITH_SIGNER,
   callWithRetries,
   chunkArray,
@@ -39,21 +40,6 @@ const TOKENS = [
   // GHST_CONTRACT
 ];
 
-// const OWNER = '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667';
-// const OWNER = '0xc46d3c9d93febdd5027c9b696fe576dc654c66de';
-// const OWNER = '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0';
-
-const OWNER_IN = ['0xc46d3c9d93febdd5027c9b696fe576dc654c66de', '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0'];
-// const OWNER_IN = ['0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667'];
-
-const GET_BALANCE = true; // retrieve gotchis balance (took pretty much time)
-// ! the bigger the chunk size the faster the script will run but the more likely it will fail (also quantity of TOKENS affects it)
-const BALANCE_CHUNK_SIZE = 20; // chunk size for retrieving balance requests
-const TRANSACTION_CHUNK_SIZE = 20; // chunk size for batch requests
-// ! BE CERAFUL with this one, it will finish rent for all gotchis
-const FINISH_LENDING = false; // finish rent after claiming or not (true or false)
-const EXECUTE = false; // execute transactions or not (true or false)
-
 // borrower_not: "0x0000000000000000000000000000000000000000",
 // borrower: "0x8ba922eb891a734f17b14e7ff8800e6626912e5d",
 const lendingsQuery = `{
@@ -62,7 +48,7 @@ const lendingsQuery = `{
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
-      lender_in: ${JSON.stringify(OWNER_IN)},
+      lender_in: ${JSON.stringify(SETTINGS.ADDRESSES_TO_MANAGE)},
       borrower_not: "0x0000000000000000000000000000000000000000",
       cancelled: false,
       completed: false
@@ -97,11 +83,11 @@ const claim = async () => {
 
     console.log('sumonning', lendings.length, 'lendings');
 
-    if (GET_BALANCE) {
+    if (SETTINGS.RETRIEVE_BALANCE) {
       console.log('retriewing', lendings.length, 'gotchis balances');
-      console.log('balance chank size', BALANCE_CHUNK_SIZE);
+      console.log('balance chank size', SETTINGS.BALANCE_CHUNK_SIZE);
 
-      const chunk = chunkArray(lendings, BALANCE_CHUNK_SIZE);
+      const chunk = chunkArray(lendings, SETTINGS.BALANCE_CHUNK_SIZE);
       let processed = 0;
 
       for (let i = 0; i < chunk.length; i++) {
@@ -156,7 +142,7 @@ const claim = async () => {
     // const gotchiIds = toClaim.filter((g) => Number(g.ghst) > 0).map((gotchi) => gotchi.gotchiId);
     const gotchiIds = toClaim.map((gotchi) => gotchi.gotchiId);
 
-    console.log('to claim', gotchiIds.length);
+    console.log('👻', gotchiIds.length);
 
     const gasPriceGwei = await getGasPrice();
     const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
@@ -179,21 +165,21 @@ const claim = async () => {
     console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
 
     // check if gotchis are available
-    if (gotchiIds.length > 0 && EXECUTE) {
-      console.log('tx chank size', TRANSACTION_CHUNK_SIZE);
-      const chunk = chunkArray(gotchiIds, TRANSACTION_CHUNK_SIZE);
+    if (gotchiIds.length > 0 && !SETTINGS.RETRIEVE_BALANCE) {
+      console.log('tx chank size', SETTINGS.TRANSACTION_CHUNK_SIZE);
+      const chunk = chunkArray(gotchiIds, SETTINGS.TRANSACTION_CHUNK_SIZE);
       let processed = 0;
 
       // loop through chunks
       for (let i = 0; i < chunk.length; i++) {
         await callWithRetries(
           MAIN_CONTRACT_WITH_SIGNER,
-          FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending',
+          SETTINGS.FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending',
           3,
           5,
           [chunk[i], { gasPrice: gasBoosted }]
         )
-          // await MAIN_CONTRACT_WITH_SIGNER[FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
+          // await MAIN_CONTRACT_WITH_SIGNER[SETTINGS.FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
           //   chunk[i],
           //   // { gasPrice: gasBoosted, gasLimit: 9000000 } // TODO: gas limit is required when you ending lending
           //   { gasPrice: gasBoosted }

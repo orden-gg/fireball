@@ -9,6 +9,8 @@ import {
   MAIN_CONTRACT_WITH_SIGNER,
   SCRIPT_WALLET_ADDRESS,
   SCRIPT_WALLET_NONCE,
+  SETTINGS,
+  TX_COST_LIMIT,
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.ts';
@@ -16,12 +18,7 @@ import {
 // @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
-// tx cost limit
-const txCostLimit = 220 * 1e9;
-
 const { OPERATOR_PRIVATE_KEY } = process.env;
-
-const WHITELIST = 6329;
 
 // TODO: batch claim
 const lendingsQuery = `{
@@ -30,7 +27,7 @@ const lendingsQuery = `{
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
-      whitelistId: ${WHITELIST}
+      whitelistId: ${SETTINGS.WHITELIST}
       cancelled: false,
       completed: false,
       timeAgreed: null
@@ -72,10 +69,10 @@ const agree = async () => {
 
     const nonce = await SCRIPT_WALLET_NONCE();
 
-    if (gasPriceGwei >= txCostLimit) {
+    if (gasPriceGwei >= TX_COST_LIMIT) {
       console.log(
         `💱 ${paint('to high tx cost: maximum', CONSOLE_COLORS.Red)} ${paint(
-          txCostLimit.toString(),
+          TX_COST_LIMIT.toString(),
           CONSOLE_COLORS.Red
         )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
       );
@@ -84,7 +81,7 @@ const agree = async () => {
       return;
     }
 
-    console.log(`💱 tx cost: maximum - ${txCostLimit} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
+    console.log(`💱 tx cost: maximum - ${TX_COST_LIMIT} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
     console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
     console.log(`🗞  current nonce: ${paint(nonce, CONSOLE_COLORS.Pink)}`);
 

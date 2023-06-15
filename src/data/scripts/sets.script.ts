@@ -1,24 +1,13 @@
-import 'dotenv/config';
-import ethers from 'ethers';
 import fs from 'fs';
 // @ts-ignore
 import { CustomAny } from 'types/global.js';
 
 // @ts-ignore
-import { MAIN_CONTRACT } from '../../shared/constants/api.constants.ts';
-
-const abiFile = fs.readFileSync('src/data/abi/main.abi.json');
-const MAIN_ABI = JSON.parse(abiFile.toString());
-
-const provider = new ethers.providers.JsonRpcProvider(
-  `https://polygon-mainnet.infura.io/v3/${process.env.POLYGON_PROVIDER_API_KEY}`
-);
-const mainContract = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, provider);
+import { MAIN_CONTRACT_WITH_SIGNER } from './api/scripts.api.ts';
 
 console.log('⏳ retrieving data from blockhain ⌛');
 
-mainContract
-  .getWearableSets()
+MAIN_CONTRACT_WITH_SIGNER.getWearableSets()
   .then((res: CustomAny) => {
     fs.writeFileSync('src/data/sets.data.json', JSON.stringify(res), 'utf-8');
 

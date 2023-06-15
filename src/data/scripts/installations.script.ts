@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
@@ -6,23 +5,14 @@ import _ from 'lodash';
 import { CustomAny } from 'types/global.js';
 
 // @ts-ignore
-import { INSTALLATION_CONTRACT } from '../../shared/constants/api.constants.ts';
+import { INSTALLATIONS_CONTRACT_WITH_SIGNER } from './api/scripts.api.ts';
 
 // @ts-ignore
 import { InstallationTypes } from '../../shared/constants/enums/enums.ts';
 
-const abiFile = fs.readFileSync('src/data/abi/installations.abi.json');
-const INSTALLATION_ABI = JSON.parse(abiFile.toString());
-
-const provider = new ethers.providers.JsonRpcProvider(
-  `https://polygon-mainnet.infura.io/v3/${process.env.POLYGON_PROVIDER_API_KEY}`
-);
-const installationsContract = new ethers.Contract(INSTALLATION_CONTRACT, INSTALLATION_ABI, provider);
-
 console.log('⏳ retrieving data from blockhain ⌛');
 
-installationsContract
-  .getInstallationTypes([])
+INSTALLATIONS_CONTRACT_WITH_SIGNER.getInstallationTypes([])
   .then((res: CustomAny) => {
     const modified = _.cloneDeep(res);
 

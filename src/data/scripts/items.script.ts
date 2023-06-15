@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
@@ -6,25 +5,16 @@ import _ from 'lodash';
 import { CustomAny } from 'types/global.js';
 
 // @ts-ignore
-import { MAIN_CONTRACT } from '../../shared/constants/api.constants.ts';
+import { MAIN_CONTRACT_WITH_SIGNER } from './api/scripts.api.ts';
 
 // @ts-ignore
 import { Erc1155NumberCategories, ItemTypes } from '../../shared/constants/enums/enums.ts';
 // @ts-ignore
 import { WEARABLES_TYPES_BENEFITS } from '../wearable-types-benefits.data.ts';
 
-const abiFile = fs.readFileSync('src/data/abi/main.abi.json');
-const MAIN_ABI = JSON.parse(abiFile.toString());
-
-const provider = new ethers.providers.JsonRpcProvider(
-  `https://polygon-mainnet.infura.io/v3/${process.env.POLYGON_PROVIDER_API_KEY}`
-);
-const mainContract = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, provider);
-
 console.log('⏳ retrieving data from blockhain ⌛');
 
-mainContract
-  .getItemTypes([])
+MAIN_CONTRACT_WITH_SIGNER.getItemTypes([])
   .then((res: CustomAny) => {
     const modified = _.cloneDeep(res);
 
