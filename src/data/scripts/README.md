@@ -5,7 +5,7 @@
 ### How to run
 `yarn script <script_name>`
 <br/>
-*e.g.* `yarn data claim`
+*e.g.* `yarn script claim`
 
 ### Lending scripts
 * `lend` - list gotchis
