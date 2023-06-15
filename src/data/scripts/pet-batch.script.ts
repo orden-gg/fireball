@@ -1,6 +1,8 @@
 import axios from 'axios';
 import 'dotenv/config';
 import { ContractTransaction, ethers } from 'ethers';
+// @ts-ignore
+import { CustomAny } from 'types/global.js';
 
 import {
   MAIN_CONTRACT_WITH_SIGNER,

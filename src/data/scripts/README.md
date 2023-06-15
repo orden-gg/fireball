@@ -1,6 +1,7 @@
 ### How to run
 
 `yarn script <script_name>`
+<br/>
 *e.g.* `yarn data claim`
 
 ### Lending scripts

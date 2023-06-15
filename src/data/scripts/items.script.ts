@@ -2,6 +2,8 @@ import 'dotenv/config';
 import ethers from 'ethers';
 import fs from 'fs';
 import _ from 'lodash';
+// @ts-ignore
+import { CustomAny } from 'types/global.js';
 
 // @ts-ignore
 import { MAIN_CONTRACT } from '../../shared/constants/api.constants.ts';

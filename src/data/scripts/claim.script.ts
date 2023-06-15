@@ -2,6 +2,8 @@ import axios from 'axios';
 import 'dotenv/config';
 import { BigNumber, ContractTransaction, ethers } from 'ethers';
 import { exit } from 'process';
+// @ts-ignore
+import { CustomAny } from 'types/global.js';
 
 import {
   ALPHA_CONTRACT,
