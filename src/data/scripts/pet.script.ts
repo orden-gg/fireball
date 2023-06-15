@@ -26,20 +26,20 @@ const repeatTimer = 5 * 60 * 1000;
 const txCostLimit = 120 * 1e9;
 let interval;
 
-const { OWNER_ADDRESS, OPERATOR_PRIVATE_KEY } = process.env;
+const { PET_ADDRESS, OPERATOR_PRIVATE_KEY } = process.env;
 
 pet();
 
 function pet() {
-  if (!OWNER_ADDRESS || !OPERATOR_PRIVATE_KEY) {
-    console.log('Please specify OWNER_ADDRESS and OPERTOR_PRIVATE_KEY in .env');
+  if (!PET_ADDRESS || !OPERATOR_PRIVATE_KEY) {
+    console.log('Please specify PET_ADDRESS and OPERTOR_PRIVATE_KEY in .env');
     exit();
   }
 
   const currentUTC = Date.now();
   const interactionWaypoint = parseInt(((currentUTC - HALF_DAY_MILLIS) / 1000).toString());
   const petQuery = `{
-    user(id: "${OWNER_ADDRESS.toLowerCase()}") {
+    user(id: "${PET_ADDRESS.toLowerCase()}") {
         gotchisOriginalOwned(
             first: 1000,
             where: { lastInteracted_lte: "${interactionWaypoint}" })
@@ -52,7 +52,7 @@ function pet() {
 }`;
 
   // ! check if operator is approved
-  MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(OWNER_ADDRESS, SCRIPT_WALLET_ADDRESS)
+  MAIN_CONTRACT_WITH_SIGNER.isPetOperatorForAll(PET_ADDRESS, SCRIPT_WALLET_ADDRESS)
     .then((res: boolean) => {
       console.log(`👀 operator is approved: ${paint(res, CONSOLE_COLORS.Pink)}`);
 
@@ -124,6 +124,6 @@ function pet() {
         .catch((e) => console.log(e));
     });
 
-  console.log(`🧑 owner: ${paint(OWNER_ADDRESS, CONSOLE_COLORS.Cyan)}`);
+  console.log(`🧑 owner: ${paint(PET_ADDRESS, CONSOLE_COLORS.Cyan)}`);
   console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Cyan)}`);
 }
