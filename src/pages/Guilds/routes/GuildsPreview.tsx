@@ -20,9 +20,9 @@ export function GuildsPreview() {
 
   const navigate = useNavigate();
 
-  const { guilds, setGuildId } = useContext<any>(GuildsContext);
+  const { guilds, setGuildId } = useContext<CustomAny>(GuildsContext);
 
-  const handleClick = (guild: any): void => {
+  const handleClick = (guild: CustomAny): void => {
     navigate(`${CommonUtils.stringToKey(guild.name)}`);
   };
 
@@ -35,7 +35,7 @@ export function GuildsPreview() {
   //     }
   // }
 
-  const renderWaerables = (guild: any): JSX.Element => {
+  const renderWaerables = (guild: CustomAny): JSX.Element => {
     if (guild.hasOwnProperty('wearables')) {
       return (
         <>
@@ -64,7 +64,7 @@ export function GuildsPreview() {
         <ArrowForwardIcon fontSize='small' />
       </a>
       <ul className={classes.guildsList}>
-        {guilds.map((guild: any, index: number) => (
+        {guilds.map((guild: CustomAny, index: number) => (
           <Button
             className={classes.guildButton}
             disabled={!guild.members?.length}

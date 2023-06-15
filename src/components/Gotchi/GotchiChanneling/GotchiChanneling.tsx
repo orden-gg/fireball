@@ -32,7 +32,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     setLastChanellingLoading(true);
 
     RealmApi.getGotchiLastChanneled(gotchiId)
-      .then((res: any) => {
+      .then((res: CustomAny) => {
         if (mounted) {
           setLastChanneling(res * 1000);
         }

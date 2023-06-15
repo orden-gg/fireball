@@ -526,7 +526,10 @@
             "0x755a89ac371ee91c1e0fc313bc9eff5fc150b993",
             "0x2848b9f2d4faebaa4838c41071684c70688b455d",
             "0x15c88f7371c57d4b8ac2f97d10eac8fcea298e56",
-            "0x0bb521bd6b2a0eb81a0750e0d78c50917323d958"
+            "0x0bb521bd6b2a0eb81a0750e0d78c50917323d958",
+            "0xA5643D9B4A2049d578a690269Dbc13426b352672",
+            "0x5f4ffFe40fEB8C39aDd6E577a8fAd00430A4d891",
+            "0x6C127b8ff818d1BBbf6015c327FDe5CA73a78a91"
         ],
         "description": [
             {
@@ -764,7 +767,9 @@
     {
         "name": "TGC",
         "logo": "tgc.jpeg",
-        "members": [],
+        "members": [
+          "0x7D1368528D8dd105368C91700f1Ac30D81628794"
+        ],
         "description": [
             {
                 "title": "Description",

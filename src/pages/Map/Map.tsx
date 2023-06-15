@@ -10,7 +10,7 @@ import { TheGraphApi } from 'api/thegraph.api';
 // store
 import * as fromDataReloadStore from 'core/store/data-reload';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import { getActiveAddress } from 'core/store/login';
+import * as fromLoginStore from 'core/store/login';
 
 import { DataReloadType } from 'shared/constants';
 
@@ -24,11 +24,11 @@ export function Map() {
   const dispatch = useAppDispatch();
 
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
-  const activeAddress = useAppSelector(getActiveAddress);
+  const activeAddress = useAppSelector(fromLoginStore.getActiveAddress);
 
   const [isListedLoaded, setIsListedLoaded] = useState<boolean>(false);
   const [isOwnerLoaded, setIsOwnerLoaded] = useState<boolean>(false);
-  const [realmGroups, setRealmGroups] = useState<any[]>([]);
+  const [realmGroups, setRealmGroups] = useState<CustomAny[]>([]);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
   useEffect(() => {
@@ -79,33 +79,41 @@ export function Map() {
       TheGraphApi.getParcelPriceByDirection({ size: 3, direction: 'asc' }),
       TheGraphApi.getAllListedParcels()
     ])
-      .then(([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]: [any, any, any, any, any]) => {
-        if (isMounted) {
-          const combinedParcels: any = getCombinedParcels(listedParcels);
+      .then(
+        ([humbleAsc, reasonableAsc, vSpaciousAsc, hSpaciousAsc, listedParcels]: [
+          CustomAny,
+          CustomAny,
+          CustomAny,
+          CustomAny,
+          CustomAny
+        ]) => {
+          if (isMounted) {
+            const combinedParcels: CustomAny = getCombinedParcels(listedParcels);
 
-          const listedRealmGroup: any = {
-            parcels: combinedParcels,
-            type: 'listed',
-            active: false,
-            /* eslint-disable-next-line react/jsx-key */
-            icon: <AttachMoneyIcon />,
-            tooltip: 'Listed realm',
-            range: {
-              humble: { min: humbleAsc, max: 500 },
-              reasonable: { min: reasonableAsc, max: 700 },
-              spacious: { min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000 }
-            }
-          };
+            const listedRealmGroup: CustomAny = {
+              parcels: combinedParcels,
+              type: 'listed',
+              active: false,
+              /* eslint-disable-next-line react/jsx-key */
+              icon: <AttachMoneyIcon />,
+              tooltip: 'Listed realm',
+              range: {
+                humble: { min: humbleAsc, max: 500 },
+                reasonable: { min: reasonableAsc, max: 700 },
+                spacious: { min: Math.min(vSpaciousAsc, hSpaciousAsc), max: 5000 }
+              }
+            };
 
-          setRealmGroups((groupsCache: any) => {
-            const groupsCacheCopy: any = _.cloneDeep(groupsCache);
+            setRealmGroups((groupsCache: CustomAny) => {
+              const groupsCacheCopy: CustomAny = _.cloneDeep(groupsCache);
 
-            groupsCacheCopy[0] = listedRealmGroup;
+              groupsCacheCopy[0] = listedRealmGroup;
 
-            return groupsCacheCopy;
-          });
+              return groupsCacheCopy;
+            });
+          }
         }
-      })
+      )
       .catch((error) => console.log(error))
       .finally(() => {
         if (isMounted) {
@@ -122,7 +130,7 @@ export function Map() {
 
     if (activeAddress) {
       TheGraphApi.getRealmByAddress(activeAddress)
-        .then((ownerRealm: any) => {
+        .then((ownerRealm: CustomAny) => {
           if (isMounted) {
             const ownerRealmGroup = {
               parcels: ownerRealm,
@@ -134,8 +142,8 @@ export function Map() {
               tooltip: 'Owner realm'
             };
 
-            setRealmGroups((groupsCache: any) => {
-              const groupsCacheCopy: any = _.cloneDeep(groupsCache);
+            setRealmGroups((groupsCache: CustomAny) => {
+              const groupsCacheCopy: CustomAny = _.cloneDeep(groupsCache);
 
               groupsCacheCopy[1] = ownerRealmGroup;
 
@@ -154,8 +162,8 @@ export function Map() {
     }
   };
 
-  const getCombinedParcels = (listedParcels: any[]): any => {
-    return listedParcels.map((parcel: any) => {
+  const getCombinedParcels = (listedParcels: CustomAny[]): CustomAny => {
+    return listedParcels.map((parcel: CustomAny) => {
       return {
         ...parcel.parcel,
         priceInWei: parcel.priceInWei,

@@ -25,14 +25,14 @@ import { itemsStyles } from '../styles';
 import { RaffleItemChance } from './RaffleItemChance';
 
 interface RaffleItemsProps {
-  tickets: any;
+  tickets: CustomAny;
   type: string;
 }
 
 export function RaffleItems({ tickets, type }: RaffleItemsProps) {
   const classes = itemsStyles();
 
-  const renderItem = (item: any): JSX.Element => {
+  const renderItem = (item: CustomAny): JSX.Element => {
     switch (type) {
       case 'realm-generic':
         return (
@@ -84,7 +84,7 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
       case 'wearables':
         return (
           <ItemCard id={item.id} category={Erc1155Categories.Wearable} type={ItemUtils.getRarityNameById(item.id)}>
-            <CardGroup name='headerBetween'>
+            <CardGroup name='header'>
               <CardSlot id={item.id} />
               <CardTotalPrice balance={item.quantity} priceInWei={item.priceInWei} />
               <CardBalance balance={item.quantity} />
@@ -143,10 +143,10 @@ export function RaffleItems({ tickets, type }: RaffleItemsProps) {
       {tickets
         .slice(0)
         .reverse()
-        .map((ticket: any, ticketIndex: number) => {
+        .map((ticket: CustomAny, ticketIndex: number) => {
           if (ticket.prizes) {
-            return ticket.prizes.map((item: any, i: number) => {
-              const clean = tickets.some((t: any) => t['value'] !== '');
+            return ticket.prizes.map((item: CustomAny, i: number) => {
+              const clean = tickets.some((t: CustomAny) => t['value'] !== '');
 
               return (
                 <div className={classNames(classes.listItem, item.chance && 'highlight', !clean && 'clean')} key={i}>

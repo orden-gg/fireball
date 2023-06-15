@@ -4,7 +4,7 @@ import { CommonUtils, ItemUtils } from 'utils';
 
 import { ticketStyles } from '../styles';
 
-export function RaffleTicket({ ticket }: { ticket: any }) {
+export function RaffleTicket({ ticket }: { ticket: CustomAny }) {
   const classes = ticketStyles();
 
   const theme = useTheme();

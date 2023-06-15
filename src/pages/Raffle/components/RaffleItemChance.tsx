@@ -3,7 +3,7 @@ import { CommonUtils } from 'utils';
 import { raffleChanceStyles } from '../styles';
 
 // TODO this component should be moved to shared
-export function RaffleItemChance({ stats }: { stats: any }) {
+export function RaffleItemChance({ stats }: { stats: CustomAny }) {
   const classes = raffleChanceStyles();
 
   if (!stats.won && !stats.chance) {

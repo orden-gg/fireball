@@ -9,8 +9,8 @@ import { CitadelUtils } from 'utils';
 import { ERC1155InnerStyles, itemStyles, parselStyles, tooltipStyles } from '../styles';
 
 interface ParcelGenericProps {
-  parcel: any;
-  raffleChances: any;
+  parcel: CustomAny;
+  raffleChances: CustomAny;
 }
 
 export function ParcelGeneric({ parcel, raffleChances }: ParcelGenericProps) {
@@ -21,7 +21,7 @@ export function ParcelGeneric({ parcel, raffleChances }: ParcelGenericProps) {
     ...parselStyles()
   };
 
-  const size: any = CitadelUtils.getParcelSizeName(parcel.size);
+  const size: CustomAny = CitadelUtils.getParcelSizeName(parcel.size);
 
   return (
     <div className={classNames(classes.item, size, classes.parcelCard)}>

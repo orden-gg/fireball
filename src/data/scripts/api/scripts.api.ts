@@ -18,7 +18,7 @@ const MAIN_ABI = JSON.parse(main_abi_file.toString());
 const tokenAbiFile = fs.readFileSync('src/data/abi/token.abi.json');
 const TOKEN_ABI = JSON.parse(tokenAbiFile.toString());
 
-const provider: any = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
+const provider: CustomAny = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
 
 export const SCRIPT_WALLET: Wallet = new ethers.Wallet(process.env.OPERATOR_PRIVATE_KEY as string, provider);
 export const SCRIPT_WALLET_ADDRESS = SCRIPT_WALLET.address.toLowerCase();

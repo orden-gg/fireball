@@ -14,6 +14,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
+import { ParcelSurveysTable } from 'components/Items/ParcelSurvey/components';
 
 import { CitadelUtils, GotchiverseUtils } from 'utils';
 
@@ -21,13 +22,13 @@ import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow } from '../SalesHistory/components';
 import { styles } from './styles';
 
-export function ParcelPreview({ parcel }: { parcel: any }) {
+export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
 
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<CustomAny[]>([]);
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
 
-  const boosts: Array<{ name: string; value: any }> = [
+  const boosts: Array<{ name: string; value: CustomAny }> = [
     { name: 'fud', value: parcel.fudBoost },
     { name: 'fomo', value: parcel.fomoBoost },
     { name: 'alpha', value: parcel.alphaBoost },
@@ -38,7 +39,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
     let mounted = true;
 
     TheGraphApi.getErc721SalesHistory(Number(parcel.id), Erc1155Categories.Installation)
-      .then((res: any) => {
+      .then((res: CustomAny) => {
         if (mounted) {
           setHistory(res);
         }
@@ -69,7 +70,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
             className={classNames(classes.survey, 'active')}
             surveys={parcel.surveys}
             alchemica={parcel.alchemica}
-            size={parcel.size}
+            size={Number(parcel.size)}
           />
         </div>
 
@@ -122,7 +123,7 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
             </div>
 
             <div className={classes.installations}>
-              <ParcelInstallations parcel={parcel} size={80} />
+              <ParcelInstallations installations={parcel.installations} tiles={parcel.tiles} size={80} />
             </div>
           </div>
 
@@ -138,6 +139,10 @@ export function ParcelPreview({ parcel }: { parcel: any }) {
           </div>
         </div>
       </div>
+
+      <h5 className={classes.salesTitle}>Survey History</h5>
+      <ParcelSurveysTable surveys={parcel.surveys} size={Number(parcel.size)} className={classes.parcelSurveyTable} />
+
       {history.length > 0 && (
         <>
           <h5 className={classes.salesTitle}>Sales History</h5>

@@ -1,23 +1,40 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { SortingItem } from 'shared/models';
+import { OpenedPortalsListingsState } from '../slices';
 
-import { OpenedPortalListingVM } from '../../models';
+const openedPortalsListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.openedPortals,
+  (openedPortalsListingsState: OpenedPortalsListingsState) => openedPortalsListingsState
+);
 
-export const getInitialOpenedPortalsListings = (state: RootState): OpenedPortalListingVM[] =>
-  state.baazaar.openedPortals.initialListings;
+export const getInitialOpenedPortalsListings = createSelector(
+  openedPortalsListingsStateSelector,
+  (state: OpenedPortalsListingsState) => state.initialListings
+);
 
-export const getOpenedPortalsListings = (state: RootState): OpenedPortalListingVM[] =>
-  state.baazaar.openedPortals.openedPortalsListings.data;
+export const getOpenedPortalsListings = createSelector(
+  openedPortalsListingsStateSelector,
+  (state: OpenedPortalsListingsState) => state.openedPortalsListings.data
+);
 
-export const getIsOpenedPortalsListingsLoading = (state: RootState): boolean =>
-  state.baazaar.openedPortals.openedPortalsListings.isLoading;
+export const getIsOpenedPortalsListingsLoading = createSelector(
+  openedPortalsListingsStateSelector,
+  (state: OpenedPortalsListingsState) => state.openedPortalsListings.isLoading
+);
 
-export const getOpenedPortalsListingsDefaultSorting = (state: RootState): SortingItem =>
-  state.baazaar.openedPortals.openedPortalsListingsDefaultSorting;
+export const getOpenedPortalsListingsDefaultSorting = createSelector(
+  openedPortalsListingsStateSelector,
+  (state: OpenedPortalsListingsState) => state.openedPortalsListingsDefaultSorting
+);
 
-export const getOpenedPortalsListingsSorting = (state: RootState): SortingItem =>
-  state.baazaar.openedPortals.openedPortalsListingsSorting;
+export const getOpenedPortalsListingsSorting = createSelector(
+  openedPortalsListingsStateSelector,
+  (state: OpenedPortalsListingsState) => state.openedPortalsListingsSorting
+);
 
-export const getOpenedPortalsListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.openedPortals.openedPortalsListingsQueryParamsOrder;
+export const getOpenedPortalsListingsQueryParamsOrder = createSelector(
+  openedPortalsListingsStateSelector,
+  (state: OpenedPortalsListingsState) => state.openedPortalsListingsQueryParamsOrder
+);

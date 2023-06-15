@@ -7,7 +7,7 @@ import { RafflesData } from '../models/raffles-data.model';
 import { raffleNavStyles } from '../styles';
 import { RaffleDate } from './RaffleDate';
 
-export function RaffleNav({ user }: { user: any }) {
+export function RaffleNav({ user }: { user: CustomAny }) {
   const classes = raffleNavStyles();
 
   const location = useLocation();

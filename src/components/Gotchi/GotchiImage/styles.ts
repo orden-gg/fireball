@@ -117,7 +117,7 @@ export const styles = makeStyles((theme) =>
       textTransform: 'uppercase',
       position: 'absolute',
       right: 5,
-      top: 5,
+      bottom: 5,
       '.team &': {
         display: 'none'
       }

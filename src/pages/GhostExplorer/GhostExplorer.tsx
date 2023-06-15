@@ -76,7 +76,7 @@ const sortings: SortingListItem[] = [
   }
 ];
 
-const initialFilters: any = {
+const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true },
   collateral: { ...filtersData.collateral, divider: true },
   search: { ...filtersData.search }
@@ -95,22 +95,22 @@ export function GhostExplorer() {
   const lastManuallyTriggeredTimestamp: number = useAppSelector(fromDataReloadStore.getLastManuallyTriggeredTimestamp);
 
   const [isGotchisLoading, setIsGotchisLoading] = useState<boolean>(false);
-  const [gotchis, setGotchis] = useState<any[]>([]);
-  const [modifiedGotchis, setModifiedGotchis] = useState<any[]>([]);
+  const [gotchis, setGotchis] = useState<CustomAny[]>([]);
+  const [modifiedGotchis, setModifiedGotchis] = useState<CustomAny[]>([]);
   const [gotchisSorting, setGotchisSorting] = useState<SortingItem>({ type: 'modifiedRarityScore', dir: 'desc' });
-  const [currentFilters, setCurrentFilters] = useState<any>({ ...initialFilters });
+  const [currentFilters, setCurrentFilters] = useState<CustomAny>({ ...initialFilters });
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
   const [canBeUpdated, setCanBeUpdated] = useState<boolean>(false);
 
   useEffect(() => {
-    setCurrentFilters((currentFiltersCache: any) =>
+    setCurrentFilters((currentFiltersCache: CustomAny) =>
       FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCache)
     );
 
     const { sort, dir } = queryParams as CustomParsedQuery;
 
     if (sort && dir) {
-      const key: any = sortings.find((sorting) => sorting.paramKey === sort)?.key;
+      const key: CustomAny = sortings.find((sorting) => sorting.paramKey === sort)?.key;
 
       onSortingChange(key, dir);
     }
@@ -155,7 +155,7 @@ export function GhostExplorer() {
   }, [currentFilters]);
 
   useEffect(() => {
-    const paramKey: any = sortings.find((sorting) => sorting.key === gotchisSorting.type)?.paramKey;
+    const paramKey: CustomAny = sortings.find((sorting) => sorting.key === gotchisSorting.type)?.paramKey;
 
     updateSortQueryParams(paramKey, gotchisSorting.dir);
   }, [gotchisSorting]);
@@ -176,7 +176,7 @@ export function GhostExplorer() {
     setIsGotchisLoading(shouldUpdateIsLoading);
 
     TheGraphApi.getAllGotchies()
-      .then((response: any[]) => {
+      .then((response: CustomAny[]) => {
         if (isMounted) {
           setGotchis(response);
         }
@@ -199,7 +199,7 @@ export function GhostExplorer() {
     [setGotchisSorting]
   );
 
-  const sorting: any = {
+  const sorting: CustomAny = {
     sortingList: sortings,
     sortingDefaults: gotchisSorting,
     onSortingChange: onSortingChange
@@ -215,7 +215,7 @@ export function GhostExplorer() {
   );
 
   const updateFilterQueryParams = useCallback(
-    (filters: any) => {
+    (filters: CustomAny) => {
       const params = FilterUtils.getUpdatedQueryParams(queryParams, filters);
 
       FilterUtils.updateQueryParams(navigate, location.pathname, qs, params, queryParamsOrder);
@@ -223,7 +223,7 @@ export function GhostExplorer() {
     [queryParams, navigate, location.pathname]
   );
 
-  const onSetSelectedFilters = (key: string, selectedValue: any) => {
+  const onSetSelectedFilters = (key: string, selectedValue: CustomAny) => {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
@@ -273,8 +273,7 @@ export function GhostExplorer() {
                 'name',
                 'traits',
                 'wearablesLine',
-                'listing',
-                'rewards'
+                'listing'
               ]}
             />
           )}

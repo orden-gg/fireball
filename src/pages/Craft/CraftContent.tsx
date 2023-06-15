@@ -28,43 +28,44 @@ export function CraftContent() {
   const navigate = useNavigate();
   const [params, setParams] = useState<qs.ParsedQuery<string>>(qs.parse(location.search));
 
-  const [craftableItems, setCraftableItems] = useState<any[]>([]);
-  const [deprecatedItems, setDeprecatedItems] = useState<any[]>([]);
+  const [craftableItems, setCraftableItems] = useState<CustomAny[]>([]);
+  const [deprecatedItems, setDeprecatedItems] = useState<CustomAny[]>([]);
   const [isCraftableShown, setIsCraftableShown] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAvailableParamsChange, setIsAvailableParamsChange] = useState<boolean>(false);
+
   const { selectedItem, setSelectedItem, isItemSelected, setCategory, setIsItemSelected } =
-    useContext<any>(CraftContext);
+    useContext<CustomAny>(CraftContext);
 
   useEffect(() => {
-    const promises: any[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];
+    const promises: CustomAny[] = [InstallationsApi.getAllInstallations(), TilesApi.getAllTiles()];
 
     Promise.all(promises)
-      .then(([installations, tiles]: any[]) => {
-        const filteredInstallations: any[] = installations
-          .filter((item: any, index: number) => InstallationsUtils.getIsInstallationExist(index))
-          .map((data: any[], index: number) => ({
+      .then(([installations, tiles]: CustomAny[]) => {
+        const filteredInstallations: CustomAny[] = installations
+          .filter((item: CustomAny, index: number) => InstallationsUtils.getIsInstallationExist(index))
+          .map((data: CustomAny[], index: number) => ({
             ...InstallationsUtils.getMetadataById(index),
             id: index,
             category: Erc1155Categories.Installation,
             deprecated: data[InstallationTypes.Deprecated]
           }))
           .filter(
-            (item: any) =>
+            (item: CustomAny) =>
               item.level === 1 && !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0))
           );
 
-        const filteredTiles: any[] = tiles
-          .filter((item: any, index: number) => TilesUtils.getIsTileExists(index))
-          .map((data: any[], index: number) => ({
+        const filteredTiles: CustomAny[] = tiles
+          .filter((item: CustomAny, index: number) => TilesUtils.getIsTileExists(index))
+          .map((data: CustomAny[], index: number) => ({
             ...TilesUtils.getMetadataById(index),
             id: index,
             category: Erc1155Categories.Tile,
             deprecated: data[TileTypes.Deprecated]
           }))
-          .filter((item: any) => !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0)));
+          .filter((item: CustomAny) => !(item.deprecated && !item.alchemicaCost.some((amount: number) => amount > 0)));
 
-        const [active, deprecated]: any[] = [
+        const [active, deprecated]: CustomAny[] = [
           filteredInstallations.concat(filteredTiles).filter((item) => !item.deprecated),
           filteredInstallations.concat(filteredTiles).filter((item) => item.deprecated)
         ];
@@ -76,7 +77,7 @@ export function CraftContent() {
 
         if (craftableItems.length > 0 && selected) {
           const name: string = selected.replace(/-/g, ' ');
-          const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name);
+          const item: CustomAny = craftableItems.find((item: CustomAny) => item.name.trim().toLowerCase() === name);
 
           if (item) {
             setCategory(item.category);
@@ -93,7 +94,7 @@ export function CraftContent() {
 
     if (craftableItems.length > 0 && selected) {
       const name: string = selected.replace(/-/g, ' ');
-      const item: any = craftableItems.find((item: any) => item.name.trim().toLowerCase() === name);
+      const item: CustomAny = craftableItems.find((item: CustomAny) => item.name.trim().toLowerCase() === name);
 
       if (item) {
         setCategory(item.category);

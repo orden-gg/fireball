@@ -1,8 +1,15 @@
 import { BaazaarGraphApi } from '../../api/baazaar-graph.api';
+import { TheGraphApi } from 'api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GraphFiltersTypes, GraphFiltersValueTypes, GraphQueryParams } from 'shared/models';
+import {
+  FireballGotchi,
+  GraphFiltersTypes,
+  GraphFiltersValueTypes,
+  GraphQueryParams,
+  TheGraphBatchData
+} from 'shared/models';
 
 import { GraphFiltersUtils } from 'utils';
 
@@ -14,20 +21,13 @@ import {
   ActivityGotchiListingVM
 } from '../../models';
 import { getBaazaarActivityGotchisListingsQuery } from '../../queries';
-import {
-  loadActivityGotchisListings,
-  loadActivityGotchisListingsFailed,
-  loadActivityGotchisListingsSucceded,
-  resetActivityGotchisListings,
-  setActivityGotchisListingsFilters,
-  setActivityGotchisListingsIsFiltersUpdated,
-  setIsActivityGotchisListingsInitialDataLoading
-} from '../slices';
+// slices
+import * as activityGotchisListingsSlices from '../slices/activity-gotchis-listings.slice';
 
 export const loadBaazaarActivityGotchisListings =
   (shouldResetListings: boolean = false): AppThunk =>
   (dispatch, getState) => {
-    dispatch(loadActivityGotchisListings());
+    dispatch(activityGotchisListingsSlices.loadActivityGotchisListings());
 
     const activityGotchisListingsGraphQueryParams: GraphQueryParams =
       getState().baazaar.activity.gotchis.activityGotchisListingsGraphQueryParams;
@@ -48,17 +48,60 @@ export const loadBaazaarActivityGotchisListings =
       .then((res: ActivityGotchiListingDTO[]) => {
         const modifiedListings: ActivityGotchiListingVM[] = mapActivityGotchisDTOToVM(res);
 
-        if (shouldResetListings) {
-          dispatch(loadActivityGotchisListingsSucceded(modifiedListings));
+        const gotchiIds: number[] = modifiedListings.map((listing: ActivityGotchiListingVM) =>
+          Number(listing.gotchi.id)
+        );
+
+        if (gotchiIds.length > 0) {
+          TheGraphApi.getFireballGotchisByIds(gotchiIds)
+            .then((fireballGotchis: TheGraphBatchData<FireballGotchi>) => {
+              const extendedLendingGotchis: ActivityGotchiListingVM[] = modifiedListings.map(
+                (listing: ActivityGotchiListingVM) => {
+                  listing.gotchi = { ...listing.gotchi, ...fireballGotchis[`gotchi${listing.gotchi.id}`] };
+
+                  return listing;
+                }
+              );
+
+              if (shouldResetListings) {
+                dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(extendedLendingGotchis));
+              } else {
+                dispatch(
+                  activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+                    activityGotchisListings.concat(extendedLendingGotchis)
+                  )
+                );
+              }
+            })
+            .catch(() => {
+              if (shouldResetListings) {
+                dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(modifiedListings));
+              } else {
+                dispatch(
+                  activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+                    activityGotchisListings.concat(modifiedListings)
+                  )
+                );
+              }
+            })
+            .finally(() =>
+              dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(false))
+            );
         } else {
-          dispatch(loadActivityGotchisListingsSucceded(activityGotchisListings.concat(modifiedListings)));
+          if (shouldResetListings) {
+            dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(modifiedListings));
+          } else {
+            dispatch(
+              activityGotchisListingsSlices.loadActivityGotchisListingsSucceded(
+                activityGotchisListings.concat(modifiedListings)
+              )
+            );
+          }
         }
       })
       .catch(() => {
-        dispatch(loadActivityGotchisListingsFailed());
-      })
-      .finally(() => {
-        dispatch(setIsActivityGotchisListingsInitialDataLoading(false));
+        dispatch(activityGotchisListingsSlices.loadActivityGotchisListingsFailed());
+        dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(false));
       });
   };
 
@@ -78,7 +121,10 @@ export const updateActivityGotchisListingsFilterByKey =
     const updatedFilter: GraphFiltersTypes = GraphFiltersUtils.onGetUpdatedSelectedGraphFilter(filters[key], value);
 
     dispatch(
-      setActivityGotchisListingsFilters({ ...filters, [key]: updatedFilter as ActivityGotchiListingFiltersType })
+      activityGotchisListingsSlices.setActivityGotchisListingsFilters({
+        ...filters,
+        [key]: updatedFilter as ActivityGotchiListingFiltersType
+      })
     );
   };
 
@@ -92,7 +138,7 @@ export const resetActivityGotchisListingsFilters = (): AppThunk => (dispatch, ge
     ])
   );
 
-  dispatch(setActivityGotchisListingsFilters(updatedFilters));
+  dispatch(activityGotchisListingsSlices.setActivityGotchisListingsFilters(updatedFilters));
 };
 
 export const resetActivityGotchisData = (): AppThunk => (dispatch, getState) => {
@@ -105,10 +151,10 @@ export const resetActivityGotchisData = (): AppThunk => (dispatch, getState) => 
     ])
   );
 
-  dispatch(setActivityGotchisListingsFilters(updatedFilters));
-  dispatch(resetActivityGotchisListings());
-  dispatch(setActivityGotchisListingsIsFiltersUpdated(false));
-  dispatch(setIsActivityGotchisListingsInitialDataLoading(true));
+  dispatch(activityGotchisListingsSlices.setActivityGotchisListingsFilters(updatedFilters));
+  dispatch(activityGotchisListingsSlices.resetActivityGotchisListings());
+  dispatch(activityGotchisListingsSlices.setActivityGotchisListingsIsFiltersUpdated(false));
+  dispatch(activityGotchisListingsSlices.setIsActivityGotchisListingsInitialDataLoading(true));
 };
 
 const mapActivityGotchisDTOToVM = (listings: ActivityGotchiListingDTO[]): ActivityGotchiListingVM[] => {

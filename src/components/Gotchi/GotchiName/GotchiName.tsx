@@ -2,7 +2,7 @@ import { CopyToClipboardBlock } from 'components/CopyToClipboard/CopyToClipboard
 
 import { styles } from './styles';
 
-export function GotchiName({ gotchi }: { gotchi: any }) {
+export function GotchiName({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   return (

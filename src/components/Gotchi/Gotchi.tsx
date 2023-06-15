@@ -12,6 +12,7 @@ import { FlipButton } from './FlipButton/FlipButton';
 import { GotchiBadges } from './GotchiBadges/GotchiBadges';
 import { GotchiChanelling } from './GotchiChanneling/GotchiChanneling';
 import { GotchiCollateral } from './GotchiCollateral/GotchiCollateral';
+import { GotchiIdentity } from './GotchiIdentity/GotchiIdentity';
 import { GotchiImage } from './GotchiImage/GotchiImage';
 import { GotchiKinship } from './GotchiKinship/GotchiKinship';
 import { GotchiLending } from './GotchiLending/GotchiLending';
@@ -20,7 +21,6 @@ import { GotchiLevel } from './GotchiLevel/GotchiLevel';
 import { GotchiName } from './GotchiName/GotchiName';
 import { GotchiOwner } from './GotchiOwner/GotchiOwner';
 import { GotchiPreviewModal } from './GotchiPreviewModal/GotchiPreviewModal';
-import { GotchiRewards } from './GotchiRewards/GotchiRewards';
 import { GotchiRs } from './GotchiRs/GotchiRs';
 import { GotchiSkillPoints } from './GotchiSkillPoints/GotchiSkillPoints';
 import { GotchiTraits } from './GotchiTraits/GotchiTraits';
@@ -30,10 +30,10 @@ import { WhitelistId } from './WhitelistId/WhitelistId';
 import { styles } from './styles';
 
 interface GotchiProps {
-  gotchi: any;
-  render: any;
-  renderSvgByStats?: any;
-  portal?: any;
+  gotchi: CustomAny;
+  render: CustomAny;
+  renderSvgByStats?: CustomAny;
+  portal?: CustomAny;
   isHighlightLending?: boolean;
   className?: string;
   shouldLoadGotchiInModal?: boolean;
@@ -63,7 +63,7 @@ export function Gotchi({
   );
 
   const gotchiSections = {
-    wrapper: (children: any, className?: any) => {
+    wrapper: (children: CustomAny, className?: CustomAny) => {
       return (
         <div className={className && classes[className]} key={`${gotchi.id}-${className}`}>
           {children}
@@ -97,6 +97,10 @@ export function Gotchi({
       return <GotchiOwner gotchi={gotchi} key={`${gotchi.id}-owner`} />;
     },
 
+    get identity(): JSX.Element {
+      return <GotchiIdentity identityQuantity={gotchi.identity?.claimed?.length} key={`${gotchi.id}-identity`} />;
+    },
+
     get collateral() {
       return <GotchiCollateral collateral={gotchi.collateral} key={`${gotchi.id}-collateral`} />;
     },
@@ -113,7 +117,7 @@ export function Gotchi({
     },
 
     get badges() {
-      return <GotchiBadges id={gotchi.id} key={`${gotchi.id}-badges`} />;
+      return <GotchiBadges badges={gotchi.badges} key={`${gotchi.id}-badges`} />;
     },
 
     get skillpoints() {
@@ -181,21 +185,17 @@ export function Gotchi({
       );
     },
 
-    get rewards() {
-      return <GotchiRewards gotchi={gotchi} key={`${gotchi.id}-rewards`} />;
-    },
-
     get flipButton() {
       return <FlipButton key={`${gotchi.id}-flipButton`} onFlipCard={flipCard} />;
     }
   };
 
-  function renderSection(value: any) {
+  function renderSection(value: CustomAny) {
     if (typeof value === 'string') {
       return gotchiSections[value];
     } else {
       return gotchiSections.wrapper(
-        value.items.map((item: any) => renderSection(item)),
+        value.items.map((item: CustomAny) => renderSection(item)),
         value.className
       );
     }
@@ -216,7 +216,7 @@ export function Gotchi({
         onClick={() => setIsPreviewOpen(true)}
       >
         {gotchi.lending && isHighlightLending && <div className={classes.statusBadge}>Lended</div>}
-        {render.map((name: any) => {
+        {render.map((name: CustomAny) => {
           return renderSection(name);
         })}
       </div>

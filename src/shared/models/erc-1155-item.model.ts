@@ -96,6 +96,18 @@ export interface Erc1155Listings {
   lastSoldListing: Erc1155SoldListing;
 }
 
+export interface IdentityOption {
+  gotchiId: string;
+}
+
+export interface Identity {
+  shape: string;
+  color: string;
+  collateral: string;
+  claimed: IdentityOption[];
+  unclaimed: IdentityOption[];
+}
+
 export interface Erc1155Item {
   id: number;
   name: string;
@@ -121,4 +133,11 @@ export interface Erc1155Item {
   listingPrice?: number;
   lastSoldListing?: Erc1155SoldListing;
   currentListing?: Erc1155Listing;
+  balance?: number;
+}
+
+export interface FireballErc1155Item {
+  amount: number;
+  equipped: number;
+  tokenId: number;
 }

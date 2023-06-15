@@ -12,7 +12,7 @@ import { ItemUtils } from 'utils';
 
 import { styles } from './styles';
 
-export function GotchiWearablesLine({ gotchi }: { gotchi: any }) {
+export function GotchiWearablesLine({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   const theme = useTheme();

@@ -19,8 +19,8 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
 
   const [isTokenApproving, setIsTokenApproving] = useState<boolean>(false);
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  const { showSnackbar } = useContext<any>(SnackbarContext);
-  const { tokens, tokensApprovals, category, setTokenApprovals } = useContext<any>(CraftContext);
+  const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
+  const { tokens, tokensApprovals, category, setTokenApprovals } = useContext<CustomAny>(CraftContext);
 
   const approveAlchemicaSpend = (): void => {
     const operator: string = category === Erc1155Categories.Tile ? TILES_CONTRACT : INSTALLATION_CONTRACT;
@@ -31,7 +31,7 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
     AlchemicaApi[`approve${tokenName}`](operator)
       .then((isApproved: boolean) => {
         if (isApproved) {
-          setTokenApprovals((currentApprovals: any[]) => {
+          setTokenApprovals((currentApprovals: CustomAny[]) => {
             const modified = _.cloneDeep(currentApprovals);
 
             modified[category][activeIndex] = isApproved;
@@ -66,7 +66,7 @@ export function ApproveModal({ setIsModalOpen }: { setIsModalOpen: (value: boole
         Please approve spend before craft
       </Typography>
       <div className={classes.alchemica}>
-        {[...tokens].splice(0, 4).map((token: any, index: number) => (
+        {[...tokens].splice(0, 4).map((token: CustomAny, index: number) => (
           <span
             key={index}
             className={classNames(

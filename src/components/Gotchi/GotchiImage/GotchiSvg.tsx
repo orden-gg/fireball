@@ -31,7 +31,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
     setLoadingSvg(true);
 
     TheGraphApi.getGotchiSvgById(id)
-      .then((response: any) => {
+      .then((response: CustomAny) => {
         if (mounted) {
           setSvgs({
             svg: createSvg(response.data.aavegotchis[0].svg),

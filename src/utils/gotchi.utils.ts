@@ -1,7 +1,7 @@
 import { EthersApi } from 'api';
 
-import { GotchiTypes, ONE_MILLION, RarityTypes } from 'shared/constants';
-import { CollateralData, Gotchi, GotchiAgingModel, GotchiInventory } from 'shared/models';
+import { IDENTITY_RARITY_LOW_NUMBERS, ONE_MILLION, RarityTypes } from 'shared/constants';
+import { CollateralData, GotchiAgingModel } from 'shared/models';
 
 import { collaterals } from 'data/collaterals.data';
 
@@ -26,16 +26,19 @@ export class GotchiUtils {
     return percentageFormula;
   }
 
-  public static getRarityByTrait(trait: any): any {
-    switch (true) {
-      case trait >= 100 || trait <= -1:
-        return RarityTypes.Godlike;
-      case trait >= 98 || trait <= 1:
-        return RarityTypes.Mythical;
-      case trait >= 90 || trait <= 9:
-        return RarityTypes.Rare;
-      default:
-        return RarityTypes.Common;
+  public static getRarityByTrait(trait: CustomAny): CustomAny {
+    if (trait >= 100 || trait <= -1) {
+      return RarityTypes.Godlike;
+    } else if (trait >= 98 || trait <= 1) {
+      return RarityTypes.Mythical;
+    } else if (trait >= 90 || trait <= 9) {
+      return RarityTypes.Rare;
+    } else if (trait >= 75 || trait <= 24) {
+      return RarityTypes.Uncommon;
+    } else if (trait >= 25 && trait <= 74) {
+      return RarityTypes.Common;
+    } else {
+      return RarityTypes.Unknown;
     }
   }
 
@@ -66,7 +69,7 @@ export class GotchiUtils {
     }
   }
 
-  public static getAgingImg(id: number): any {
+  public static getAgingImg(id: number): CustomAny {
     try {
       return require(`../assets/images/aging/${id}.png`).default;
     } catch (error) {
@@ -74,43 +77,27 @@ export class GotchiUtils {
     }
   }
 
-  public static getStakedAmount(collateralAddress: string, stakedAmount: number): number {
+  public static getStakedAmount(collateralAddress: string, stakedAmount: string): number {
     const collateral: Undefinable<CollateralData> = collaterals.find(
       (collateral: CollateralData) => collateral.address === collateralAddress
     );
 
-    return EthersApi.fromWei(stakedAmount, collateral?.decimals);
+    return EthersApi.fromWei(stakedAmount, collateral?.decimals) || 0;
   }
 
-  public static convertDataFromContract(gotchi: any[]): Gotchi {
-    const inventory: GotchiInventory[] = gotchi[GotchiTypes.Inventory].map((item: any) => {
-      return {
-        id: EthersApi.formatBigNumber(item.itemId),
-        balance: EthersApi.formatBigNumber(item.balance)
-      };
-    });
-
-    return {
-      id: EthersApi.formatBigNumber(gotchi[GotchiTypes.Id]),
-      name: gotchi[GotchiTypes.Name],
-      numericTraits: gotchi[GotchiTypes.NumericTraits],
-      modifiedNumericTraits: gotchi[GotchiTypes.ModifiedNumericTraits],
-      equippedWearables: gotchi[GotchiTypes.EquippedWearables],
-      collateral: gotchi[GotchiTypes.Collateral],
-      owner: {
-        id: gotchi[GotchiTypes.Owner]
-      },
-      stakedAmount: gotchi[GotchiTypes.StakedAmount],
-      minimumStake: EthersApi.formatBigNumber(gotchi[GotchiTypes.MinimumStake]),
-      kinship: EthersApi.formatBigNumber(gotchi[GotchiTypes.Kinship]),
-      experience: EthersApi.formatBigNumber(gotchi[GotchiTypes.Experience]),
-      toNextLevel: EthersApi.formatBigNumber(gotchi[GotchiTypes.ToNextLevel]),
-      usedSkillPoints: EthersApi.formatBigNumber(gotchi[GotchiTypes.UsedSkillPoints]),
-      level: EthersApi.formatBigNumber(gotchi[GotchiTypes.Level]),
-      hauntId: EthersApi.formatBigNumber(gotchi[GotchiTypes.HauntId]),
-      baseRarityScore: gotchi[GotchiTypes.BaseRarityScore],
-      modifiedRarityScore: gotchi[GotchiTypes.ModifiedRarityScore],
-      inventory: inventory
-    };
+  public static getIdentityRarity(identityQuantity: number) {
+    if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.common) {
+      return RarityTypes.Common;
+    } else if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.uncommon) {
+      return RarityTypes.Uncommon;
+    } else if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.rare) {
+      return RarityTypes.Rare;
+    } else if (identityQuantity >= IDENTITY_RARITY_LOW_NUMBERS.mythical) {
+      return RarityTypes.Mythical;
+    } else if (identityQuantity === IDENTITY_RARITY_LOW_NUMBERS.godlike) {
+      return RarityTypes.Godlike;
+    } else {
+      return RarityTypes.Unknown;
+    }
   }
 }

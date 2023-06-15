@@ -1,32 +1,55 @@
+import { createSelector } from '@reduxjs/toolkit';
+
 import { RootState } from 'core/store/store';
 
-import { GraphQueryParams, SortingItem } from 'shared/models';
+import { WearablesListingsState } from '../slices';
 
-import { WearableListingFilters, WearableListingVM } from '../../models';
+const wearablesListingsStateSelector = createSelector(
+  (state: RootState) => state.baazaar.wearables,
+  (wearablesListingsState: WearablesListingsState) => wearablesListingsState
+);
 
-export const getWearablesListings = (state: RootState): WearableListingVM[] =>
-  state.baazaar.wearables.wearablesListings.data;
+export const getWearablesListings = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListings.data
+);
 
-export const getIsWearablesListingsInitialDataLoading = (state: RootState): boolean =>
-  state.baazaar.wearables.isWearablesListingsInitialDataLoading;
+export const getIsWearablesListingsInitialDataLoading = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.isWearablesListingsInitialDataLoading
+);
 
-export const getIsWearablesListingsLoading = (state: RootState): boolean =>
-  state.baazaar.wearables.wearablesListings.isLoading;
+export const getIsWearablesListingsLoading = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListings.isLoading
+);
 
-export const getWearablesListingsGraphQueryParams = (state: RootState): GraphQueryParams =>
-  state.baazaar.wearables.wearablesListingsGraphQueryParams;
+export const getWearablesListingsGraphQueryParams = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListingsGraphQueryParams
+);
 
-export const getWearablesListingsLimitPerLoad = (state: RootState): number =>
-  state.baazaar.wearables.wearablesListingsLimitPerLoad;
+export const getWearablesListingsLimitPerLoad = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListingsLimitPerLoad
+);
 
-export const getWearablesListingsDefaultSorting = (state: RootState): SortingItem =>
-  state.baazaar.wearables.wearablesListingsDefaultSorting;
+export const getWearablesListingsDefaultSorting = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListingsDefaultSorting
+);
 
-export const getWearablesListingsSorting = (state: RootState): SortingItem =>
-  state.baazaar.wearables.wearablesListingsSorting;
+export const getWearablesListingsSorting = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListingsSorting
+);
 
-export const getWearablesListingsFilters = (state: RootState): WearableListingFilters =>
-  state.baazaar.wearables.wearablesListingsFilters;
+export const getWearablesListingsFilters = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListingsFilters
+);
 
-export const getWearablesListingsQueryParamsOrder = (state: RootState): string[] =>
-  state.baazaar.wearables.wearablesListingsQueryParamsOrder;
+export const getWearablesListingsQueryParamsOrder = createSelector(
+  wearablesListingsStateSelector,
+  (state: WearablesListingsState) => state.wearablesListingsQueryParamsOrder
+);

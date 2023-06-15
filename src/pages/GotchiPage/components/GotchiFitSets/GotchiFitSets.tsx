@@ -15,26 +15,28 @@ import wearableSets from 'data/sets.data.json';
 import { gotchiFitSetsStyles } from './styles';
 
 interface GotchiFitSetsProps {
-  gotchi: any;
+  hauntId: string;
+  collateral: string;
+  numericTraits: number[];
   className?: string;
 }
 
 interface CombinedSetData {
   bonus: number;
-  data: any[];
+  data: CustomAny[];
   equippedWearables: number[];
 }
 
-export function GotchiFitSets({ gotchi, className }: GotchiFitSetsProps) {
+export function GotchiFitSets({ hauntId, collateral, numericTraits, className }: GotchiFitSetsProps) {
   const classes = gotchiFitSetsStyles();
 
   const [availableSets, setAvailableSets] = useState<Array<CombinedSetData>>([]);
 
   useEffect(() => {
-    const filteredTraits = [...gotchi.numericTraits].splice(0, 4);
+    const filteredTraits = [...numericTraits].splice(0, 4);
     const sets: Array<CombinedSetData> = [];
 
-    wearableSets.forEach((set: any[]) => {
+    wearableSets.forEach((set: CustomAny[]) => {
       const setModifiers: number[] = [...set[SetTypes.TraitsBonuses]].splice(1, 4);
       const wareablesModifiers: number[][] = set[SetTypes.WearableIds].map((wearable: number) =>
         ItemUtils.getTraitModifiersById(wearable)
@@ -44,7 +46,7 @@ export function GotchiFitSets({ gotchi, className }: GotchiFitSetsProps) {
         .reduce((previous: number, current: number) => previous + current, 0);
       const combinedTraitsModifiers: number[] = ItemUtils.combineTraitsModifiers(wareablesModifiers);
       const combinedModifiers: number[] = ItemUtils.combineTraitsModifiers([combinedTraitsModifiers, setModifiers]);
-      const isSetAvailable: boolean = ItemUtils.getIsSetAvailable(filteredTraits, combinedModifiers);
+      const isSetAvailable: boolean = ItemUtils.getIsTraitsModifiersFit(filteredTraits, combinedModifiers);
 
       if (isSetAvailable) {
         const bonusRs: number = set[SetTypes.TraitsBonuses][0] + wareablesBonusRS;
@@ -58,7 +60,7 @@ export function GotchiFitSets({ gotchi, className }: GotchiFitSetsProps) {
     sets.sort((curentSet: CombinedSetData, nextSet: CombinedSetData) => nextSet.bonus - curentSet.bonus);
 
     setAvailableSets(sets);
-  }, [gotchi]);
+  }, [hauntId, collateral, numericTraits]);
 
   return (
     <div className={classNames(classes.setsList, className)}>
@@ -67,9 +69,9 @@ export function GotchiFitSets({ gotchi, className }: GotchiFitSetsProps) {
           <div className={classes.setImage}>
             <GotchiImage
               gotchi={{
-                hauntId: gotchi.hauntId,
-                collateral: gotchi.collateral,
-                numericTraits: gotchi.numericTraits,
+                hauntId: hauntId,
+                collateral: collateral,
+                numericTraits: numericTraits,
                 equippedWearables: set.equippedWearables
               }}
               renderSvgByStats

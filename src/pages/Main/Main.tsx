@@ -17,6 +17,7 @@ import {
   START_ANGLE,
   V_D
 } from 'shared/constants';
+import { Gotchi } from 'shared/models';
 
 import { Section } from 'components/Section/Section';
 
@@ -29,6 +30,8 @@ import { Team } from './components/Team';
 import { User } from './components/User';
 import { bgStyles, styles, teamStyles } from './styles';
 
+type GotchiMemberOrUser = Gotchi | { name: string };
+
 export function Main() {
   const classes = {
     ...bgStyles(),
@@ -38,9 +41,9 @@ export function Main() {
 
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('md'));
-  const [membersInRow, setMembersInRow] = useState<any[]>([]);
+  const [membersInRow, setMembersInRow] = useState<GotchiMemberOrUser[][]>([]);
   const [isLoaded, setIsloaded] = useState<boolean>(false);
-  const [team, setTeam] = useState<any[]>([]);
+  const [team, setTeam] = useState<Gotchi[]>([]);
   const [isRowsView, setIsRowsView] = useState<boolean>(true);
 
   useEffect(() => {
@@ -50,13 +53,13 @@ export function Main() {
     setIsRowsView(isRowsView);
 
     TheGraphApi.getGotchiesByIds(GOTCHI_IDS)
-      .then((response: any) => {
+      .then((response: Gotchi[]) => {
         if (isMounted) {
-          const gotchis: any[] = response.map((item) => item.data.aavegotchi);
+          const gotchis: Gotchi[] = Object.values(response);
 
           if (isRowsView) {
-            const modifiedGotchis: any[] = _.cloneDeep(gotchis);
-            const separatedGotchis: any[] = [[], [], []];
+            const modifiedGotchis: Gotchi[] = _.cloneDeep(gotchis);
+            const separatedGotchis: GotchiMemberOrUser[][] = [[], [], []];
 
             for (const gotchi of modifiedGotchis) {
               separatedGotchis[getAvailableRowIndex(separatedGotchis)].push(gotchi);
@@ -86,7 +89,7 @@ export function Main() {
     if (isShowRow) {
       return (
         <div className={classNames(classes.gotchisRow, classes[`gotchisRow${row + 1}`], isLoaded && 'active')}>
-          {membersInRow[row].map((gotchi: any, index) =>
+          {membersInRow[row].map((gotchi: GotchiMemberOrUser, index) =>
             gotchi.name !== 'user' ? <HomeGotchi gotchi={gotchi} key={index} /> : <User key={index} />
           )}
         </div>
@@ -120,7 +123,7 @@ export function Main() {
     };
   };
 
-  const getAvailableRowIndex = (array: any[]): number => {
+  const getAvailableRowIndex = (array: CustomAny[]): number => {
     let rowIndex = CommonUtils.generateRandomIntegerInRange(0, MAX_ROWS - 1);
 
     while (array[rowIndex].length >= MAX_GOTCHIS_IN_ROW[rowIndex]) {
@@ -139,7 +142,7 @@ export function Main() {
         {renderGotchisRow(0)}
         {isLoaded && matches && !isRowsView && (
           <div className={classNames(classes.gotchisSemicircle, 'active')}>
-            {team.map((gotchi: any, index: number) => (
+            {team.map((gotchi: CustomAny, index: number) => (
               <div className={classes.gotchiBox} style={getGotchiStyles(index)} key={index}>
                 <HomeGotchi gotchi={gotchi} key={index} />
               </div>
