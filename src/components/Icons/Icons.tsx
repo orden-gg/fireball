@@ -25,6 +25,7 @@ import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
 import ghst from 'assets/images/icons/ghst.svg';
 import glossary from 'assets/images/icons/glossary.svg';
+import gnosis from 'assets/images/icons/gnosis.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
 import gotchiverse from 'assets/images/icons/gotchiverse.png';
 import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
@@ -186,6 +187,10 @@ export const GotchilandIcon = ({ className, width, height }: IconProps) => {
 
 export const GotchiverseIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={gotchiverse} alt='gotchiverse' />;
+};
+
+export const GnosisIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={gnosis} alt='gnosis logo' />;
 };
 
 export const LendingIcon = ({ className, width, height }: IconProps) => {

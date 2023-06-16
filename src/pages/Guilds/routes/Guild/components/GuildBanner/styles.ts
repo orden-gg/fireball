@@ -116,6 +116,16 @@ export const guildBannerStyles = makeStyles((theme) =>
         }
       }
     },
+    guildTreasuryButton: {
+      position: 'absolute',
+      right: 16,
+      top: 16,
+      backgroundColor: alpha('#0cb259', 0.3),
+      border: `2px solid ${alpha('#0cb259', 0.2)}`,
+      '&:hover': {
+        backgroundColor: alpha('#0cb259', 0.6)
+      }
+    },
     '@keyframes show': keyframes.show,
     '@keyframes move': keyframes.move
   })
