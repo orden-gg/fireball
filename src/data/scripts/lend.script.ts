@@ -66,6 +66,12 @@ const lend = async () => {
 
     console.log('sumonned', gotchis.length, 'gotchis');
 
+    if (gotchis.length > 0) {
+      const idsArr = gotchis.map((g) => Number(g.id));
+      console.log('ids:');
+      console.dir(idsArr, { maxArrayLength: null });
+    }
+
     if (SETTINGS.CHECK_BALANCE) {
       console.log('retriewing', gotchis.length, 'gotchis balances');
       console.log('balance chank size', SETTINGS.BALANCE_CHUNK_SIZE);
