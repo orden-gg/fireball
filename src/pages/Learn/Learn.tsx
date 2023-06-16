@@ -20,8 +20,6 @@ import { ContentWrapper } from 'components/Content/ContentWrapper';
 import { EthersApi } from 'api';
 import { DateTime } from 'luxon';
 import { LoadingButton } from '@mui/lab';
-import { BigNumber } from 'ethers';
-import { ethers } from 'ethers';
 
 export function Learn() {
   const [address, setAddress] = useState<string>('');
