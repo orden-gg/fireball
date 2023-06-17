@@ -32,12 +32,12 @@ interface Gotchi {
 }
 // Whitelist hardcoded id "717" 6110
 const whitelistID = '717';
-const MAX_BORROWED = 6;
+const MAX_BORROWED = 3;
 const MAX_KINSHIP = 1500;
-const MIN_KINSHIP = 1000;
+const MIN_KINSHIP = 600;
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
-const txCostLimit = 155 * 1e9;
+const txCostLimit = 175 * 1e9;
 
 let interval;
 let totalBorrowedTemp = 0;
@@ -71,7 +71,7 @@ function onlyWhitelistedMember(axios, CONSOLE_COLORS, paint) {
 
 function borrowGotchis(axios, CONSOLE_COLORS, paint) {
   const borrowQuery = `{ 
-  gotchiLendings (first: 200 where: {whitelist: "${whitelistID}"} orderDirection: desc, orderBy: id) {
+  gotchiLendings (first: 200 where: {whitelist: "${whitelistID}" } orderDirection: desc, orderBy: id) {
     id
     whitelist {
       ownerAddress
@@ -127,7 +127,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         //debugger;
         const gotchisFiltred = gotchis.filter(
           (o) =>
-            o.owner === o.originalOwner && !o.borrower && o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
+            o.owner === o.originalOwner && o.originalOwner === "0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0" && !o.borrower && !o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
         );
         //debugger;// distinct and sort result of search
         const distinctgotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
