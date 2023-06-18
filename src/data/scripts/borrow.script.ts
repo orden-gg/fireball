@@ -32,9 +32,9 @@ interface Gotchi {
 }
 // Whitelist hardcoded id "717" 6110
 const whitelistID = '717';
-const MAX_BORROWED = 3;
+const MAX_BORROWED = 8;
 const MAX_KINSHIP = 1500;
-const MIN_KINSHIP = 600;
+const MIN_KINSHIP = 1000;
 // Interval repeater and tx cost limit
 const repeatTimer = 1 * 15 * 1000;
 const txCostLimit = 175 * 1e9;
@@ -127,7 +127,7 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         //debugger;
         const gotchisFiltred = gotchis.filter(
           (o) =>
-            o.owner === o.originalOwner && o.originalOwner === "0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0" && !o.borrower && !o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
+            o.owner.toLocaleLowerCase() === o.originalOwner.toLocaleLowerCase() && o.originalOwner.toLocaleLowerCase() === '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0' && !o.borrower && o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
         );
         //debugger;// distinct and sort result of search
         const distinctgotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
@@ -189,8 +189,9 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
                 // ! wait for borrow transaction to display result
                 await tx.wait().then(() => {
                   console.log(
-                    `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(
-                      borrowId.gotchiId,
+                    `${paint('Happy folks:', CONSOLE_COLORS.Pink)} was borrowed: ${paint(borrowId.name,
+                      CONSOLE_COLORS.Green
+                    )} ${paint(borrowId.gotchiId,
                       CONSOLE_COLORS.Green
                     )} from ${paint(`whitelist:${whitelistID}`, CONSOLE_COLORS.Green)}`
                   );
