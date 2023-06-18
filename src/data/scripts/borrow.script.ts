@@ -32,7 +32,7 @@ interface Gotchi {
 }
 // Whitelist hardcoded id "717" 6110
 const whitelistID = '717';
-const MAX_BORROWED = 8;
+const MAX_BORROWED = 1;
 const MAX_KINSHIP = 1500;
 const MIN_KINSHIP = 1000;
 // Interval repeater and tx cost limit
@@ -125,9 +125,10 @@ function borrowGotchis(axios, CONSOLE_COLORS, paint) {
         }
         // filter to search borrower = null && o.lender
         //debugger;
+        //&& o.originalOwner.toLocaleLowerCase() === '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0'
         const gotchisFiltred = gotchis.filter(
           (o) =>
-            o.owner.toLocaleLowerCase() === o.originalOwner.toLocaleLowerCase() && o.originalOwner.toLocaleLowerCase() === '0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0' && !o.borrower && o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
+            o.owner.toLocaleLowerCase() === o.originalOwner.toLocaleLowerCase()  && !o.borrower && o.lender && o.kinship > MIN_KINSHIP && o.kinship < MAX_KINSHIP
         );
         //debugger;// distinct and sort result of search
         const distinctgotchis = [...new Map(gotchisFiltred.map((item) => [item['gotchiId'], item])).values()].sort(
