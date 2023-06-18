@@ -96,7 +96,8 @@ const initialFilters: CustomAny = {
   nextChannel: { ...filtersData.nextChannel },
   nextClaim: { ...filtersData.nextClaim },
   isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true, class: 'no-padding-top' },
-  district: { ...filtersData.district }
+  district: { ...filtersData.district },
+  parcelHash: { ...filtersData.parcelHash }
 };
 const queryParamsOrder: string[] = [
   initialFilters.size.queryParamKey,
@@ -105,6 +106,7 @@ const queryParamsOrder: string[] = [
   initialFilters.nextClaim.queryParamKey,
   initialFilters.isUpgradeReady.queryParamKey,
   initialFilters.district.queryParamKey,
+  initialFilters.parcelHash.queryParamKey,
   'sort',
   'dir'
 ];
@@ -211,6 +213,7 @@ export function ClientRealmList() {
   const onExportData = useCallback(() => {
     FilterUtils.exportData(modifiedRealm, 'client_realm');
   }, [modifiedRealm]);
+  console.log(modifiedRealm);
 
   return (
     <>

@@ -50,6 +50,24 @@ export const filtersData = {
     componentType: FilterComponentType.MultiButtonSelection,
     ...defaultMultiSelectionFilter
   },
+  parcelHash: {
+    key: 'parcelHash',
+    queryParamKey: 'parcelHash',
+    isMultipleKeys: true,
+    keys: ['id', 'parcelHash'],
+    componentType: FilterComponentType.Input,
+    title: 'Search',
+    placeholder: 'parcelHash or id',
+    value: '',
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.inputGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.inputResetFilterFn,
+    predicateFn: FiltersHelper.inputPredicateFn,
+    updateFromQueryFn: FiltersHelper.inputUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.inputUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.inputGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.inputGetActiveFiltersCount
+  },
   search: {
     key: 'search',
     queryParamKey: 'search',
