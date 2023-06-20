@@ -8,16 +8,23 @@ import { MAIN_CONTRACT, POLYGON_RPC } from '../../../shared/constants/api.consta
 const main_abi_file = fs.readFileSync('src/data/abi/main.abi.json');
 const MAIN_ABI = JSON.parse(main_abi_file.toString());
 
-const provider: CustomAny = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
+export const provider = new ethers.providers.JsonRpcProvider(POLYGON_RPC);
 
 export const SCRIPT_WALLET: Wallet = new ethers.Wallet(process.env.OPERATOR_PRIVATE_KEY as string, provider);
 export const SCRIPT_WALLET_ADDRESS = SCRIPT_WALLET.address.toLowerCase();
+export const SCRIPT_BORROWER_WALLET: Wallet = new ethers.Wallet(process.env.BORROWER_PRIVATE_KEY as string, provider);
+export const SCRIPT_BORROWER_WALLET_ADDRESS = SCRIPT_BORROWER_WALLET.address.toLowerCase();
 
 export const getGasPrice = async () => {
   return await provider.getGasPrice();
 };
 
+export const getNonceBorrower = async () => {
+  return await provider.getTransactionCount(SCRIPT_BORROWER_WALLET_ADDRESS);
+};
+
 export const MAIN_CONTRACT_WITH_SIGNER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_WALLET);
+export const MAIN_CONTRACT_WITH_BORROWER = new ethers.Contract(MAIN_CONTRACT, MAIN_ABI, SCRIPT_BORROWER_WALLET);
 
 export enum CONSOLE_COLORS {
   Black = '\x1B[30m',

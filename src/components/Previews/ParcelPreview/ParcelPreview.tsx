@@ -4,6 +4,7 @@ import { Paper } from '@mui/material';
 
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
+import { useMetamask } from 'use-metamask';
 
 import { EthersApi, TheGraphApi } from 'api';
 
@@ -11,12 +12,17 @@ import { Erc1155Categories } from 'shared/constants';
 
 import { ActiveListingButton } from 'components/ActiveListingButton/ActiveListingButton';
 import { EthAddress } from 'components/EthAddress/EthAddress';
+import { gotchiPreviewModalStyles } from 'components/Gotchi/GotchiPreviewModal/styles';
+
 import { ParcelImage } from 'components/Items/ParcelImage/ParcelImage';
 import { ParcelInstallations } from 'components/Items/ParcelInstallations/ParcelInstallations';
 import { ParcelSurvey } from 'components/Items/ParcelSurvey/ParcelSurvey';
 import { ParcelSurveysTable } from 'components/Items/ParcelSurvey/components';
+import { ViewInAppButton } from 'components/ViewInAppButton/ViewInAppButton';
 
 import { CitadelUtils, GotchiverseUtils } from 'utils';
+
+import { gotchiverseCoordsForParcel } from 'data/disctricts.data';
 
 import { SalesHistory } from '../SalesHistory/SalesHistory';
 import { HistoryHead, HistoryItem, HistoryPrice, HistoryRow } from '../SalesHistory/components';
@@ -24,10 +30,11 @@ import { styles } from './styles';
 
 export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const classes = styles();
-
+  const classesB = gotchiPreviewModalStyles();
   const [history, setHistory] = useState<CustomAny[]>([]);
+  const [coordsDisplay, setCoordsDisplay] = useState<CustomAny>();
   const [historyLoaded, setHistoryLoaded] = useState<boolean>(false);
-
+  const { metaState } = useMetamask();
   const boosts: Array<{ name: string; value: CustomAny }> = [
     { name: 'fud', value: parcel.fudBoost },
     { name: 'fomo', value: parcel.fomoBoost },
@@ -51,6 +58,8 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
         }
       });
 
+    setCoordsDisplay(gotchiverseCoordsForParcel(parcel));
+
     return () => {
       mounted = false;
     };
@@ -59,13 +68,13 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
   const modifyName = (hash: string) => {
     return hash.replace(/-/g, ' ');
   };
+  console.log(parcel);
 
   return (
     <div className={classes.container}>
       <div className={classes.inner}>
         <div className={classes.image}>
           <ParcelImage parcel={parcel} imageSize={300} />
-
           <ParcelSurvey
             className={classNames(classes.survey, 'active')}
             surveys={parcel.surveys}
@@ -97,10 +106,21 @@ export function ParcelPreview({ parcel }: { parcel: CustomAny }) {
                 {parcel.district}
               </Paper>
               <Paper className={classes.badge} elevation={0}>
+                <span className={classes.highlighted}>Coords:</span>
+                {coordsDisplay?.x}, {coordsDisplay?.y}
+              </Paper>
+              <Paper className={classes.badge} elevation={0}>
                 <span className={classes.highlighted}>size:</span>
                 {CitadelUtils.getParcelSizeName(Number(parcel.size))}(
                 {CitadelUtils.getParcelDimmentions(Number(parcel.size))})
               </Paper>
+
+              <ViewInAppButton
+                link={`https://verse.aavegotchi.com/?spawnId=${parcel.parcelId}&gotchi=${metaState.account[0]}`}
+                className={classesB.button}
+              >
+                Fireball Farmeer
+              </ViewInAppButton>
             </div>
 
             <div className={classes.boosts}>

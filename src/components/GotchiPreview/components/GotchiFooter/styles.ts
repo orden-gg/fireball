@@ -8,7 +8,8 @@ export const gotchiFooterStyles = makeStyles(() =>
       right: 0,
       bottom: 0,
       display: 'flex',
-      justifyContent: 'center'
+      justifyContent: 'ceter',
+      flexWrap: 'wrap'
     }
   })
 );

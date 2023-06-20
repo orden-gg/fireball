@@ -17,6 +17,11 @@ export interface FireballGotchi {
   identity: Identity;
 }
 
+export interface GotchiLastChanneled {
+  id: string;
+  lastChanneledAlchemica: string;
+}
+
 export interface Gotchi {
   id: string;
   name: string;

@@ -50,9 +50,25 @@ const sortings: SortingListItem[] = [
 const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true },
   collateral: { ...filtersData.collateral, divider: true },
+  lastChanneledAlchemica: { ...filtersData.lastChanneledAlchemica, divider: true },
+  dayCryoKinChanneledAlchemica: { ...filtersData.dayCryoKinChanneledAlchemica, divider: true },
+  dayWarmKinChanneledAlchemica: { ...filtersData.dayWarmKinChanneledAlchemica, divider: true },
+  dayHotKinChanneledAlchemica: { ...filtersData.dayHotKinChanneledAlchemica, divider: true },
+  nrgTrait: { ...filtersData.nrgTrait, divider: true },
   search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'collateral', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = [
+  'haunt',
+  'collateral',
+  'lastChanneledAlchemica',
+  'dayCryoKinChanneledAlchemica',
+  'dayWarmKinChanneledAlchemica',
+  'dayHotKinChanneledAlchemica',
+  'modifiedNumericTraitsNrg',
+  'search',
+  'sort',
+  'dir'
+];
 
 export function ClientBorrowed() {
   const navigate = useNavigate();
@@ -109,7 +125,6 @@ export function ClientBorrowed() {
       sorting: borrowedGotchisSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
-
     setModifiedGotchis(modifiedGotchis);
   }, [currentFilters, borrowedGotchis, borrowedGotchisSorting]);
 
@@ -145,6 +160,15 @@ export function ClientBorrowed() {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
+  // const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
+  //   dispatch(
+  //     fromClientStore.updateGotchiListingsFilterByKey({ key, value } as {
+  //       key: GotchiListingsFilterTypes;
+  //       value: GraphFiltersValueTypes;
+  //     })
+  //   );
+  // };
+
   const onResetFilters = useCallback(() => {
     FilterUtils.resetFilters(currentFilters, setCurrentFilters);
   }, [currentFilters]);
@@ -152,6 +176,10 @@ export function ClientBorrowed() {
   const onExportData = useCallback(() => {
     FilterUtils.exportData(modifiedGotchis, 'client_gotchis');
   }, [modifiedGotchis]);
+  //console.log(modifiedGotchis.map((g) => g.id));
+  //console.log(modifiedGotchis.slice(0, 30).map((g) => g.id));
+  //console.log(modifiedGotchis.slice(31, 60).map((g) => g.id));
+  console.log(modifiedGotchis);
 
   return (
     <>

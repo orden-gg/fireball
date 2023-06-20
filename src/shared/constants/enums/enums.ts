@@ -49,7 +49,11 @@ export enum Erc1155Categories {
   Ticket = '3',
   Installation = '4',
   Tile = '5',
-  FakeGotchiCard = '6'
+  FakeGotchiCard = '6',
+  Alloy = '7',
+  Geodes = '9',
+  Essence = '10',
+  Cores = '11'
 }
 
 export enum Erc1155NumberCategories {
@@ -151,6 +155,8 @@ export enum TokenTypes {
   Alpha = 'alpha',
   Kek = 'kek',
   Gltr = 'gltr',
+  Alloy = 'alloy',
+  Essence = 'essence',
   Ghst = 'ghst',
   Matic = 'matic'
 }

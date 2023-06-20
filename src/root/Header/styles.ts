@@ -170,6 +170,18 @@ export const balancesStyles = makeStyles((theme) =>
       backgroundColor: alpha('#212121cc', 0.9),
       boxShadow: '0 0 3px 3px #212121cc'
     },
+    balancesCheckBoxButton: {
+      margin: theme.spacing(0, 1)
+    },
+    balancesCheckBoxList: {
+      position: 'absolute',
+      top: 35,
+      borderRadius: 5,
+      display: 'flex',
+      alignItems: 'center',
+      backgroundColor: alpha('#212121cc', 0.9),
+      boxShadow: '0 0 3px 3px #212121cc'
+    },
     balanceLoader: {
       width: 50,
       height: 20,

@@ -50,6 +50,24 @@ export const filtersData = {
     componentType: FilterComponentType.MultiButtonSelection,
     ...defaultMultiSelectionFilter
   },
+  parcelHash: {
+    key: 'parcelHash',
+    queryParamKey: 'parcelHash',
+    isMultipleKeys: true,
+    keys: ['id', 'parcelHash'],
+    componentType: FilterComponentType.Input,
+    title: 'Search',
+    placeholder: 'parcelHash or id',
+    value: '',
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.inputGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.inputResetFilterFn,
+    predicateFn: FiltersHelper.inputPredicateFn,
+    updateFromQueryFn: FiltersHelper.inputUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.inputUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.inputGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.inputGetActiveFiltersCount
+  },
   search: {
     key: 'search',
     queryParamKey: 'search',
@@ -156,6 +174,123 @@ export const filtersData = {
     },
     ...defaultRangeSliderFilter
   },
+  nrgTrait: {
+    key: 'modifiedNumericTraits[0]',
+    queryParamKey: 'modifiedNumericTraitsNrg',
+    title: 'NrgTrait -20 / +120',
+    icon: <PercentIcon fontSize='small' />,
+    componentType: FilterComponentType.RangeSlider,
+    min: -20,
+    max: 120,
+    value: [-20, 120],
+    ...defaultRangeSliderFilter
+  },
+  lastChanneledAlchemica: {
+    key: 'lastChanneledAlchemica',
+    queryParamKey: 'lastChanneledAlchemica',
+    title: 'Is channeling ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+      if (!filter.value || !compareItem[key]) {
+        predicate = true;
+      } else {
+        const today = new Date();
+        today.setUTCHours(0);
+        today.setUTCMinutes(0);
+        today.setUTCSeconds(0);
+        predicate = today.getTime() >= compareItem[key] * 1000;
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
+  dayCryoKinChanneledAlchemica: {
+    key: 'dayCryoKinChanneledAlchemica',
+    queryParamKey: 'dayCryoKinChanneledAlchemica',
+    title: 'Is channeling ready for high kinship 1400 and up + 24h',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+      if (!filter.value || !compareItem['lastChanneledAlchemica']) {
+        predicate = true;
+      } else {
+        const today = Date.now();
+
+        predicate = today >= (compareItem['lastChanneledAlchemica'] * 1000)+ (86400000 * 1) && compareItem['kinship'] >= 1400;
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
+  dayWarmKinChanneledAlchemica: {
+    key: 'dayWarmKinChanneledAlchemica',
+    queryParamKey: 'dayWarmKinChanneledAlchemica',
+    title: 'Is channeling ready for medium kinship 1100 - 1400 + 36h',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+      if (!filter.value || !compareItem['lastChanneledAlchemica']) {
+        predicate = true;
+      } else {
+        const today = Date.now();
+
+        predicate = today >= (compareItem['lastChanneledAlchemica'] * 1000)+ (129600000) && compareItem['kinship'] >= 1100 && compareItem['kinship'] < 1400;
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
+  dayHotKinChanneledAlchemica: {
+    key: 'dayHotKinChanneledAlchemica',
+    queryParamKey: 'dayHotKinChanneledAlchemica',
+    title: 'Is channeling ready for lower kinship under 1100 + 48h ',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+      if (!filter.value || !compareItem['lastChanneledAlchemica']) {
+        predicate = true;
+      } else {
+        const today = Date.now();
+
+        predicate = today >= (compareItem['lastChanneledAlchemica'] * 1000)+ (172800000) && compareItem['kinship'] < 1100;
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
   size: {
     key: 'size',
     queryParamKey: 'size',
@@ -222,6 +357,51 @@ export const filtersData = {
         predicate = true;
       } else {
         predicate = DateTime.local().toSeconds() >= compareItem[key];
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
+  nextClaim: {
+    key: 'nextClaim',
+    queryParamKey: 'claiming',
+    title: 'Is claiming ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny): CustomAny => {
+      let predicate: CustomAny;
+
+      if (
+        !filter.value ||
+        !compareItem[key] ||
+        !compareItem.claimAvailableAlchemica ||
+        !compareItem.capacities ||
+        !compareItem.harvestRates
+      ) {
+        predicate = false;
+      } else {
+        const isHarvested =
+          Number(compareItem.claimAvailableAlchemica.fud) +
+          Number(compareItem.claimAvailableAlchemica.fomo) +
+          Number(compareItem.claimAvailableAlchemica.alpha) +
+          Number(compareItem.claimAvailableAlchemica.kek) +
+          Number(compareItem.capacities.fud) +
+          Number(compareItem.capacities.fomo) +
+          Number(compareItem.capacities.alpha) +
+          Number(compareItem.capacities.kek) +
+          Number(compareItem.harvestRates.fud) +
+          Number(compareItem.harvestRates.fomo) +
+          Number(compareItem.harvestRates.alpha) +
+          Number(compareItem.harvestRates.kek);
+        const isPredicate = DateTime.local().toSeconds() >= compareItem[key] && isHarvested > 1;
+        predicate = isPredicate;
       }
 
       return predicate;

@@ -36,7 +36,8 @@ export const styles = makeStyles(() =>
     },
     inner: {
       display: 'flex',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      fontSize: 12
     },
     title: {
       color: 'aqua'

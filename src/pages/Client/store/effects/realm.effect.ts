@@ -1,4 +1,5 @@
 import { TheGraphApi } from 'api';
+import { RealmApi } from 'api/realm.api';
 
 import { AppThunk } from 'core/store/store';
 
@@ -12,38 +13,56 @@ import * as realmSlices from '../slices/realm.slice';
 
 export const onLoadRealm =
   (address: string): AppThunk =>
-  (dispatch, getState) => {
+  async (dispatch, getState) => {
     dispatch(realmSlices.loadRealm());
 
     const { type, dir }: SortingItem = getState().client.realm.realmSorting;
 
-    TheGraphApi.getRealmByAddress(address)
-      .then((response: RealmDTO[]) => {
-        const modifiedParcels: RealmVM[] = getMappedRealm(response);
-        const sortedParcels: RealmVM[] = CommonUtils.basicSort(modifiedParcels, type, dir);
+    try {
+      const response: RealmDTO[] = await TheGraphApi.getRealmByAddress(address);
 
-        dispatch(realmSlices.loadRealmSucceded(sortedParcels));
-      })
-      .catch(() => dispatch(realmSlices.loadRealmFailed()))
-      .finally(() => dispatch(realmSlices.setIsInitialRealmLoading(false)));
+      const realmPromises: Promise<CustomAny>[] = response.map(async (parcel: RealmDTO) => {
+        const installations: ParcelInstallationVM[] = InstallationsUtils.combineInstallations(parcel.installations);
+        const tiles: ParcelTileVM[] = TilesUtils.combineTiles(parcel.tiles);
+        const altar: ParcelInstallationVM | undefined = installations.find(
+          (installation: ParcelInstallationVM) => installation.type === InstallationTypeNames.Altar
+        );
+        const cooldown: number = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
+
+        const cooldownClaim: number = parcel.lastClaimed ? 28800 : 0;
+
+        const realmCapacitiesPromise = RealmApi.getRealmCapacities(parcel.id);
+        const realmHarvestRatesPromise = RealmApi.getRealmHarvestRates(parcel.id);
+        const realmAvailableAlchemicaPromise = RealmApi.getRealmAvailableAlchemica(parcel.id);
+
+        const [realmCapacities, realmHarvestRates, realmAvailableAlchemica] = await Promise.all([
+          realmCapacitiesPromise,
+          realmHarvestRatesPromise,
+          realmAvailableAlchemicaPromise
+        ]);
+
+        return {
+          ...parcel,
+          installations,
+          tiles,
+          altarLevel: altar ? altar.level : 0,
+          cooldown,
+          nextChannel: parcel.lastChanneled + cooldown,
+          nextClaim: parcel.lastClaimed + cooldownClaim,
+          capacities: realmCapacities,
+          harvestRates: realmHarvestRates,
+          claimAvailableAlchemica: realmAvailableAlchemica
+        };
+      });
+
+      const modifiedParcels: RealmVM[] = await Promise.all(realmPromises);
+
+      const sortedParcels: RealmVM[] = CommonUtils.basicSort(modifiedParcels, type, dir);
+
+      dispatch(realmSlices.loadRealmSucceded(sortedParcels));
+    } catch (error) {
+      dispatch(realmSlices.loadRealmFailed());
+    } finally {
+      dispatch(realmSlices.setIsInitialRealmLoading(false));
+    }
   };
-
-const getMappedRealm = (realm: RealmDTO[]): RealmVM[] => {
-  return realm.map((parcel: RealmDTO) => {
-    const installations: ParcelInstallationVM[] = InstallationsUtils.combineInstallations(parcel.installations);
-    const tiles: ParcelTileVM[] = TilesUtils.combineTiles(parcel.tiles);
-    const altar: ParcelInstallationVM | undefined = installations.find(
-      (installation: ParcelInstallationVM) => installation.type === InstallationTypeNames.Altar
-    );
-    const cooldown: number = altar ? InstallationsUtils.getCooldownByLevel(altar.level, 'seconds') : 0;
-
-    return {
-      ...parcel,
-      installations,
-      tiles,
-      altarLevel: altar ? altar.level : 0,
-      cooldown,
-      nextChannel: parcel.lastChanneled + cooldown
-    };
-  });
-};

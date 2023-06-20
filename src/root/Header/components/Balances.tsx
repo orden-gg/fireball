@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { IconButton, Link, useTheme } from '@mui/material';
-
 import classNames from 'classnames';
 
 import { BalancesContext } from 'contexts/BalancesContext';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
@@ -17,19 +18,57 @@ import { useLocalStorage } from 'hooks/useLocalStorage';
 
 import { balancesStyles } from '../styles';
 
-// TODO add types
 export function Balances() {
   const classes = balancesStyles();
   const theme = useTheme();
-
+  const { tokens, isBalancesLoading } = useContext<CustomAny>(BalancesContext);
   const [menuOpen, setMenuOpen] = useLocalStorage(
     'visible_balances',
     JSON.parse(localStorage.getItem('visible_balances') as CustomAny) || true
   );
 
-  const { tokens, isBalancesLoading } = useContext<CustomAny>(BalancesContext);
+  const checkList = ['fud', 'fomo', 'alpha', 'kek', 'gltr', 'alloy', 'essence', 'ghst', 'matic'];
+  const [checked, setChecked] = useState<boolean[]>([false]);
+  const [checkBoxesOpen, setcheckBoxesOpen] = useLocalStorage(
+    'visible_checkboxes_balances',
+    JSON.parse(localStorage.getItem('visible_checkboxes_balances') as CustomAny) || true
+  );
 
-  const handleButtonClick = (isMenuOpen: CustomAny): CustomAny => setMenuOpen(isMenuOpen);
+  const initialState = localStorage.getItem('visible_checkList')
+    ? JSON.parse(localStorage.getItem('visible_checkList') as CustomAny) || true
+    : {};
+
+  const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    localStorage.setItem('visible_checkList', JSON.stringify(state));
+  }, [state]);
+
+  const handleButtonBalancesClick = (isMenuOpen) => setMenuOpen(isMenuOpen);
+  const handleButtonDropboxClick = (ischeckBoxesOpen) => setcheckBoxesOpen(ischeckBoxesOpen);
+
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
+    setState(updatedList);
+  };
+
+  const generateHiden = (inputToken: string): boolean => {
+    const ishiden = localStorage.getItem('visible_checkList')?.toString();
+    const hide = ishiden?.includes(inputToken);
+
+    if (hide) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   if (!tokens.length) {
     return <></>;
@@ -78,8 +117,29 @@ export function Balances() {
         </div>
       )}
 
-      <IconButton className={classes.balancesButton} onClick={() => handleButtonClick(!menuOpen)}>
+      <IconButton className={classes.balancesButton} onClick={() => handleButtonBalancesClick(!menuOpen)}>
         {menuOpen ? <MenuOpenIcon /> : <MenuIcon />}
+      </IconButton>
+
+      <div className={classes.balancesWrapper}>
+        {checkBoxesOpen && (
+          <div className={classes.balancesCheckBoxList}>
+            <div className='checkList'>
+              <div className='title'>Balances:</div>
+              <div className='list-container'>
+                {checkList.map((item, index) => (
+                  <div key={index}>
+                    <input type='checkbox' value={item} defaultChecked={generateHiden(item)} onChange={handleCheck} />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <IconButton className={classes.balancesCheckBoxButton} onClick={() => handleButtonDropboxClick(!checkBoxesOpen)}>
+        {checkBoxesOpen ? <FilterAltOffOutlinedIcon /> : <FilterAltOutlinedIcon />}
       </IconButton>
     </div>
   );

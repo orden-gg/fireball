@@ -9,3 +9,4 @@ export * from './numbers.constants';
 export * from './the-graph.constants';
 export * from './token.constants';
 export * from './wearables.constants';
+export * from './forgeItems.constants';

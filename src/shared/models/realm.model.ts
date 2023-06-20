@@ -89,4 +89,8 @@ export interface RealmVM extends RealmBase {
   altarLevel: number;
   cooldown: number;
   nextChannel: number;
+  nextClaim: number;
+  capacities: ParcelAlchemica;
+  harvestRates: ParcelAlchemica;
+  claimAvailableAlchemica: ParcelAlchemica;
 }

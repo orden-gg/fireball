@@ -33,11 +33,26 @@ const sortings: SortingListItem[] = [
 
 const initialFilters: CustomAny = {
   hauntId: { ...filtersData.hauntId, divider: true },
+  lastChanneledAlchemica: { ...filtersData.lastChanneledAlchemica, divider: true },
+  dayCryoKinChanneledAlchemica: { ...filtersData.dayCryoKinChanneledAlchemica, divider: true },
+  dayWarmKinChanneledAlchemica: { ...filtersData.dayWarmKinChanneledAlchemica, divider: true },
+  dayHotKinChanneledAlchemica: { ...filtersData.dayHotKinChanneledAlchemica, divider: true },
   whitelistId: { ...filtersData.whitelistId, divider: true },
   borrower: { ...filtersData.borrower, divider: true },
   search: { ...filtersData.search }
 };
-const queryParamsOrder: string[] = ['haunt', 'whitelistId', 'borrower', 'search', 'sort', 'dir'];
+const queryParamsOrder: string[] = [
+  'haunt',
+  'lastChanneledAlchemica',
+  'dayCryoKinChanneledAlchemica',
+  'dayWarmKinChanneledAlchemica',
+  'dayHotKinChanneledAlchemica',
+  'whitelistId',
+  'borrower',
+  'search',
+  'sort',
+  'dir'
+];
 
 export function ClientLendings() {
   const navigate = useNavigate();

@@ -26,6 +26,7 @@ export interface OwnedGotchi {
   }[];
   historicalPrices: string[];
   lending: string | null;
+  lastChanneled: string | null;
 }
 
 export interface OwnedGotchiExtended extends OwnedGotchi, FireballGotchi {}

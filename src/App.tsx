@@ -17,6 +17,7 @@ import {
   Glossary,
   GotchiPage,
   Guilds,
+  Learn,
   Lend,
   Main,
   Map,
@@ -75,6 +76,7 @@ export function App() {
             <Route path='' element={<Main />} />
             <Route path='anvil' element={<Anvil />} />
             <Route path='market/*' element={<Baazaar />} />
+            <Route path='learn' element={<Learn />} />
             <Route path='lendings' element={<Lend />} />
             <Route path='explorer' element={<GhostExplorer />} />
             <Route path='autopet' element={<Autopet />} />

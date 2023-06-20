@@ -38,6 +38,26 @@ import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import twitch from 'assets/images/icons/twitch.svg';
+import rareTicket from 'assets/images/tickets/rare.svg';
+
+// portals
+import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
+import h1OpenedPortal from 'assets/images/portals/h1-opened.svg';
+import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
+import h2OpenedPortal from 'assets/images/portals/h2-opened.svg';
+
+// tokens
+import alphaToken from 'assets/images/tokens/alpha-token.svg';
+import fomoToken from 'assets/images/tokens/fomo-token.svg';
+import fudToken from 'assets/images/tokens/fud-token.svg';
+import ghstToken from 'assets/images/tokens/ghst-token.svg';
+import maticToken from 'assets/images/tokens/matic-token.svg';
+import alloyToken from 'assets/images/tokens/alloy-token.svg';
+import essenceToken from 'assets/images/tokens/essence-token.svg';
+import gltrToken from 'assets/images/tokens/gltr-token.svg';
+import kekToken from 'assets/images/tokens/kek-token.svg';
+import daiToken from 'assets/images/tokens/dai-token.svg';
+
 // card icons
 import anvilCard from 'assets/images/navigation/anvil.jpg';
 import clientCard from 'assets/images/navigation/client.jpg';
@@ -50,21 +70,6 @@ import lendCard from 'assets/images/navigation/lend.jpg';
 import mapCard from 'assets/images/navigation/map.jpg';
 import marketCard from 'assets/images/navigation/market.jpg';
 import rafflesCard from 'assets/images/navigation/raffles.jpg';
-import h1OpenedPortal from 'assets/images/portals/h1-opened.svg';
-// portals
-import h1SealedPortal from 'assets/images/portals/h1-sealed.svg';
-import h2OpenedPortal from 'assets/images/portals/h2-opened.svg';
-import h2SealedPortal from 'assets/images/portals/h2-sealed.svg';
-import rareTicket from 'assets/images/tickets/rare.svg';
-// tokens
-import alphaToken from 'assets/images/tokens/alpha-token.svg';
-import daiToken from 'assets/images/tokens/dai-token.svg';
-import fomoToken from 'assets/images/tokens/fomo-token.svg';
-import fudToken from 'assets/images/tokens/fud-token.svg';
-import ghstToken from 'assets/images/tokens/ghst-token.svg';
-import gltrToken from 'assets/images/tokens/gltr-token.svg';
-import kekToken from 'assets/images/tokens/kek-token.svg';
-import maticToken from 'assets/images/tokens/matic-token.svg';
 // traits
 import aggression from 'assets/images/traits/agg.png';
 import brain from 'assets/images/traits/brn.png';
@@ -244,6 +249,14 @@ export const GhstTokenIcon = ({ className, width, height }: IconProps) => {
 
 export const MaticTokenIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={maticToken} alt='matic' />;
+};
+
+export const AlloyTokenIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={alloyToken} alt='alloy' />;
+};
+
+export const EssenceTokenIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={essenceToken} alt='essence ' />;
 };
 
 export const GltrTokenIcon = ({ className, width, height }: IconProps) => {
