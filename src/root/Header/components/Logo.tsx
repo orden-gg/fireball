@@ -24,6 +24,7 @@ export function Logo() {
         <a
           href='https://twitter.com/PavelRudolf3'
           target='_blank'
+          rel='noreferrer'
           style={{ color: 'black', backgroundColor: 'rgba(255, 255, 255, 0.5)', padding: '0 2px' }}
         >
           9STX6
