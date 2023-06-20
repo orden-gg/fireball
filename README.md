@@ -14,54 +14,32 @@
 
 [fireball.gg](http://fireball.gg) #1 portal for [aavegotchi](https://github.com/aavegotchi/aavegotchi-contracts) protocol
 
-### what is new in 0.5
+### 📦 features
 
-* change of a software license to business (but 0.4 still can be used with old license)
-* Major client update
-* New marketplace with updated user interface & filters
-* Anvil -- calculate your farm update cost in DAO and GHST
-* glossary -- list of all wearables with effects and stats
-* other bugfixes & improvements
-* fake gotchi gallery & queue
-
-### 📦 goods inside
-
-* aavegotchi assets explorer
-* gotchiverse map with unique features
-* cards sub-framework
-* URL/assets state sub-framework
-* graph integration
-* aavegotchi craft contract integration
-
-### local docker deployment (easiest way)
-
-1. install docker for your platform, you can use either [docker desktop](https://docs.docker.com/desktop/)
-2. clone this repo and build the docker image from a repos root folder: `docker build -t image_local_name .`
-3. run image locally `docker run -dp 8080:8080 local_name`
-4. client should be accessible on [localhost:8080](http://localhost:8080/)
+* `/client` - explore and analyse on-chain data from aavegotchi protocol
+* `/lend` - lend the character for pvp or farming
+* `/market` - explore goods sold on the aavegotchi baazar
+* `/guilds` - associations of merchants, craftsmen and developers
+* `/raffles` - lottery for wearables, land and portals
+* `/map` - browse a citadel parcels
+* `/craft` - create a game items using alchemica
+* `/anvil` - calculate the amount of resources needed for altars, harvesters and reservoirs updates
+* `/explorer` - browse all the summoned aavegotchis
+* `/glossary` - list of all items with traits and pvp effects
+* `/fake-gotchis-gallery` - fake gotchis art gallery
+* [fireball scripts](src/data/scripts/README.md) - pet, data, lendings management
+* [fireball subgraphs](https://github.com/orden-gg/fireball-subgraphs) - 3 custom subgraphs with unique features
 
 ### local deployment
 
 For ubuntu & macos only.
 
-1. make sure you have Node version `16.x.x`. TIP: use [nvm](https://github.com/nvm-sh/nvm) for node versions managing
-    1. `nvm install 16` - node `16.x.x` installation
-    2. `nvm use 16` - set `16.x.x` as current node version
+1. make sure you have Node version `18.x.x`. TIP: use [nvm](https://github.com/nvm-sh/nvm) for node versions managing
+    1. `nvm install 18` - node `18.x.x` installation
+    2. `nvm use 18` - set `18.x.x` as current node version
 2. make sure your IDE support [editorconfig](https://editorconfig.org/#pre-installed) or install [plugin](https://editorconfig.org/#download) for it
 3. `yarn` - packages installation
 4. `yarn start` - will start dev server at **http://localhost:3005/**
-
-### testing
-
-* `yarn test`
-* `yarn audit`
-
-### staging/production deployment
-
-* `yarn gcloud:staging` - staging build
-* `yarn gcloud:prod` - production build
-* `yarn deploy:staging` - staging deploy
-* `yarn deploy:prod` - production deploy
 
 ### review forked PR's
 

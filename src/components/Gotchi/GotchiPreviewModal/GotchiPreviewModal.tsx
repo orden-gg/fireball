@@ -69,7 +69,7 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
           if (isMounted) {
             const extendedGotchi: GotchiExtended = { ...gotchi, ...fireballGotchis };
             const sortedInventory: number[] = gotchi.equippedWearables
-              .concat(fireballGotchis.badges)
+              .concat(fireballGotchis.badges ? fireballGotchis.badges : [])
               .filter((id: number) => id !== 0);
 
             setGotchiInventory(sortedInventory);
@@ -96,12 +96,12 @@ export function GotchiPreviewModal({ id, gotchi }: { id: number; gotchi?: Gotchi
 
   useEffect(() => {
     if (modalGotchi) {
-      const claimedGotchiIds: number[] = modalGotchi.identity.claimed.map((identityGotchi: IdentityOption) =>
-        Number(identityGotchi.gotchiId)
-      );
-      const unclaimedGotchiIds: number[] = modalGotchi.identity.unclaimed.map((identityGotchi: IdentityOption) =>
-        Number(identityGotchi.gotchiId)
-      );
+      const claimedGotchiIds: number[] = modalGotchi.identity
+        ? modalGotchi.identity.claimed.map((identityGotchi: IdentityOption) => Number(identityGotchi.gotchiId))
+        : [];
+      const unclaimedGotchiIds: number[] = modalGotchi.identity
+        ? modalGotchi.identity.unclaimed.map((identityGotchi: IdentityOption) => Number(identityGotchi.gotchiId))
+        : [];
       let isMounted: boolean = true;
 
       if (claimedGotchiIds.length > 0) {

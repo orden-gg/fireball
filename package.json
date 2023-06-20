@@ -58,7 +58,7 @@
     "lint": "eslint -c .eslintrc.json --ext .ts,.tsx .",
     "prepare": "husky install",
     "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
-    "data": "execution() { yarn ts-node --esm src/data/scripts/\"$@\".script.ts; }; execution"
+    "script": "execution() { yarn ts-node --esm src/data/scripts/\"$@\".script.ts; }; execution"
   },
   "paths": {
     "*": [
@@ -115,6 +115,7 @@
     "prettier": "^2.8.4",
     "react-test-renderer": "17.0.2",
     "regenerator-runtime": "0.13.9",
+    "toml": "^3.0.0",
     "ts-node": "^10.8.1",
     "typescript": "4.7.3"
   },
