@@ -1,23 +1,18 @@
-import { useEffect, useMemo } from 'react';
-
-import VisibilityIcon from '@mui/icons-material/Visibility';
-
-import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import * as fromGuildsStore from 'pages/Guilds/store';
-
-import { RealmGroup } from 'shared/models';
-
-import { GeneralGuildStats, GuildRealm as GuildRealmModel } from 'pages/Guilds/models';
-
-import { Citadel } from 'components/Citadel/Citadel';
+// import { useEffect, useMemo } from 'react';
+// import VisibilityIcon from '@mui/icons-material/Visibility';
+// import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+// import * as fromGuildsStore from 'pages/Guilds/store';
+// import { RealmGroup } from 'shared/models';
+// import { GeneralGuildStats, GuildRealm as GuildRealmModel } from 'pages/Guilds/models';
+// import { Citadel } from 'components/Citadel/Citadel';
 import { ContentInner } from 'components/Content/ContentInner';
 
-import { guildDashboardStyles } from './styles';
+// import { guildDashboardStyles } from './styles';
 
 export function GuildDashboard(): JSX.Element {
-  const classes = guildDashboardStyles();
+  // const classes = guildDashboardStyles();
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   // const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
   // const guildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
