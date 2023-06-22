@@ -103,6 +103,11 @@ export const guildsSlice = createSlice({
     addGuildMember: (state, action: PayloadAction<{ id: string }>): void => {
       state.currentGuild.data!.members.push({ id: action.payload.id });
     },
+    removeGuildMember: (state, action: PayloadAction<{ id: string }>): void => {
+      state.currentGuild.data!.members = state.currentGuild.data!.members.filter(
+        (member) => member.id.toLowerCase() !== action.payload.id.toLowerCase()
+      );
+    },
     setIsContractRequestInProgress: (state, action: PayloadAction<boolean>): void => {
       state.isContractRequestInProgress = action.payload;
     },
@@ -122,6 +127,7 @@ export const {
   loadCurrentGuildByIdFailed,
   setCurrentGuild,
   addGuildMember,
+  removeGuildMember,
   setIsContractRequestInProgress,
   setIsGuildCreationSucceeded
 } = guildsSlice.actions;

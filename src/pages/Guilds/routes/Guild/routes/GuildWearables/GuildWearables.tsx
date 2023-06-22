@@ -42,7 +42,8 @@ export function GuildWearables() {
   const guildWearablesSorting: SortingItem = useAppSelector(fromGuildsStore.getGuildWearablesSorting);
 
   useEffect(() => {
-    if (guildMembers.length > 0 && guildStats.itemsCount !== 0) {
+    // TODO: brainstorm this condition
+    if (guildStats.itemsCount !== 0) {
       dispatch(fromGuildsStore.onLoadWarehouse(guildMembers, guildStats.itemsCount));
     }
   }, [guildMembers, guildStats]);

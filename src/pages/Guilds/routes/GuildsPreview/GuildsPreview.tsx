@@ -12,12 +12,11 @@ import { GuildButton, GuildLogo } from 'pages/Guilds/components';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import {
-  AltarIcon,
+  // AltarIcon,
   GotchiIcon,
   GotchiverseIcon,
-  H1SealedPortalIcon,
-  TileIcon,
-  VoteIcon,
+  H1SealedPortalIcon, // TileIcon,
+  // VoteIcon,
   WarehouseIcon
 } from 'components/Icons/Icons';
 
@@ -85,9 +84,9 @@ export function GuildsPreview() {
                           <GuildCard.Asset title='Wearables' Icon={WarehouseIcon} value={stats.itemsCount} />
                           <GuildCard.Asset title='Portals' Icon={H1SealedPortalIcon} value={stats.portalsCount} />
                           <GuildCard.Asset title='Realm' Icon={GotchiverseIcon} value={stats.realmCount} />
-                          <GuildCard.Asset title='Installations' Icon={AltarIcon} value={stats.installationsCount} />
-                          <GuildCard.Asset title='Tiles' Icon={TileIcon} value={stats.tilesCount} />
-                          <GuildCard.Asset title='Voting power' Icon={VoteIcon} value={stats.votingPower} />
+                          {/* <GuildCard.Asset title='Installations' Icon={AltarIcon} value={stats.installationsCount} /> */}
+                          {/* <GuildCard.Asset title='Tiles' Icon={TileIcon} value={stats.tilesCount} />
+                          <GuildCard.Asset title='Voting power' Icon={VoteIcon} value={stats.votingPower} /> */}
                         </>
                       )}
                     </GuildCard.AssetsList>

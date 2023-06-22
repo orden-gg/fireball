@@ -94,7 +94,7 @@ export const onCreateGuild =
             message: 'Guild was successfully created! It will appear in the list in a few seconds.',
             severity: 'success',
             horizontal: 'center',
-            vertical: 'top'
+            vertical: 'bottom'
           };
 
           dispatch(guildsSlices.setIsGuildCreationSucceeded(true));
@@ -104,7 +104,7 @@ export const onCreateGuild =
             message: 'Error occured!',
             severity: 'error',
             horizontal: 'center',
-            vertical: 'top'
+            vertical: 'bottom'
           };
         }
       })
@@ -113,7 +113,7 @@ export const onCreateGuild =
           message: 'Error occured!',
           severity: 'error',
           horizontal: 'center',
-          vertical: 'top'
+          vertical: 'bottom'
         };
 
         dispatch(guildsSlices.setIsGuildCreationSucceeded(false));
@@ -138,7 +138,7 @@ export const onUpdateGuild =
             message: 'Guild was successfully updated!',
             severity: 'success',
             horizontal: 'center',
-            vertical: 'top'
+            vertical: 'bottom'
           };
 
           dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
@@ -147,7 +147,7 @@ export const onUpdateGuild =
             message: 'Error occured!',
             severity: 'error',
             horizontal: 'center',
-            vertical: 'top'
+            vertical: 'bottom'
           };
         }
       })
@@ -156,7 +156,7 @@ export const onUpdateGuild =
           message: 'Error occured!',
           severity: 'error',
           horizontal: 'center',
-          vertical: 'top'
+          vertical: 'bottom'
         };
 
         dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
@@ -180,7 +180,7 @@ export const onJoinGuild =
             message: `You've successfully joined the guild!`,
             severity: 'success',
             horizontal: 'center',
-            vertical: 'top'
+            vertical: 'bottom'
           };
           dispatch(guildsSlices.addGuildMember({ id: memberAddress }));
         } else {
@@ -188,7 +188,7 @@ export const onJoinGuild =
             message: 'Error occured!',
             severity: 'error',
             horizontal: 'center',
-            vertical: 'top'
+            vertical: 'bottom'
           };
         }
 
@@ -199,7 +199,50 @@ export const onJoinGuild =
           message: 'Error occured!',
           severity: 'error',
           horizontal: 'center',
-          vertical: 'top'
+          vertical: 'bottom'
+        };
+
+        dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+      })
+      .finally(() => {
+        dispatch(guildsSlices.setIsContractRequestInProgress(false));
+      });
+  };
+
+export const onLeaveGuild =
+  (memberAddress: string): AppThunk =>
+  (dispatch) => {
+    dispatch(guildsSlices.setIsContractRequestInProgress(true));
+
+    GuildContractApi.leaveGuild()
+      .then((res: boolean) => {
+        let snackbarData: SnackbarData;
+
+        if (res) {
+          snackbarData = {
+            message: `You've successfully leave the guild!`,
+            severity: 'success',
+            horizontal: 'center',
+            vertical: 'bottom'
+          };
+          dispatch(guildsSlices.removeGuildMember({ id: memberAddress }));
+        } else {
+          snackbarData = {
+            message: 'Error occured!',
+            severity: 'error',
+            horizontal: 'center',
+            vertical: 'bottom'
+          };
+        }
+
+        dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));
+      })
+      .catch(() => {
+        const snackbarData: SnackbarData = {
+          message: 'Error occured!',
+          severity: 'error',
+          horizontal: 'center',
+          vertical: 'bottom'
         };
 
         dispatch(fromSnackbarStore.onOpenSnackbar(snackbarData));

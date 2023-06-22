@@ -24,7 +24,8 @@ export function GuildRealm(): JSX.Element {
   const isGuildRealmLoaded: boolean = useAppSelector(fromGuildsStore.getIsGuildRealmLoaded);
 
   useEffect(() => {
-    if (guildMembers.length > 0 && guildStats.realmCount !== 0) {
+    // TODO: brainstorm this condition
+    if (guildStats.realmCount !== 0) {
       dispatch(fromGuildsStore.onLoadGuildRealm(guildMembers, guildStats.realmCount));
     }
   }, [guildMembers, guildStats]);

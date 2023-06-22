@@ -59,9 +59,7 @@ export function GuildGotchis() {
   }, []);
 
   useEffect(() => {
-    if (guildMembers.length > 0) {
-      dispatch(fromGuildsStore.onLoadGuildGotchis(guildMembers));
-    }
+    dispatch(fromGuildsStore.onLoadGuildGotchis(guildMembers));
   }, [guildMembers]);
 
   useEffect(() => {

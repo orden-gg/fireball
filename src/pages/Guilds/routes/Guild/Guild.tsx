@@ -9,24 +9,23 @@ import { useAppDispatch, useAppSelector } from 'core/store/hooks';
 import * as fromLoginStore from 'core/store/login';
 import * as fromGuildsStore from 'pages/Guilds/store';
 
-import { GuildButton } from 'pages/Guilds/components';
+// import { GuildButton } from 'pages/Guilds/components';
 import { GuildRouteNames } from 'pages/Guilds/constants';
 import { GeneralGuildStats, Guild as GuildModel } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import {
-  AltarIcon,
+  // AltarIcon,
   GotchiIcon,
   GotchiverseIcon,
-  H1SealedPortalIcon,
-  TileIcon,
-  VoteIcon,
+  H1SealedPortalIcon, // TileIcon,
+  // VoteIcon,
   WarehouseIcon
 } from 'components/Icons/Icons';
 
 import { GuildCard } from '../GuildsPreview/components';
-import { GuildBanner, GuildDetails, GuildNav, JoinGuildModal } from './components';
+import { GuildBanner, GuildDetails, GuildNav, JoinGuildModal, LeaveGuildModal } from './components';
 import { GuildGotchis, GuildHome, GuildPortals, GuildRealm, GuildWearables } from './routes';
 import { guildStyles } from './styles';
 
@@ -47,8 +46,10 @@ export function Guild() {
   const connectedWallet: string | null | undefined = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
   const canJoinGuild: boolean = useAppSelector(fromGuildsStore.getCanJoinGuild);
+  const canLeaveGuild: boolean = useAppSelector(fromGuildsStore.getCanLeaveGuild);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isJoiningModal, setIsJoiningModal] = useState<boolean>(false);
+  const [isLeavingModal, setIsLeavingModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (!isCurrentGuildLoaded) {
@@ -57,9 +58,7 @@ export function Guild() {
   }, []);
 
   useEffect(() => {
-    if (guildMembers.length > 0) {
-      dispatch(fromGuildsStore.onLoadGuildInfo(guildMembers));
-    }
+    dispatch(fromGuildsStore.onLoadGuildInfo(guildMembers));
   }, [guildMembers]);
 
   useEffect(() => {
@@ -73,8 +72,14 @@ export function Guild() {
     dispatch(fromGuildsStore.onJoinGuild(currentGuild?.id!, connectedWallet!));
   };
 
+  const onHandleLeaveGuild = (): void => {
+    onHandleCloseModal();
+    dispatch(fromGuildsStore.onLeaveGuild(connectedWallet!));
+  };
+
   const onHandleCloseModal = (): void => {
-    setIsModalOpen(false);
+    setIsJoiningModal(false);
+    setIsLeavingModal(false);
   };
 
   return (
@@ -112,7 +117,7 @@ export function Guild() {
                   value={currentGuildStats.realmCount}
                   cardStyle={true}
                 />
-                <GuildCard.Asset
+                {/* <GuildCard.Asset
                   title='Installations'
                   Icon={AltarIcon}
                   value={currentGuildStats.installationsCount}
@@ -124,7 +129,7 @@ export function Guild() {
                   Icon={VoteIcon}
                   value={currentGuildStats.votingPower}
                   cardStyle={true}
-                />
+                /> */}
               </GuildCard.AssetsList>
             </div>
 
@@ -140,32 +145,78 @@ export function Guild() {
             </Tooltip>
 
             <div className={classes.guildSidebarFooter}>
-              {canJoinGuild && (
-                <>
-                  <GuildButton
-                    className={classes.guildJoin}
+              <div className={classes.guildSidebarButtons}>
+                {canJoinGuild && (
+                  <>
+                    {/* <GuildButton
+                      className={classes.guildJoin}
+                      size='large'
+                      disabled={isContractRequestInProgress}
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      Join Guild{' '}
+                      {isContractRequestInProgress && (
+                        <CircularProgress size={20} className={classes.joinButtonProgress} />
+                      )}
+                    </GuildButton> */}
+
+                    <Button
+                      // className={classes.guildEdit}
+                      className={classes.guildSidebarButton}
+                      variant='contained'
+                      size='large'
+                      disabled={isContractRequestInProgress}
+                      onClick={() => setIsJoiningModal(true)}
+                    >
+                      Join Guild{' '}
+                      {isContractRequestInProgress && (
+                        <CircularProgress size={20} className={classes.joinButtonProgress} />
+                      )}
+                    </Button>
+
+                    <CustomModal modalOpen={isJoiningModal} setModalOpen={setIsJoiningModal}>
+                      <JoinGuildModal onHandleCancel={onHandleCloseModal} onHandleSubmit={onHandleJoinGuild} />
+                    </CustomModal>
+                  </>
+                )}
+
+                {canLeaveGuild && (
+                  <>
+                    <Button
+                      className={classes.guildSidebarButton}
+                      variant='contained'
+                      color='warning'
+                      size='large'
+                      disabled={isContractRequestInProgress}
+                      onClick={() => setIsLeavingModal(true)}
+                    >
+                      Leave Guild{' '}
+                      {isContractRequestInProgress && (
+                        <CircularProgress size={20} className={classes.joinButtonProgress} />
+                      )}
+                    </Button>
+
+                    <CustomModal modalOpen={isLeavingModal} setModalOpen={setIsLeavingModal}>
+                      <LeaveGuildModal onHandleCancel={onHandleCloseModal} onHandleSubmit={onHandleLeaveGuild} />
+                    </CustomModal>
+                  </>
+                )}
+
+                {isGuildOwner && (
+                  <Button
+                    className={classes.guildSidebarButton}
+                    variant='contained'
+                    color='secondary'
                     size='large'
-                    disabled={isContractRequestInProgress}
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                      navigate('/guilds');
+                    }}
                   >
-                    Join Guild{' '}
-                    {isContractRequestInProgress && (
-                      <CircularProgress size={20} className={classes.joinButtonProgress} />
-                    )}
-                  </GuildButton>
-
-                  <CustomModal modalOpen={isModalOpen} setModalOpen={setIsModalOpen}>
-                    <JoinGuildModal onHandleCancel={onHandleCloseModal} onHandleSubmit={onHandleJoinGuild} />
-                  </CustomModal>
-                </>
-              )}
+                    Edit Guild
+                  </Button>
+                )}
+              </div>
             </div>
-
-            {isGuildOwner && (
-              <Button className={classes.guildEdit} variant='contained' size='large' disabled={true}>
-                Edit Guild
-              </Button>
-            )}
           </div>
 
           <Box className={classes.guildContent}>

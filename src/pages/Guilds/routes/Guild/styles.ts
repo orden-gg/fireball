@@ -33,6 +33,14 @@ export const guildStyles = makeStyles((theme) =>
     guildSidebarFooter: {
       marginTop: 'auto'
     },
+    guildSidebarButtons: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    guildSidebarButton: {
+      margin: '0 8px'
+    },
     guildContent: {
       flexGrow: 1,
       display: 'flex',
@@ -77,20 +85,20 @@ export const guildStyles = makeStyles((theme) =>
       }
     },
     guildJoin: {
-      zIndex: 1,
-      margin: 'auto',
-      border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`,
-      background: theme.palette.background.secondary
+      // zIndex: 1,
+      // margin: 'auto',
+      border: `1px solid ${alpha(theme.palette.common.white, 0.2)}`
+      // background: theme.palette.background.secondary
     },
     joinButtonProgress: {
       color: alpha(theme.palette.common.white, 0.2),
       marginLeft: theme.spacing(1)
     },
     guildEdit: {
-      position: 'absolute',
-      right: theme.spacing(1),
-      bottom: theme.spacing(1),
-      zIndex: 1
+      // position: 'absolute',
+      // right: theme.spacing(1),
+      // bottom: theme.spacing(1),
+      // zIndex: 1
     },
     guildError: {
       display: 'flex',

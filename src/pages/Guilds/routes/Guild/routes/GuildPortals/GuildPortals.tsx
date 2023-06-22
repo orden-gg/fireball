@@ -59,7 +59,8 @@ export function GuildPortals() {
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(0);
 
   useEffect(() => {
-    if (guildMembers.length > 0 && guildStats.portalsCount !== 0) {
+    // TODO: brainstorm this condition
+    if (guildStats.portalsCount !== 0) {
       dispatch(fromGuildsStore.onLoadGuildPortals(guildMembers, guildStats.portalsCount));
     }
   }, [guildMembers, guildStats.portalsCount]);

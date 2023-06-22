@@ -36,4 +36,14 @@ export class GuildContractApi {
       return false;
     }
   }
+
+  public static async leaveGuild(): Promise<boolean> {
+    try {
+      const transaction = await contractWithSigner.leaveGuild();
+
+      return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((res: CustomAny) => Boolean(res.status));
+    } catch (error) {
+      return false;
+    }
+  }
 }

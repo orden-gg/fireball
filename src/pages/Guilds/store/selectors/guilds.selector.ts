@@ -81,6 +81,23 @@ export const getCanJoinGuild = createSelector(
   }
 );
 
+export const getCanLeaveGuild = createSelector(
+  (state: RootState) => state,
+  (state: RootState) => {
+    let canJoinGuild: boolean = false;
+    const metamaskAccount = state.login.metamaskLoggedAddress;
+    const currentGuildMembers = state.guilds.guilds.currentGuild.data?.members;
+
+    if (!metamaskAccount || !currentGuildMembers) {
+      canJoinGuild = false;
+    } else {
+      canJoinGuild = currentGuildMembers.some((member) => member.id === metamaskAccount.toLowerCase());
+    }
+
+    return canJoinGuild;
+  }
+);
+
 export const getEditGuildData = createSelector(guildsStateSelector, (state: GuildsState): GuildFormValuesResult => {
   let guildData: GuildFormValuesResult;
   const currentGuild = state.currentGuild.data;
