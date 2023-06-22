@@ -1,13 +1,9 @@
 {
-  "short_name": "Fireball",
-  "name": "Fireball",
-  "description": "#1 portal for aavegotchi protocol",
+  "short_name": "Safe App",
+  "name": "Safe App Starter",
+  "description": "Describe your Safe App here",
+  "iconPath": "logo-square.svg",
   "icons": [
-    {
-      "src": "logo-square.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    },
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
