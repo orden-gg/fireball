@@ -1,11 +1,13 @@
 {
   "short_name": "Fireball",
-  "name": "#1 portal for aavegotchi protocol",
-  "iconPath": "logo192.png",
-  "Access-Control-Allow-Origin": "\*",
-  "Access-Control-Allow-Methods": "GET",
-  "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization",
+  "name": "Fireball",
+  "description": "#1 portal for aavegotchi protocol",
   "icons": [
+    {
+      "src": "logo-square.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
     {
       "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
