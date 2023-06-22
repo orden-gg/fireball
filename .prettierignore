@@ -2,3 +2,4 @@ src/data/abi
 dist
 *.yml
 *.md
+manifest.json
