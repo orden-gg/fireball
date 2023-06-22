@@ -14,6 +14,7 @@ export const guildStyles = makeStyles((theme) =>
     },
     guildSidebar: {
       flexBasis: '25%',
+      flexShrink: 0,
       minWidth: 180,
       position: 'relative',
       backgroundColor: theme.palette.background.default,

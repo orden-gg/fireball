@@ -1,5 +1,6 @@
 export enum GuildRouteNames {
-  Home = 'home',
+  Dashboard = 'dashboard',
+  Members = 'members',
   Gotchis = 'gotchis',
   Wearables = 'wearables',
   Portals = 'portals',

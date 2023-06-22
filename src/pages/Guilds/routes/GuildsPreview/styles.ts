@@ -19,10 +19,15 @@ export const guildsPreviewStyles = makeStyles((theme) =>
       }
     },
     guildsPreviewTitle: {
-      textAlign: 'center'
+      margin: 0
+    },
+    guildsPreviewTop: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: theme.spacing(1, 0)
     },
     guildsPreviewContent: {
-      marginTop: theme.spacing(2),
       width: '100%',
       margin: 'auto',
       maxWidth: 1920,
@@ -146,8 +151,7 @@ export const guildsPreviewStyles = makeStyles((theme) =>
       opacity: 0.5
     },
     guildCreate: {
-      margin: 'auto',
-      width: 'auto'
+      marginLeft: theme.spacing(2)
     }
   })
 );

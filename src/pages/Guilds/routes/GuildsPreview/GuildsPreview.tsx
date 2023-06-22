@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Button } from '@mui/material';
+
 import classNames from 'classnames';
 
 // store
@@ -52,17 +54,14 @@ export function GuildsPreview() {
 
   return (
     <div className={classes.guildsWrapper}>
-      <h1 className={classes.guildsPreviewTitle}>Aavegotchi guilds</h1>
-      {connectedWallet && (
-        <GuildButton
-          className={classes.guildCreate}
-          variant='outlined'
-          size='large'
-          onClick={() => onRedirectToCreateGuild()}
-        >
-          Create Guild
-        </GuildButton>
-      )}
+      <div className={classes.guildsPreviewTop}>
+        <h1 className={classes.guildsPreviewTitle}>Aavegotchi guilds</h1>
+        {connectedWallet && (
+          <Button className={classes.guildCreate} variant='contained' onClick={() => onRedirectToCreateGuild()}>
+            Create
+          </Button>
+        )}
+      </div>
       <ContentInner dataLoading={getIsGuildsLoading} className={classes.guildsPreviewContent}>
         <ul className={classes.guildsList}>
           {guilds.map((guild: Guild, index: number) => {

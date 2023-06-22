@@ -26,7 +26,7 @@ import {
 
 import { GuildCard } from '../GuildsPreview/components';
 import { GuildBanner, GuildDetails, GuildNav, JoinGuildModal, LeaveGuildModal } from './components';
-import { GuildGotchis, GuildHome, GuildPortals, GuildRealm, GuildWearables } from './routes';
+import { GuildDashboard, GuildGotchis, GuildHome, GuildPortals, GuildRealm, GuildWearables } from './routes';
 import { guildStyles } from './styles';
 
 export function Guild() {
@@ -209,7 +209,7 @@ export function Guild() {
                     color='secondary'
                     size='large'
                     onClick={() => {
-                      navigate('/guilds');
+                      navigate(`/guilds/${currentGuild.safeAddress}/edit`);
                     }}
                   >
                     Edit Guild
@@ -223,12 +223,13 @@ export function Guild() {
             <GuildNav />
 
             <Routes>
-              <Route path={GuildRouteNames.Home} element={<GuildHome />} />
+              <Route path={GuildRouteNames.Dashboard} element={<GuildDashboard />} />
+              <Route path={GuildRouteNames.Members} element={<GuildHome />} />
               <Route path={GuildRouteNames.Gotchis} element={<GuildGotchis />} />
               <Route path={GuildRouteNames.Wearables} element={<GuildWearables />} />
               <Route path={GuildRouteNames.Portals} element={<GuildPortals />} />
               <Route path={GuildRouteNames.Realm} element={<GuildRealm />} />
-              <Route path='*' element={<Navigate to='home' replace />} />
+              <Route path='*' element={<Navigate to='dashboard' replace />} />
             </Routes>
           </Box>
         </Box>
