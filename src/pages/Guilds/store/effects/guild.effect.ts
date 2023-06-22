@@ -44,6 +44,7 @@ export const onLoadGuildInfo =
 
               return {
                 id: playerStat.id,
+                membersCount: playersStats.length,
                 gotchisCount: playerStat.gotchisOriginalOwnedAmount,
                 portalsCount: playerStat.portalsAmount,
                 itemsCount: playerStat.itemsAmount,
@@ -69,6 +70,7 @@ export const onLoadGuildInfo =
 
               return {
                 id: playerRealmStat.id,
+                membersCount: playersStats.length,
                 gotchisCount: playerStat?.gotchisOriginalOwnedAmount || 0,
                 portalsCount: playerStat?.portalsAmount || 0,
                 itemsCount: playerStat?.itemsAmount || 0,

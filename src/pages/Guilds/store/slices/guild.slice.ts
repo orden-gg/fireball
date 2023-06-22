@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { GeneralGuildStats } from 'pages/Guilds/models';
 
 const initialGuildStats: GeneralGuildStats = {
+  membersCount: 0,
   gotchisCount: 0,
   itemsCount: 0,
   portalsCount: 0,

@@ -5,6 +5,7 @@ const guildProps = `
   name
   description
   logo
+  membersCount
   members {
     id
   }

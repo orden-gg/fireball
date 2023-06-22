@@ -9,6 +9,7 @@ export class GuildUtils {
     return playersStats.reduce(
       (current: GuildStats, previous: GuildPlayerStats) => {
         return {
+          membersCount: playersStats.length,
           gotchisCount: current.gotchisCount + previous.gotchisOriginalOwnedAmount,
           itemsCount: current.itemsCount + previous.itemsAmount,
           portalsCount: current.portalsCount + previous.portalsAmount,
@@ -20,6 +21,7 @@ export class GuildUtils {
         };
       },
       {
+        membersCount: 0,
         gotchisCount: 0,
         itemsCount: 0,
         portalsCount: 0,

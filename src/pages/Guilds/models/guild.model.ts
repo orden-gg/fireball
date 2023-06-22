@@ -10,6 +10,7 @@ export interface Guild {
   members: {
     id: string;
   }[];
+  membersCount: number;
 }
 
 export interface GuildPlayerBestGotchi {
@@ -36,6 +37,7 @@ export interface GuildPlayerRealmStats {
 }
 
 export interface GuildStats {
+  membersCount: number;
   gotchisCount: number;
   itemsCount: number;
   portalsCount: number;

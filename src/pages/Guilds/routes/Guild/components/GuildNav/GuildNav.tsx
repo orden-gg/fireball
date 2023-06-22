@@ -1,4 +1,4 @@
-import HomeIcon from '@mui/icons-material/Home';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 import { useAppSelector } from 'core/store/hooks';
 import * as fromGuildsStore from 'pages/Guilds/store';
@@ -22,8 +22,9 @@ export function GuildNav() {
   const navData: PageNavLink[] = [
     {
       path: GuildRouteNames.Home,
-      icon: <HomeIcon width={24} height={24} />,
-      isLoading: false
+      icon: <PeopleAltIcon width={24} height={24} />,
+      isLoading: false,
+      count: guildStats.membersCount
     },
     {
       path: GuildRouteNames.Gotchis,
