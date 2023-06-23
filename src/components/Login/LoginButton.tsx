@@ -1,3 +1,4 @@
+import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
 import { useEffect } from 'react';
 
 import { Backdrop, Typography } from '@mui/material';
@@ -30,6 +31,7 @@ export function LoginButton() {
   const classes = styles();
 
   const { connect, getAccounts, metaState } = useMetamask();
+  const { sdk, safe } = useSafeAppsSDK();
 
   const [isDonateAddressShown, setIsDonateAddressShown] = useLocalStorage(
     'DONATE_ADDRESS_SHOWN',
@@ -41,6 +43,14 @@ export function LoginButton() {
   const activeAddress: Undefinable<string | null> = useAppSelector(fromLoginStore.getActiveAddress);
   const storeLoggedAddresses: LoginAddressModel[] = useAppSelector(fromLoginStore.getLoggedAddresses);
   const isDropdownOpen: boolean = useAppSelector(fromLoginStore.getIsDropdownOpen);
+
+  useEffect(() => {
+    console.log('sdk', sdk);
+  }, [sdk]);
+
+  useEffect(() => {
+    console.log('safe', safe);
+  }, [safe]);
 
   useEffect(() => {
     // connect metamask on load
@@ -133,6 +143,7 @@ export function LoginButton() {
     <>
       <div className={classNames(classes.button, isDropdownOpen && 'opened')}>
         <div className={classes.buttonInner} onClick={onToggleDropdown}>
+          {safe.safeAddress && <span>safe:{safe.safeAddress}</span>}
           {activeAddress ? (
             metaState.account[0] === activeAddress && (
               <div className={classes.buttonIcon}>

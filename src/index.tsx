@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
+import SafeProvider from '@safe-global/safe-apps-react-sdk';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
@@ -17,16 +18,18 @@ import { theme } from './themes/ghst';
 
 ReactDOM.render(
   <BrowserRouter>
-    <MetamaskStateProvider>
-      <MuiThemeProvider theme={theme}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Provider store={store}>
-            <App />
-          </Provider>
-        </ThemeProvider>
-      </MuiThemeProvider>
-    </MetamaskStateProvider>
+    <SafeProvider>
+      <MetamaskStateProvider>
+        <MuiThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Provider store={store}>
+              <App />
+            </Provider>
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </MetamaskStateProvider>
+    </SafeProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );

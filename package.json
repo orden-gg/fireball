@@ -15,6 +15,7 @@
     "@mui/material": "^5.11.1",
     "@mui/styles": "^5.11.1",
     "@reduxjs/toolkit": "1.8.3",
+    "@safe-global/safe-apps-react-sdk": "^4.6.6",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "axios": "^0.21.1",
