@@ -2,7 +2,7 @@
   "short_name": "Fireball",
   "name": "Fireball",
   "description": "#1 portal for aavegotchi protocol",
-  "iconPath": "logo-square.svg",
+  "iconPath": "logo.svg",
   "icons": [
     {
       "src": "favicon.ico",
