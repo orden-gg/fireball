@@ -1,10 +1,9 @@
 import { ThemeProvider } from '@emotion/react';
-import SafeProvider from '@safe-global/safe-apps-react-sdk';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { AlertTitle, CircularProgress, CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MuiThemeProvider } from '@mui/styles';
 
 import { MetamaskStateProvider } from 'use-metamask';
@@ -21,19 +20,10 @@ ReactDOM.render(
     <MetamaskStateProvider>
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={theme}>
-          <SafeProvider
-            loader={
-              <>
-                <AlertTitle>Waiting for Fireball Safe...</AlertTitle>
-                <CircularProgress color='primary' />
-              </>
-            }
-          >
-            <CssBaseline />
-            <Provider store={store}>
-              <App />
-            </Provider>
-          </SafeProvider>
+          <CssBaseline />
+          <Provider store={store}>
+            <App />
+          </Provider>
         </ThemeProvider>
       </MuiThemeProvider>
     </MetamaskStateProvider>
