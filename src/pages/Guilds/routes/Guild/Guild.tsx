@@ -16,7 +16,7 @@ import { GeneralGuildStats, Guild as GuildModel } from 'pages/Guilds/models';
 import { ContentInner } from 'components/Content/ContentInner';
 import { CustomModal } from 'components/CustomModal/CustomModal';
 import {
-  // AltarIcon,
+  GnosisIcon, // AltarIcon,
   GotchiIcon,
   GotchiverseIcon,
   H1SealedPortalIcon, // TileIcon,
@@ -44,7 +44,6 @@ export function Guild() {
   const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
   const isContractRequestInProgress: boolean = useAppSelector(fromGuildsStore.getIsContractRequestInProgress);
   const connectedWallet: string | null | undefined = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
-  const isGuildOwner: boolean = useAppSelector(fromGuildsStore.getIsGuildOwner(connectedWallet));
   const canJoinGuild: boolean = useAppSelector(fromGuildsStore.getCanJoinGuild);
   const canLeaveGuild: boolean = useAppSelector(fromGuildsStore.getCanLeaveGuild);
 
@@ -168,7 +167,7 @@ export function Guild() {
                       disabled={isContractRequestInProgress}
                       onClick={() => setIsJoiningModal(true)}
                     >
-                      Join Guild{' '}
+                      Join{' '}
                       {isContractRequestInProgress && (
                         <CircularProgress size={20} className={classes.joinButtonProgress} />
                       )}
@@ -190,7 +189,7 @@ export function Guild() {
                       disabled={isContractRequestInProgress}
                       onClick={() => setIsLeavingModal(true)}
                     >
-                      Leave Guild{' '}
+                      Leave{' '}
                       {isContractRequestInProgress && (
                         <CircularProgress size={20} className={classes.joinButtonProgress} />
                       )}
@@ -202,19 +201,18 @@ export function Guild() {
                   </>
                 )}
 
-                {isGuildOwner && (
-                  <Button
-                    className={classes.guildSidebarButton}
-                    variant='contained'
-                    color='secondary'
-                    size='large'
-                    onClick={() => {
-                      navigate(`/guilds/${currentGuild.safeAddress}/edit`);
-                    }}
-                  >
-                    Edit Guild
-                  </Button>
-                )}
+                <Button
+                  className={classes.guildSidebarButton}
+                  variant='contained'
+                  color='secondary'
+                  size='large'
+                  onClick={() => {
+                    navigate(`/guilds/${currentGuild.safeAddress}/edit`);
+                  }}
+                  endIcon={<GnosisIcon width={20} height={20} />}
+                >
+                  Manage
+                </Button>
               </div>
             </div>
           </div>
