@@ -1,3 +1,4 @@
+import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 
@@ -36,6 +37,8 @@ export function Guild() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+
+  const { safe } = useSafeAppsSDK();
 
   const currentGuild: GuildModel | null = useAppSelector(fromGuildsStore.getCurrentGuild);
   const currentGuildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
@@ -201,18 +204,23 @@ export function Guild() {
                   </>
                 )}
 
-                <Button
-                  className={classes.guildSidebarButton}
-                  variant='contained'
-                  color='secondary'
-                  size='large'
-                  onClick={() => {
-                    navigate(`/guilds/${currentGuild.safeAddress}/edit`);
-                  }}
-                  endIcon={<GnosisIcon width={20} height={20} />}
-                >
-                  Manage
-                </Button>
+                <Tooltip title='Guild managment available only through safe app' placement='top'>
+                  <div>
+                    <Button
+                      className={classes.guildSidebarButton}
+                      variant='contained'
+                      color='secondary'
+                      size='large'
+                      onClick={() => {
+                        navigate(`/guilds/${currentGuild.safeAddress}/edit`);
+                      }}
+                      endIcon={<GnosisIcon width={20} height={20} />}
+                      disabled={!safe.safeAddress}
+                    >
+                      Manage
+                    </Button>
+                  </div>
+                </Tooltip>
               </div>
             </div>
           </div>

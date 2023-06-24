@@ -5,12 +5,14 @@
 // import { RealmGroup } from 'shared/models';
 // import { GeneralGuildStats, GuildRealm as GuildRealmModel } from 'pages/Guilds/models';
 // import { Citadel } from 'components/Citadel/Citadel';
+import { Typography } from '@mui/material';
+
 import { ContentInner } from 'components/Content/ContentInner';
 
-// import { guildDashboardStyles } from './styles';
+import { guildDashboardStyles } from './styles';
 
 export function GuildDashboard(): JSX.Element {
-  // const classes = guildDashboardStyles();
+  const classes = guildDashboardStyles();
 
   // const dispatch = useAppDispatch();
 
@@ -42,7 +44,10 @@ export function GuildDashboard(): JSX.Element {
   // }, [guildRealm]);
 
   return (
-    <ContentInner dataLoading={false}>
+    <ContentInner dataLoading={false} className={classes.guildDashboard}>
+      <Typography variant='h5' textAlign='center' marginBottom={2}>
+        Recent activity
+      </Typography>
       <div>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia quos est veniam inventore harum deserunt
         ullam eveniet labore iure, iusto blanditiis itaque. Quasi explicabo ipsam dicta, illum velit non at?

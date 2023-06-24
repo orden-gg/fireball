@@ -1,8 +1,9 @@
 import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { Backdrop, Typography } from '@mui/material';
 
+import { SafeAppProvider } from '@safe-global/safe-apps-provider';
 import classNames from 'classnames';
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
@@ -44,13 +45,11 @@ export function LoginButton() {
   const storeLoggedAddresses: LoginAddressModel[] = useAppSelector(fromLoginStore.getLoggedAddresses);
   const isDropdownOpen: boolean = useAppSelector(fromLoginStore.getIsDropdownOpen);
 
-  useEffect(() => {
-    console.log('sdk', sdk);
-  }, [sdk]);
-
-  useEffect(() => {
-    console.log('safe', safe);
-  }, [safe]);
+  const safeProvider = useMemo(() => {
+    if (safe.safeAddress) {
+      return new ethers.providers.Web3Provider(new SafeAppProvider(safe, sdk));
+    }
+  }, [sdk, safe]);
 
   useEffect(() => {
     // connect metamask on load
@@ -96,7 +95,10 @@ export function LoginButton() {
     if (metaState.isAvailable && !metaState.isConnected) {
       try {
         if (connect) {
-          await connect(ethers.providers.Web3Provider, 'any');
+          await connect(safe.safeAddress ? safeProvider : ethers.providers.Web3Provider, 'any');
+          if (safe.safeAddress) {
+            console.log('connected to safe', safeProvider);
+          }
 
           return true;
         }
