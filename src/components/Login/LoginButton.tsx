@@ -72,7 +72,7 @@ export function LoginButton() {
 
   useEffect(() => {
     if (safe.safeAddress) {
-      connectMetamask();
+      connectSafe();
     }
   }, [safe]);
 
@@ -101,16 +101,27 @@ export function LoginButton() {
     if (metaState.isAvailable && !metaState.isConnected) {
       try {
         if (connect) {
-          await connect(safe.safeAddress ? safeProvider : ethers.providers.Web3Provider, 'any');
-          if (safe.safeAddress) {
-            console.log('connected to safe', safeProvider);
-          }
+          await connect(ethers.providers.Web3Provider, 'any');
 
           return true;
         }
       } catch (error) {
         return false;
       }
+    }
+  };
+
+  const connectSafe = async (): Promise<CustomAny> => {
+    console.log('trying to connect safe.');
+
+    try {
+      if (connect) {
+        await connect(safeProvider, 'any');
+
+        return true;
+      }
+    } catch (error) {
+      return false;
     }
   };
 
