@@ -71,6 +71,12 @@ export function LoginButton() {
   }, []);
 
   useEffect(() => {
+    if (safe.safeAddress) {
+      connectMetamask();
+    }
+  }, [safe]);
+
+  useEffect(() => {
     // TODO this logic should be double checked! There are no bugs, but from functional perspective it runs too much times.
     // handle metamask accounts
     if (metaState.account[0]) {
