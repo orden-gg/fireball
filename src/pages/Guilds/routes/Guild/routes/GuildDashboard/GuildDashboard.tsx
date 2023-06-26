@@ -1,56 +1,85 @@
-// import { useEffect, useMemo } from 'react';
-// import VisibilityIcon from '@mui/icons-material/Visibility';
-// import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-// import * as fromGuildsStore from 'pages/Guilds/store';
-// import { RealmGroup } from 'shared/models';
-// import { GeneralGuildStats, GuildRealm as GuildRealmModel } from 'pages/Guilds/models';
-// import { Citadel } from 'components/Citadel/Citadel';
+import { useEffect } from 'react';
+
 import { Typography } from '@mui/material';
+
+import classNames from 'classnames';
+import { DateTime } from 'luxon';
+
+import { EthersApi } from 'api';
+
+import { useAppDispatch, useAppSelector } from 'core/store/hooks';
+import * as fromGuildsStore from 'pages/Guilds/store';
+
+import { GuildChannelingActivity } from 'pages/Guilds/models';
 
 import { ContentInner } from 'components/Content/ContentInner';
 
+import { GuildDashboardPanel } from '../../components';
 import { guildDashboardStyles } from './styles';
 
 export function GuildDashboard(): JSX.Element {
   const classes = guildDashboardStyles();
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-  // const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
-  // const guildStats: GeneralGuildStats = useAppSelector(fromGuildsStore.getGuildStats);
-  // const guildRealm: GuildRealmModel[] = useAppSelector(fromGuildsStore.getGuildRealm);
-  // const isGuildRealmLoaded: boolean = useAppSelector(fromGuildsStore.getIsGuildRealmLoaded);
+  const guildMembers: string[] = useAppSelector(fromGuildsStore.getCurrentGuildMembers);
+  const guildChanneling: GuildChannelingActivity[] = useAppSelector(fromGuildsStore.getGuildChannelingActivity);
+  const isGuildChannelingLoaded: boolean = useAppSelector(fromGuildsStore.getGuildChannelingActivityLoaded);
 
-  // useEffect(() => {
-  //   // TODO: brainstorm this condition
-  //   if (guildStats.realmCount !== 0) {
-  //     dispatch(fromGuildsStore.onLoadGuildRealm(guildMembers, guildStats.realmCount));
-  //   }
-  // }, [guildMembers, guildStats]);
-
-  // const realmGroups = useMemo(() => {
-  //   const groups: RealmGroup<GuildRealmModel>[] = [];
-
-  //   groups.push({
-  //     parcels: guildRealm,
-  //     icon: <VisibilityIcon />,
-  //     tooltip: 'Owner realm',
-  //     type: 'owner',
-  //     active: true,
-  //     animate: true
-  //   });
-
-  //   return groups;
-  // }, [guildRealm]);
+  useEffect(() => {
+    dispatch(fromGuildsStore.onLoadGuildChannelingActivity(guildMembers));
+  }, []);
 
   return (
     <ContentInner dataLoading={false} className={classes.guildDashboard}>
-      <Typography variant='h5' textAlign='center' marginBottom={2}>
-        Recent activity
-      </Typography>
-      <div>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia quos est veniam inventore harum deserunt
-        ullam eveniet labore iure, iusto blanditiis itaque. Quasi explicabo ipsam dicta, illum velit non at?
+      <div className={classes.guildDashboardInner}>
+        <div>
+          <Typography variant='h6' textAlign='center' marginBottom={1}>
+            Channelings
+          </Typography>
+          <GuildDashboardPanel isDataLoading={!isGuildChannelingLoaded}>
+            {guildChanneling.length ? (
+              <div style={{ overflowY: 'auto' }}>
+                <div className={classes.guildDashboardList}>
+                  <div className={classNames(classes.guildDashboardListItem, classes.guildDashboardListHeader)}>
+                    <div className={classes.guildDashboardListItemShort}>gotchi</div>
+                    <div className={classes.guildDashboardListItemShort}>realm</div>
+                    <div className={classes.guildDashboardListItemLong}>alchemica</div>
+                    <div className={classes.guildDashboardListItemShort}>time</div>
+                  </div>
+                  {guildChanneling.map((channel, index) => (
+                    <div className={classes.guildDashboardListItem} key={index}>
+                      <div className={classes.guildDashboardListItemShort}>{channel.gotchiId}</div>
+                      <div className={classes.guildDashboardListItemShort}>{channel.realmId}</div>
+                      <div className={classes.guildDashboardListItemLong}>
+                        {channel.alchemica.map((alch, alchIndex) => (
+                          <span key={alchIndex} style={{ marginLeft: 8 }}>
+                            {EthersApi.fromWei(alch)}
+                          </span>
+                        ))}
+                      </div>
+                      <div className={classes.guildDashboardListItemShort}>
+                        {DateTime.fromSeconds(Number(channel.timestamp)).toRelative({ locale: 'en' })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className={classes.guildDashboardNoData}>
+                <div>no data</div>
+              </div>
+            )}
+          </GuildDashboardPanel>
+        </div>
+        <div>
+          <Typography variant='h6' textAlign='center' marginBottom={1}>
+            Claims
+          </Typography>
+          <GuildDashboardPanel isDataLoading={true}>
+            <div>bugaa boo</div>
+          </GuildDashboardPanel>
+        </div>
       </div>
     </ContentInner>
   );

@@ -1,14 +1,15 @@
 import { TheGraphCoreApi } from 'api';
 
-import { GRAPH_CORE_API, GRAPH_FIREBALL_MAIN_API } from 'shared/constants';
+import { GRAPH_CORE_API, GRAPH_FIREBALL_MAIN_API, GRAPH_GOTCHIVERSE_API } from 'shared/constants';
 import { TheGraphResponse } from 'shared/models';
 
 import { GotchiUtils, GraphUtils } from 'utils';
 
 import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
-import { GuildPlayerBestGotchi, GuildPortal, GuildRealm, GuildWearable } from '../models';
+import { GuildChannelingActivity, GuildPlayerBestGotchi, GuildPortal, GuildRealm, GuildWearable } from '../models';
 import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
 import {
+  channelingByAddressesQuery,
   guildGotchisQuery,
   guildMemberBestGotchiQuery,
   portalsByAddressesQuery,
@@ -83,6 +84,19 @@ export class GuildGraphApi {
   public static getPlayerBestGotchis(playersAddresses: string[]): CustomAny {
     return TheGraphCoreApi.getGraphData(GRAPH_CORE_API, guildMemberBestGotchiQuery(playersAddresses)).then(
       (res: TheGraphResponse<{ users: GuildPlayerBestGotchi[] }>) => res.data.users
+    );
+  }
+
+  public static getGuildChannelingActivity(
+    first: number,
+    skip: number,
+    playersAddresses: string[]
+  ): Promise<GuildChannelingActivity[]> {
+    return TheGraphCoreApi.getGraphData(
+      GRAPH_GOTCHIVERSE_API,
+      channelingByAddressesQuery(first, skip, playersAddresses)
+    ).then(
+      (res: TheGraphResponse<{ channelAlchemicaEvents: GuildChannelingActivity[] }>) => res.data.channelAlchemicaEvents
     );
   }
 }
