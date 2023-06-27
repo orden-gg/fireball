@@ -33,6 +33,7 @@ export const guildDashboardStyles = makeStyles((theme) =>
     },
     guildDashboardListItem: {
       display: 'flex',
+      alignItems: 'center',
       justifyContent: 'space-between',
       padding: 4,
       borderRadius: 4,
@@ -40,6 +41,9 @@ export const guildDashboardStyles = makeStyles((theme) =>
       '& > div': {
         textAlign: 'center'
       }
+    },
+    guildDashboardListItemTiny: {
+      flexBasis: '10%'
     },
     guildDashboardListItemShort: {
       flexBasis: '20%'
@@ -52,6 +56,26 @@ export const guildDashboardStyles = makeStyles((theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
+    },
+    guildDashboardAlchemicaList: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'center'
+    },
+    guildDashboardAlchemicaItem: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexBasis: '50%'
+    },
+    guildDashboardLink: {
+      display: 'inline-block',
+      cursor: 'pointer',
+      color: theme.palette.primary.main,
+      borderBottom: `1px solid ${theme.palette.primary.main}`,
+      '&:hover': {
+        borderColor: 'transparent'
+      }
     }
   })
 );

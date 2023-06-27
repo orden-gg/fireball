@@ -14,6 +14,16 @@ export const channelingByAddressesQuery = (first: number, skip: number, playersA
       timestamp
       gotchiId
       realmId
+      parcel {
+        owner
+        equippedInstallations (
+          where: {
+            installationType: 0
+          })
+        {
+          level
+        }
+      }
       alchemica
       transaction
     }
