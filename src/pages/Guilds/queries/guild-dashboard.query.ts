@@ -29,3 +29,30 @@ export const channelingByAddressesQuery = (first: number, skip: number, playersA
     }
   }`;
 };
+
+export const claimsByAddressesQuery = (first: number, skip: number, playersAddresses: string[]): string => {
+  return `{
+    alchemicaClaimedEvents(
+      first: ${first}
+      skip: ${skip}
+      orderBy: timestamp,
+      orderDirection: desc,
+      where: {
+        amount_gt: 0,
+        parcel_: {
+          owner_in: [${playersAddresses.map((address) => `"${address}"`)}]
+        }
+      }
+    ) {
+      timestamp
+      gotchiId
+      realmId
+      parcel {
+        owner
+      }
+      alchemicaType
+      amount
+      transaction
+    }
+  }`;
+};

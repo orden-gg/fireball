@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { GuildChannelingActivity } from 'pages/Guilds/models';
+import { GuildChannelingActivity, GuildClaimsActivity } from 'pages/Guilds/models';
 
 export interface GuildDashboardState {
   guildChanneling: {
@@ -9,10 +9,22 @@ export interface GuildDashboardState {
     isLoaded: boolean;
     isError: boolean;
   };
+  guildClaims: {
+    data: GuildClaimsActivity[];
+    isLoading: boolean;
+    isLoaded: boolean;
+    isError: boolean;
+  };
 }
 
 const initialState: GuildDashboardState = {
   guildChanneling: {
+    data: [],
+    isLoading: false,
+    isLoaded: false,
+    isError: false
+  },
+  guildClaims: {
     data: [],
     isLoading: false,
     isLoaded: false,
@@ -47,11 +59,41 @@ export const guildDashboardSlice = createSlice({
         isLoaded: true,
         isError: true
       };
+    },
+    loadGuildClaims: (state): void => {
+      state.guildClaims = {
+        ...state.guildClaims,
+        isLoading: true,
+        isLoaded: false,
+        isError: false
+      };
+    },
+    loadGuildClaimsSucceded: (state, action: PayloadAction<GuildClaimsActivity[]>): void => {
+      state.guildClaims = {
+        data: action.payload,
+        isLoading: false,
+        isLoaded: true,
+        isError: false
+      };
+    },
+    loadGuildClaimsFailed: (state): void => {
+      state.guildClaims = {
+        ...state.guildClaims,
+        isLoading: false,
+        isLoaded: true,
+        isError: true
+      };
     }
   }
 });
 
-export const { loadGuildChanneling, loadGuildChannelingSucceded, loadGuildChannelingFailed } =
-  guildDashboardSlice.actions;
+export const {
+  loadGuildChanneling,
+  loadGuildChannelingSucceded,
+  loadGuildChannelingFailed,
+  loadGuildClaims,
+  loadGuildClaimsSucceded,
+  loadGuildClaimsFailed
+} = guildDashboardSlice.actions;
 
 export const guildDashboardReducer = guildDashboardSlice.reducer;

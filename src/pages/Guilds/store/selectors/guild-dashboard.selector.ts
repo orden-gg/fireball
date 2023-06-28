@@ -2,7 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from 'core/store/store';
 
-import { GuildChannelingActivity } from 'pages/Guilds/models';
+import { GuildChannelingActivity, GuildClaimsActivity } from 'pages/Guilds/models';
 
 import { GuildDashboardState } from '../slices/guild-dashboard.slice';
 
@@ -19,4 +19,14 @@ export const getGuildChannelingActivity = createSelector(
 export const getGuildChannelingActivityLoaded = createSelector(
   guildDashboardStateSelector,
   (state: GuildDashboardState): boolean => state.guildChanneling.isLoaded
+);
+
+export const getGuildClaimsActivity = createSelector(
+  guildDashboardStateSelector,
+  (state: GuildDashboardState): GuildClaimsActivity[] => state.guildClaims.data
+);
+
+export const getGuildClaimsActivityLoaded = createSelector(
+  guildDashboardStateSelector,
+  (state: GuildDashboardState): boolean => state.guildClaims.isLoaded
 );

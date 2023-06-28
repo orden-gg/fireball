@@ -80,7 +80,7 @@ import spookiness from 'assets/images/traits/spk.png';
 import warehouse from 'assets/images/wearables/15.svg';
 import controller from 'assets/images/wearables/204.svg';
 
-interface IconProps {
+export interface IconProps {
   className?: string;
   width?: number | string;
   height?: number | string;

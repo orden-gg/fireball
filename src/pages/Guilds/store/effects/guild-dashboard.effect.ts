@@ -2,7 +2,7 @@ import { GuildGraphApi } from 'pages/Guilds/api';
 
 import { AppThunk } from 'core/store/store';
 
-import { GuildChannelingActivity } from 'pages/Guilds/models';
+import { GuildChannelingActivity, GuildClaimsActivity } from 'pages/Guilds/models';
 
 // slices
 import * as guildDashboardSlices from '../slices/guild-dashboard.slice';
@@ -17,4 +17,16 @@ export const onLoadGuildChannelingActivity =
         dispatch(guildDashboardSlices.loadGuildChannelingSucceded(res));
       })
       .catch(() => dispatch(guildDashboardSlices.loadGuildChannelingFailed()));
+  };
+
+export const onLoadGuildClaimsActivity =
+  (addresses: string[]): AppThunk =>
+  async (dispatch) => {
+    dispatch(guildDashboardSlices.loadGuildClaims());
+
+    await GuildGraphApi.getGuildClaimsActivity(50, 0, addresses)
+      .then((res: GuildClaimsActivity[]) => {
+        dispatch(guildDashboardSlices.loadGuildClaimsSucceded(res));
+      })
+      .catch(() => dispatch(guildDashboardSlices.loadGuildClaimsFailed()));
   };

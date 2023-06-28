@@ -17,7 +17,7 @@ const keyframes = {
 export const guildBannerStyles = makeStyles((theme) =>
   createStyles({
     guildBanner: {
-      minHeight: '30%',
+      minHeight: '250px',
       display: 'flex',
       flexDirection: 'column',
       [theme.breakpoints.down('sm')]: {

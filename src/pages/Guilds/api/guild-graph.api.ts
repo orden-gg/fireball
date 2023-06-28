@@ -6,10 +6,18 @@ import { TheGraphResponse } from 'shared/models';
 import { GotchiUtils, GraphUtils } from 'utils';
 
 import { GUIlD_GRAPH_API, GUIlD_GRAPH_REALM_STATS_API, GUIlD_GRAPH_STATS_API } from '../constants';
-import { GuildChannelingActivity, GuildPlayerBestGotchi, GuildPortal, GuildRealm, GuildWearable } from '../models';
+import {
+  GuildChannelingActivity,
+  GuildClaimsActivity,
+  GuildPlayerBestGotchi,
+  GuildPortal,
+  GuildRealm,
+  GuildWearable
+} from '../models';
 import { Guild, GuildPlayerRealmStats, GuildPlayerStats } from '../models/guild.model';
 import {
   channelingByAddressesQuery,
+  claimsByAddressesQuery,
   guildGotchisQuery,
   guildMemberBestGotchiQuery,
   portalsByAddressesQuery,
@@ -97,6 +105,19 @@ export class GuildGraphApi {
       channelingByAddressesQuery(first, skip, playersAddresses)
     ).then(
       (res: TheGraphResponse<{ channelAlchemicaEvents: GuildChannelingActivity[] }>) => res.data.channelAlchemicaEvents
+    );
+  }
+
+  public static getGuildClaimsActivity(
+    first: number,
+    skip: number,
+    playersAddresses: string[]
+  ): Promise<GuildClaimsActivity[]> {
+    return TheGraphCoreApi.getGraphData(
+      GRAPH_GOTCHIVERSE_API,
+      claimsByAddressesQuery(first, skip, playersAddresses)
+    ).then(
+      (res: TheGraphResponse<{ alchemicaClaimedEvents: GuildClaimsActivity[] }>) => res.data.alchemicaClaimedEvents
     );
   }
 }
