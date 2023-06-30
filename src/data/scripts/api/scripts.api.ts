@@ -2,6 +2,8 @@ import 'dotenv/config';
 import { Contract, Wallet, ethers } from 'ethers';
 import fs from 'fs';
 import * as toml from 'toml';
+// @ts-ignore
+import { CustomAny } from 'types/global.js';
 
 import {
   ALPHA_CONTRACT,

@@ -11,6 +11,7 @@ import {
   SCRIPT_WALLET_NONCE,
   SETTINGS,
   TX_COST_LIMIT,
+  chunkArray,
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.ts';
@@ -23,7 +24,7 @@ const { OPERATOR_PRIVATE_KEY } = process.env;
 // TODO: batch claim
 const lendingsQuery = `{
   gotchiLendings(
-    first: 10,
+    first: 1000,
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
@@ -60,63 +61,75 @@ const agree = async () => {
 
     const lendings = response.data.data.gotchiLendings;
 
-    console.log('agree', lendings.length, 'lendings');
+    console.log('to agree', lendings.length, 'lendings');
 
-    const gasPriceGwei = await getGasPrice();
-    const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
-    const gasBoost = ethers.utils.parseUnits('25', 'gwei');
-    const gasBoosted = BigNumber.from(gasPriceGwei).add(gasBoost);
-
-    const nonce = await SCRIPT_WALLET_NONCE();
-
-    if (gasPriceGwei >= TX_COST_LIMIT) {
-      console.log(
-        `💱 ${paint('to high tx cost: maximum', CONSOLE_COLORS.Red)} ${paint(
-          TX_COST_LIMIT.toString(),
-          CONSOLE_COLORS.Red
-        )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
-      );
-      console.log(paint('Terminated!', CONSOLE_COLORS.Red));
-
-      return;
+    if (lendings.length === 0) {
+      console.log(paint(`no gotchis with whitelist ${SETTINGS.WHITELIST} to agree  :(`, CONSOLE_COLORS.Red));
     }
 
-    console.log(`💱 tx cost: maximum - ${TX_COST_LIMIT} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
-    console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
-    console.log(`🗞  current nonce: ${paint(nonce, CONSOLE_COLORS.Pink)}`);
+    if (lendings.length > 0) {
+      const gasPriceGwei = await getGasPrice();
+      const gasPrice = ethers.utils.formatUnits(gasPriceGwei, 'gwei');
+      const gasBoost = ethers.utils.parseUnits('25', 'gwei');
+      const gasBoosted = BigNumber.from(gasPriceGwei).add(gasBoost);
 
-    const promises = lendings.map((lending, index) =>
-      MAIN_CONTRACT_WITH_SIGNER.agreeGotchiLending(
-        lending.id,
-        lending.gotchiTokenId,
-        lending.upfrontCost,
-        lending.period,
-        [lending.splitOwner, lending.splitBorrower, lending.splitOther],
-        { gasPrice: gasBoosted, gasLimit: 2000000, nonce: nonce + index }
-      )
-    );
+      const nonce = await SCRIPT_WALLET_NONCE();
 
-    Promise.all(promises).then(async (txsRes: ContractTransaction[]) => {
-      for (const [index, tx] of txsRes.entries()) {
-        console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+      if (gasPriceGwei >= TX_COST_LIMIT) {
+        console.log(
+          `💱 ${paint('to high tx cost: maximum', CONSOLE_COLORS.Red)} ${paint(
+            TX_COST_LIMIT.toString(),
+            CONSOLE_COLORS.Red
+          )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
+        );
+        console.log(paint('Terminated!', CONSOLE_COLORS.Red));
 
-        tx.wait()
-          .then(() =>
-            console.log(
-              paint('=>', CONSOLE_COLORS.Green),
-              paint(lendings[index].gotchiTokenId, CONSOLE_COLORS.Pink),
-              paint('transaction confirmed!', CONSOLE_COLORS.Green)
-            )
-          )
-          .catch(() =>
-            console.log(
-              paint('=>', CONSOLE_COLORS.Red),
-              paint(lendings[index].gotchiTokenId, CONSOLE_COLORS.Pink),
-              paint('transaction failed :(', CONSOLE_COLORS.Red)
-            )
-          );
+        return;
       }
-    });
+
+      console.log(`💱 tx cost: maximum - ${TX_COST_LIMIT} current - ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`);
+      console.log(`🚀 gas price: ${paint(Number(gasPrice).toFixed(2), CONSOLE_COLORS.Pink)}`);
+      console.log(`🗞  current nonce: ${paint(nonce, CONSOLE_COLORS.Pink)}`);
+
+      console.log('tx chank size', SETTINGS.TRANSACTION_CHUNK_SIZE);
+      const chunk = chunkArray(lendings, SETTINGS.TRANSACTION_CHUNK_SIZE);
+
+      // loop through chunks
+      for (let i = 0; i < chunk.length; i++) {
+        const promises = chunk[i].map((lending, index) =>
+          MAIN_CONTRACT_WITH_SIGNER.agreeGotchiLending(
+            lending.id,
+            lending.gotchiTokenId,
+            lending.upfrontCost,
+            lending.period,
+            [lending.splitOwner, lending.splitBorrower, lending.splitOther],
+            { gasPrice: gasBoosted, gasLimit: 2000000, nonce: nonce + index }
+          )
+        );
+
+        await Promise.all(promises).then(async (txsRes: ContractTransaction[]) => {
+          for (const [index, tx] of txsRes.entries()) {
+            console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+
+            tx.wait()
+              .then(() =>
+                console.log(
+                  paint('=>', CONSOLE_COLORS.Green),
+                  paint(lendings[index].gotchiTokenId, CONSOLE_COLORS.Pink),
+                  paint('transaction confirmed!', CONSOLE_COLORS.Green)
+                )
+              )
+              .catch(() =>
+                console.log(
+                  paint('=>', CONSOLE_COLORS.Red),
+                  paint(lendings[index].gotchiTokenId, CONSOLE_COLORS.Pink),
+                  paint('transaction failed :(', CONSOLE_COLORS.Red)
+                )
+              );
+          }
+        });
+      }
+    }
   });
 };
 

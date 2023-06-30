@@ -33,7 +33,7 @@ const lendingsQuery = `{
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
-      lender_in: ${JSON.stringify(SETTINGS.ADDRESSES_TO_MANAGE)},
+      lender_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}],
       borrower_not: "0x0000000000000000000000000000000000000000",
       cancelled: false,
       completed: false

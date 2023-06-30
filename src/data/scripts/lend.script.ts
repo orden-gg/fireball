@@ -38,7 +38,7 @@ const aavegotchiQuery = `{
     where:{
       lending: null,
       activeListing: null,
-      owner_in: ${JSON.stringify(SETTINGS.ADDRESSES_TO_MANAGE)},
+      owner_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}]
     }
   ) {
     id
@@ -144,7 +144,7 @@ const lend = async () => {
     console.log('👻', tuples.length);
 
     if (tuples.length === 0) {
-      console.log(paint('no gotchis to claim :(', CONSOLE_COLORS.Red));
+      console.log(paint('no gotchis to lend :(', CONSOLE_COLORS.Red));
     }
 
     if (tuples.length > 0 && !SETTINGS.CHECK_BALANCE) {
