@@ -94,18 +94,22 @@ const agree = async () => {
       console.log('tx chank size', SETTINGS.TRANSACTION_CHUNK_SIZE);
       const chunk = chunkArray(lendings, SETTINGS.TRANSACTION_CHUNK_SIZE);
 
+      let txNonce = nonce - 1; // hacky way to prepare nonce number for txs iteration
+
       // loop through chunks
       for (let i = 0; i < chunk.length; i++) {
-        const promises = chunk[i].map((lending, index) =>
-          MAIN_CONTRACT_WITH_SIGNER.agreeGotchiLending(
+        const promises = chunk[i].map((lending) => {
+          txNonce++;
+
+          return MAIN_CONTRACT_WITH_SIGNER.agreeGotchiLending(
             lending.id,
             lending.gotchiTokenId,
             lending.upfrontCost,
             lending.period,
             [lending.splitOwner, lending.splitBorrower, lending.splitOther],
-            { gasPrice: gasBoosted, gasLimit: 2000000, nonce: nonce + index }
-          )
-        );
+            { gasPrice: gasBoosted, gasLimit: 2000000, nonce: txNonce }
+          );
+        });
 
         await Promise.all(promises).then(async (txsRes: ContractTransaction[]) => {
           for (const [index, tx] of txsRes.entries()) {
