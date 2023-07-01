@@ -31,7 +31,12 @@ const lendingsQuery = `{
       whitelistId: ${SETTINGS.WHITELIST}
       cancelled: false,
       completed: false,
-      timeAgreed: null
+      timeAgreed: null,
+      ${
+        SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0
+          ? `gotchiTokenId_in: [${SETTINGS.HARDCODED_IDS}],`
+          : ''
+      }
     }
   ) {
     id
@@ -47,6 +52,10 @@ const lendingsQuery = `{
 }`;
 
 console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
+
+if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
+  console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
+}
 
 const agree = async () => {
   if (!OPERATOR_PRIVATE_KEY) {
