@@ -19,7 +19,7 @@ import { GotchiIcon } from 'components/Icons/Icons';
 import { GotchisLazy } from 'components/Lazy/GotchisLazy';
 import { SortFilterPanel } from 'components/SortFilterPanel/SortFilterPanel';
 
-import { FilterUtils } from 'utils';
+import { CommonUtils, FilterUtils } from 'utils';
 
 import { filtersData } from 'data/filters.data';
 
@@ -54,7 +54,8 @@ const initialFilters: CustomAny = {
   dayCryoKinChanneledAlchemica: { ...filtersData.dayCryoKinChanneledAlchemica, divider: true },
   dayWarmKinChanneledAlchemica: { ...filtersData.dayWarmKinChanneledAlchemica, divider: true },
   dayHotKinChanneledAlchemica: { ...filtersData.dayHotKinChanneledAlchemica, divider: true },
-  nrgTrait: { ...filtersData.nrgTrait, divider: true },
+  whitelistId: { ...filtersData.whitelistId, divider: true },
+  originalOwnerId: { ...filtersData.originalOwnerId, divider: true },
   search: { ...filtersData.search }
 };
 const queryParamsOrder: string[] = [
@@ -65,6 +66,8 @@ const queryParamsOrder: string[] = [
   'dayWarmKinChanneledAlchemica',
   'dayHotKinChanneledAlchemica',
   'modifiedNumericTraitsNrg',
+  'whitelistId',
+  'originalOwnerId',
   'search',
   'sort',
   'dir'
@@ -104,6 +107,54 @@ export function ClientBorrowed() {
   }, []);
 
   useEffect(() => {
+    if (borrowedGotchis.length > 0) {
+      const whitelistData: string[] = [];
+      const ownersAddresses: string[] = [];
+
+      for (let i = 0; i < borrowedGotchis.length; i++) {
+        whitelistData.push(borrowedGotchis[i].whitelistId);
+        ownersAddresses.push(borrowedGotchis[i].gotchi.originalOwner.id);
+      }
+
+      const sortedWhitelist: string[] = CommonUtils.sortByDirection([...new Set(whitelistData)], 'asc');
+      const uniqueOwners = [...new Set(ownersAddresses)];
+
+      setCurrentFilters((currentFiltersCache: CustomAny) => {
+        const currentFiltersCacheCopy = { ...currentFiltersCache };
+
+        currentFiltersCacheCopy.whitelistId = {
+          ...currentFiltersCacheCopy.whitelistId,
+          items: sortedWhitelist.map((whitelist: string) => ({
+            title: whitelist,
+            value: whitelist,
+            queryParamValue: whitelist,
+            isSelected: false
+          }))
+        };
+        currentFiltersCacheCopy.originalOwnerId = {
+          ...currentFiltersCacheCopy.originalOwnerId,
+          items: uniqueOwners.map((originalOwnerId: string) => ({
+            title: CommonUtils.cutAddress(originalOwnerId),
+            value: originalOwnerId,
+            queryParamValue: originalOwnerId,
+            isSelected: false
+          }))
+        };
+
+        let filtersToReturn: CustomAny;
+
+        if (Object.keys(queryParams).length > 0) {
+          filtersToReturn = FilterUtils.getUpdateFiltersFromQueryParams(queryParams, currentFiltersCacheCopy);
+        } else {
+          filtersToReturn = currentFiltersCacheCopy;
+        }
+
+        return filtersToReturn;
+      });
+    }
+  }, [borrowedGotchis]);
+
+  useEffect(() => {
     FilterUtils.onFiltersUpdate(
       currentFilters,
       FilterUtils.getActiveFiltersCount,
@@ -125,6 +176,7 @@ export function ClientBorrowed() {
       sorting: borrowedGotchisSorting,
       getFilteredItems: FilterUtils.getFilteredItems
     });
+
     setModifiedGotchis(modifiedGotchis);
   }, [currentFilters, borrowedGotchis, borrowedGotchisSorting]);
 
@@ -160,15 +212,6 @@ export function ClientBorrowed() {
     FilterUtils.setSelectedFilters(setCurrentFilters, key, selectedValue);
   };
 
-  // const onSetSelectedFilters = (key: string, value: GraphFiltersValueTypes) => {
-  //   dispatch(
-  //     fromClientStore.updateGotchiListingsFilterByKey({ key, value } as {
-  //       key: GotchiListingsFilterTypes;
-  //       value: GraphFiltersValueTypes;
-  //     })
-  //   );
-  // };
-
   const onResetFilters = useCallback(() => {
     FilterUtils.resetFilters(currentFilters, setCurrentFilters);
   }, [currentFilters]);
@@ -179,7 +222,8 @@ export function ClientBorrowed() {
   //console.log(modifiedGotchis.map((g) => g.id));
   //console.log(modifiedGotchis.slice(0, 30).map((g) => g.id));
   //console.log(modifiedGotchis.slice(31, 60).map((g) => g.id));
-  console.log(modifiedGotchis);
+  const fixIds = modifiedGotchis.map((id) => id.id);
+  console.log(modifiedGotchis, fixIds);
 
   return (
     <>

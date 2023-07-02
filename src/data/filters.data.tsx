@@ -120,6 +120,14 @@ export const filtersData = {
     items: [],
     ...defaultMultiSelectionFilter
   },
+  originalOwnerId: {
+    key: 'originalOwnerId',
+    queryParamKey: 'originalOwnerId',
+    componentType: FilterComponentType.MultipleAutocomplete,
+    title: 'OriginalOwnerId',
+    items: [],
+    ...defaultMultiSelectionFilter
+  },
   whitelistId: {
     key: 'whitelistId',
     queryParamKey: 'whitelistId',
@@ -229,7 +237,8 @@ export const filtersData = {
       } else {
         const today = Date.now();
 
-        predicate = today >= (compareItem['lastChanneledAlchemica'] * 1000)+ (86400000 * 1) && compareItem['kinship'] >= 1400;
+        predicate =
+          today >= compareItem['lastChanneledAlchemica'] * 1000 + 86400000 * 1 && compareItem['kinship'] >= 1400;
       }
 
       return predicate;
@@ -255,7 +264,10 @@ export const filtersData = {
       } else {
         const today = Date.now();
 
-        predicate = today >= (compareItem['lastChanneledAlchemica'] * 1000)+ (129600000) && compareItem['kinship'] >= 1100 && compareItem['kinship'] < 1400;
+        predicate =
+          today >= compareItem['lastChanneledAlchemica'] * 1000 + 129600000 &&
+          compareItem['kinship'] >= 1100 &&
+          compareItem['kinship'] < 1400;
       }
 
       return predicate;
@@ -281,7 +293,7 @@ export const filtersData = {
       } else {
         const today = Date.now();
 
-        predicate = today >= (compareItem['lastChanneledAlchemica'] * 1000)+ (172800000) && compareItem['kinship'] < 1100;
+        predicate = today >= compareItem['lastChanneledAlchemica'] * 1000 + 172800000 && compareItem['kinship'] < 1100;
       }
 
       return predicate;
