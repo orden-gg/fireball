@@ -423,9 +423,9 @@ export const filtersData = {
     getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
     getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
   },
-  isUpgradeReady: {
-    key: 'isUpgradeReady',
-    queryParamKey: 'upgraded',
+  upgradeQueue: {
+    key: 'upgradeQueue',
+    queryParamKey: 'upgradeQueue',
     title: 'Is upgrade ready',
     value: false,
     componentType: FilterComponentType.Checkbox,
@@ -433,7 +433,19 @@ export const filtersData = {
     getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
     resetFilterFn: FiltersHelper.checkboxResetFilterFn,
     predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny) => {
-      return !filter.value ? !filter.value : filter.value && compareItem[key];
+      let predicate: boolean;
+
+      if (!filter.value || !compareItem[key]) {
+        predicate = false;
+      } else {
+        if (compareItem.upgradeQueue - compareItem.upgradeCap > 0) {
+          return (predicate = true);
+        } else {
+          predicate = false;
+        }
+      }
+
+      return predicate;
     },
     updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
     updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,

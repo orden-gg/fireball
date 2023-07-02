@@ -95,7 +95,7 @@ const initialFilters: CustomAny = {
   altarLevel: { ...filtersData.altarLevel, divider: true },
   nextChannel: { ...filtersData.nextChannel },
   nextClaim: { ...filtersData.nextClaim },
-  isUpgradeReady: { ...filtersData.isUpgradeReady, divider: true, class: 'no-padding-top' },
+  upgradeQueue: { ...filtersData.upgradeQueue, divider: true, class: 'no-padding-top' },
   district: { ...filtersData.district },
   parcelHash: { ...filtersData.parcelHash }
 };
@@ -104,7 +104,7 @@ const queryParamsOrder: string[] = [
   initialFilters.altarLevel.queryParamKey,
   initialFilters.nextChannel.queryParamKey,
   initialFilters.nextClaim.queryParamKey,
-  initialFilters.isUpgradeReady.queryParamKey,
+  initialFilters.upgradeQueue.queryParamKey,
   initialFilters.district.queryParamKey,
   initialFilters.parcelHash.queryParamKey,
   'sort',

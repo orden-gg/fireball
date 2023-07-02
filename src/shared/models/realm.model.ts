@@ -93,4 +93,6 @@ export interface RealmVM extends RealmBase {
   capacities: ParcelAlchemica;
   harvestRates: ParcelAlchemica;
   claimAvailableAlchemica: ParcelAlchemica;
+  upgradeCap: number;
+  upgradeQueue: number;
 }

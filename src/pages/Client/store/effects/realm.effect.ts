@@ -34,11 +34,21 @@ export const onLoadRealm =
         const realmCapacitiesPromise = RealmApi.getRealmCapacities(parcel.id);
         const realmHarvestRatesPromise = RealmApi.getRealmHarvestRates(parcel.id);
         const realmAvailableAlchemicaPromise = RealmApi.getRealmAvailableAlchemica(parcel.id);
+        const realmGetParcelUpgradeQueueLengthPromise = RealmApi.getParcelUpgradeQueueLength(parcel.id);
+        const realmGetParcelUpgradeQueueCapacityPromise = RealmApi.getParcelUpgradeQueueCapacity(parcel.id);
 
-        const [realmCapacities, realmHarvestRates, realmAvailableAlchemica] = await Promise.all([
+        const [
+          realmCapacities,
+          realmHarvestRates,
+          realmAvailableAlchemica,
+          realmGetParcelUpgradeQueueLength,
+          realmGetParcelUpgradeQueueCapacity
+        ] = await Promise.all([
           realmCapacitiesPromise,
           realmHarvestRatesPromise,
-          realmAvailableAlchemicaPromise
+          realmAvailableAlchemicaPromise,
+          realmGetParcelUpgradeQueueLengthPromise,
+          realmGetParcelUpgradeQueueCapacityPromise
         ]);
 
         return {
@@ -51,7 +61,9 @@ export const onLoadRealm =
           nextClaim: parcel.lastClaimed + cooldownClaim,
           capacities: realmCapacities,
           harvestRates: realmHarvestRates,
-          claimAvailableAlchemica: realmAvailableAlchemica
+          claimAvailableAlchemica: realmAvailableAlchemica,
+          upgradeCap: realmGetParcelUpgradeQueueLength,
+          upgradeQueue: realmGetParcelUpgradeQueueCapacity
         };
       });
 
