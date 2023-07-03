@@ -81,17 +81,29 @@ export function LoginButton() {
   useEffect(() => {
     // TODO this logic should be double checked! There are no bugs, but from functional perspective it runs too much times.
     // handle metamask accounts
-    console.log('metaState trigger!');
+    console.log('metaState trigger!', `safe: ${safe.safeAddress}`);
     if (metaState.account[0]) {
-      console.log('metaState trigger!', 'metaState.account[0]', metaState.account[0]);
+      console.log('metaState trigger!', 'metaState.account[0]', metaState.account[0], `safe: ${safe.safeAddress}`);
       if (metaState.account[0] === activeAddress || !activeAddress?.length) {
-        console.log('metaState trigger!', 'metaState.account[0]', metaState.account[0], 'dispatch!');
+        console.log(
+          'metaState trigger!',
+          'metaState.account[0]',
+          metaState.account[0],
+          'dispatch!',
+          `safe: ${safe.safeAddress}`
+        );
         dispatch(fromLoginStore.selectActiveAddress(metaState.account[0]));
       }
       dispatch(fromLoginStore.updateMetamaskLoggedAddress(metaState.account[0]));
     } else if (metaState.account[0] === activeAddress) {
       // on metamask logout
-      console.log('metaState trigger!', 'metaState.account[0] === activeAddress', metaState.account[0], activeAddress);
+      console.log(
+        'metaState trigger!',
+        'metaState.account[0] === activeAddress',
+        metaState.account[0],
+        activeAddress,
+        `safe: ${safe.safeAddress}`
+      );
       dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddresses.length ? storeLoggedAddresses[0].address : ''));
     }
   }, [metaState]);
@@ -104,7 +116,7 @@ export function LoginButton() {
   }, [isDonateAddressShown]);
 
   const connectMetamask = async (): Promise<CustomAny> => {
-    if (metaState.isAvailable && !metaState.isConnected) {
+    if (metaState.isAvailable && !metaState.isConnected && !safe.safeAddress) {
       console.log('trying to connect MM...');
       try {
         if (connect) {
