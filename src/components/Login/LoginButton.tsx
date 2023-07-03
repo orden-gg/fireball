@@ -76,6 +76,28 @@ export function LoginButton() {
         }
       })();
     }
+
+    setTimeout(() => {
+      if (metaState.isAvailable) {
+        (async () => {
+          try {
+            if (getAccounts) {
+              const accounts: string[] = await getAccounts();
+
+              console.log(
+                'connectMetamask setTimeout',
+                `safe: ${safe.safeAddress}`,
+                safe?.safeAddress.length,
+                !safe?.safeAddress.length
+              );
+              console.log('accounts', accounts);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        })();
+      }
+    }, 2000);
   }, []);
 
   useEffect(() => {
