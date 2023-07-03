@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useMetamask } from 'use-metamask';
-
+// import { useMetamask } from 'use-metamask';
 import * as fromGuildsStore from '../../store';
 import { useAppDispatch, useAppSelector } from 'core/store/hooks';
-import * as fromLoginStore from 'core/store/login';
 
+// import * as fromLoginStore from 'core/store/login';
 import { GuildFormValuesResult } from 'pages/Guilds/models';
 
-import { ConnectWallet } from 'components/ConnectWallet/ConnectWallet';
+// import { ConnectWallet } from 'components/ConnectWallet/ConnectWallet';
 import { ContentInner } from 'components/Content/ContentInner';
 
 import { GuildForm } from '../GuildForm/GuildForm';
@@ -18,12 +17,12 @@ import { guildEditStyles } from './styles';
 export function GuildEdit() {
   const classes = guildEditStyles();
 
-  const { metaState } = useMetamask();
+  // const { metaState } = useMetamask();
   const navigate = useNavigate();
   const params = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
 
-  const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
+  // const connectedWallet: string | undefined | null = useAppSelector(fromLoginStore.getMetamaskLoggedAddress);
   const editGuildData: GuildFormValuesResult = useAppSelector(fromGuildsStore.getEditGuildData);
   const isCurrentGuildLoading: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoading);
   const isCurrentGuildLoaded: boolean = useAppSelector(fromGuildsStore.getIsCurrentGuildLoaded);
@@ -44,7 +43,7 @@ export function GuildEdit() {
     dispatch(fromGuildsStore.onUpdateGuild(values));
   };
 
-  return connectedWallet && metaState.isAvailable ? (
+  return (
     <ContentInner dataLoading={isCurrentGuildLoading}>
       {!isCurrentGuildError ? (
         <GuildForm
@@ -60,7 +59,5 @@ export function GuildEdit() {
         <div className={classes.guildEditError}>Oops, something went wrong!</div>
       )}
     </ContentInner>
-  ) : (
-    <ConnectWallet />
   );
 }

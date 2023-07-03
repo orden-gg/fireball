@@ -58,6 +58,9 @@ export class EthersApi {
     const provider: CustomAny = new ethers.providers.Web3Provider((window as CustomAny).ethereum);
     const signer: CustomAny = provider.getSigner();
 
+    console.log('makeContractWithSigner provider', provider);
+    console.log('makeContractWithSigner signer', signer);
+
     return new ethers.Contract(contract, abi, signer);
   }
 
@@ -69,6 +72,8 @@ export class EthersApi {
         return new ethers.providers.JsonRpcProvider(GEORLI_RPC);
       case 'test':
         return new ethers.providers.JsonRpcProvider(RINKEBY_RPC);
+      case 'no_provider':
+        return new ethers.providers.JsonRpcProvider();
       default:
         return new ethers.providers.JsonRpcProvider(POLYGON_RPC);
     }
