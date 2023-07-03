@@ -15,7 +15,9 @@ import { DONATE_ADDRESS } from 'shared/constants';
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { MetamaskIcon } from 'components/Icons/Icons';
+import { GnosisIcon, MetamaskIcon } from 'components/Icons/Icons';
+
+import { CommonUtils } from 'utils';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
@@ -79,13 +81,17 @@ export function LoginButton() {
   useEffect(() => {
     // TODO this logic should be double checked! There are no bugs, but from functional perspective it runs too much times.
     // handle metamask accounts
+    console.log('metaState trigger!');
     if (metaState.account[0]) {
+      console.log('metaState trigger!', 'metaState.account[0]', metaState.account[0]);
       if (metaState.account[0] === activeAddress || !activeAddress?.length) {
+        console.log('metaState trigger!', 'metaState.account[0]', metaState.account[0], 'dispatch!');
         dispatch(fromLoginStore.selectActiveAddress(metaState.account[0]));
       }
       dispatch(fromLoginStore.updateMetamaskLoggedAddress(metaState.account[0]));
     } else if (metaState.account[0] === activeAddress) {
       // on metamask logout
+      console.log('metaState trigger!', 'metaState.account[0] === activeAddress', metaState.account[0], activeAddress);
       dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddresses.length ? storeLoggedAddresses[0].address : ''));
     }
   }, [metaState]);
@@ -99,9 +105,11 @@ export function LoginButton() {
 
   const connectMetamask = async (): Promise<CustomAny> => {
     if (metaState.isAvailable && !metaState.isConnected) {
+      console.log('trying to connect MM...');
       try {
         if (connect) {
           await connect(ethers.providers.Web3Provider, 'any');
+          console.log('MM connected with provider', ethers.providers.Web3Provider);
 
           return true;
         }
@@ -112,11 +120,12 @@ export function LoginButton() {
   };
 
   const connectSafe = async (): Promise<CustomAny> => {
-    console.log('trying to connect safe.');
+    console.log('trying to connect safe...');
 
     try {
       if (connect) {
         await connect(safeProvider, 'any');
+        console.log('safe connected with provider', safeProvider);
 
         return true;
       }
@@ -162,7 +171,12 @@ export function LoginButton() {
     <>
       <div className={classNames(classes.button, isDropdownOpen && 'opened')}>
         <div className={classes.buttonInner} onClick={onToggleDropdown}>
-          {safe.safeAddress && <span>safe:{safe.safeAddress}</span>}
+          {safe.safeAddress && (
+            <div>
+              <GnosisIcon height={20} width={20} />
+              {CommonUtils.cutAddress(safe.safeAddress, '..')}
+            </div>
+          )}
           {activeAddress ? (
             metaState.account[0] === activeAddress && (
               <div className={classes.buttonIcon}>
