@@ -33,7 +33,7 @@ const donateAddress: LoginAddressModel = {
 export function LoginButton() {
   const classes = styles();
 
-  const { connect, getAccounts, metaState } = useMetamask();
+  const { connect, metaState } = useMetamask();
   const { sdk, safe } = useSafeAppsSDK();
 
   const [isDonateAddressShown, setIsDonateAddressShown] = useLocalStorage(
@@ -53,52 +53,52 @@ export function LoginButton() {
     }
   }, [sdk, safe]);
 
-  useEffect(() => {
-    // connect metamask on load
-    if (metaState.isAvailable) {
-      (async () => {
-        try {
-          if (getAccounts) {
-            const accounts: string[] = await getAccounts();
+  // useEffect(() => {
+  //   // connect metamask on load
+  //   if (metaState.isAvailable) {
+  //     (async () => {
+  //       try {
+  //         if (getAccounts) {
+  //           const accounts: string[] = await getAccounts();
 
-            console.log(
-              'connectMetamask trigger',
-              `safe: ${safe.safeAddress}`,
-              safe?.safeAddress.length,
-              !safe?.safeAddress.length
-            );
-            if (accounts.length && !safe?.safeAddress.length) {
-              connectMetamask();
-            }
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      })();
-    }
+  //           console.log(
+  //             'connectMetamask trigger',
+  //             `safe: ${safe.safeAddress}`,
+  //             safe?.safeAddress.length,
+  //             !safe?.safeAddress.length
+  //           );
+  //           if (accounts.length && !safe?.safeAddress.length) {
+  //             connectMetamask();
+  //           }
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     })();
+  //   }
 
-    setTimeout(() => {
-      if (metaState.isAvailable) {
-        (async () => {
-          try {
-            if (getAccounts) {
-              const accounts: string[] = await getAccounts();
+  //   setTimeout(() => {
+  //     if (metaState.isAvailable) {
+  //       (async () => {
+  //         try {
+  //           if (getAccounts) {
+  //             const accounts: string[] = await getAccounts();
 
-              console.log(
-                'connectMetamask setTimeout',
-                `safe: ${safe.safeAddress}`,
-                safe?.safeAddress.length,
-                !safe?.safeAddress.length
-              );
-              console.log('accounts', accounts);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        })();
-      }
-    }, 2000);
-  }, []);
+  //             console.log(
+  //               'connectMetamask setTimeout',
+  //               `safe: ${safe.safeAddress}`,
+  //               safe?.safeAddress.length,
+  //               !safe?.safeAddress.length
+  //             );
+  //             console.log('accounts', accounts);
+  //           }
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       })();
+  //     }
+  //   }, 2000);
+  // }, []);
 
   useEffect(() => {
     if (safe.safeAddress) {
@@ -143,21 +143,21 @@ export function LoginButton() {
     }
   }, [isDonateAddressShown]);
 
-  const connectMetamask = async (): Promise<CustomAny> => {
-    if (metaState.isAvailable && !metaState.isConnected) {
-      console.log('trying to connect MM...', `safe: ${safe.safeAddress}`);
-      try {
-        if (connect) {
-          await connect(ethers.providers.Web3Provider, 'any');
-          console.log('MM connected with provider', ethers.providers.Web3Provider);
+  // const connectMetamask = async (): Promise<CustomAny> => {
+  //   if (metaState.isAvailable && !metaState.isConnected) {
+  //     console.log('trying to connect MM...', `safe: ${safe.safeAddress}`);
+  //     try {
+  //       if (connect) {
+  //         await connect(ethers.providers.Web3Provider, 'any');
+  //         console.log('MM connected with provider', ethers.providers.Web3Provider);
 
-          return true;
-        }
-      } catch (error) {
-        return false;
-      }
-    }
-  };
+  //         return true;
+  //       }
+  //     } catch (error) {
+  //       return false;
+  //     }
+  //   }
+  // };
 
   const connectSafe = async (): Promise<CustomAny> => {
     console.log('trying to connect safe...', `safe: ${safe.safeAddress}`);
