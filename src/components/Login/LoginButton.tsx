@@ -61,7 +61,13 @@ export function LoginButton() {
           if (getAccounts) {
             const accounts: string[] = await getAccounts();
 
-            if (accounts.length) {
+            console.log(
+              'connectMetamask trigger',
+              `safe: ${safe.safeAddress}`,
+              safe?.safeAddress.length,
+              !safe?.safeAddress.length
+            );
+            if (accounts.length && !safe?.safeAddress.length) {
               connectMetamask();
             }
           }
@@ -116,8 +122,8 @@ export function LoginButton() {
   }, [isDonateAddressShown]);
 
   const connectMetamask = async (): Promise<CustomAny> => {
-    if (metaState.isAvailable && !metaState.isConnected && !safe.safeAddress) {
-      console.log('trying to connect MM...');
+    if (metaState.isAvailable && !metaState.isConnected) {
+      console.log('trying to connect MM...', `safe: ${safe.safeAddress}`);
       try {
         if (connect) {
           await connect(ethers.providers.Web3Provider, 'any');
@@ -132,7 +138,7 @@ export function LoginButton() {
   };
 
   const connectSafe = async (): Promise<CustomAny> => {
-    console.log('trying to connect safe...');
+    console.log('trying to connect safe...', `safe: ${safe.safeAddress}`);
 
     try {
       if (connect) {
