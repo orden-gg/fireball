@@ -19,7 +19,7 @@ import { CustomModal } from 'components/CustomModal/CustomModal';
 import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiPreviewModal } from 'components/Gotchi/GotchiPreviewModal/GotchiPreviewModal';
 import { AlphaTokenIcon, FomoTokenIcon, FudTokenIcon, IconProps, KekTokenIcon } from 'components/Icons/Icons';
-import { ParcelPreview } from 'components/Previews/ParcelPreview/ParcelPreview';
+import { ParcelPreviewModal } from 'components/Previews/ParcelPreviewModal/ParcelPreviewModal';
 
 import { CommonUtils } from 'utils';
 
@@ -240,7 +240,7 @@ export function GuildDashboard(): JSX.Element {
 
       {modalRealmId ? (
         <CustomModal modalOpen={isRealmModalOpen} setModalOpen={setIsRealmModalOpen}>
-          <ParcelPreview parcel={{ id: modalRealmId }} />
+          <ParcelPreviewModal id={modalRealmId} />
         </CustomModal>
       ) : (
         <></>
