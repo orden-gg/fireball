@@ -33,10 +33,15 @@ const lendingsQuery = `{
     orderBy: gotchiKinship,
     orderDir: desc,
     where:{
-      lender_in: ${JSON.stringify(SETTINGS.ADDRESSES_TO_MANAGE)},
+      lender_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}],
       borrower_not: "0x0000000000000000000000000000000000000000",
       cancelled: false,
-      completed: false
+      completed: false,
+      ${
+        SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0
+          ? `gotchiTokenId_in: [${SETTINGS.HARDCODED_IDS}],`
+          : ''
+      }
     }
   ) {
     id
@@ -51,6 +56,10 @@ const lendingsQuery = `{
 }`;
 
 console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
+
+if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
+  console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
+}
 
 const claim = async () => {
   if (!OPERATOR_PRIVATE_KEY) {

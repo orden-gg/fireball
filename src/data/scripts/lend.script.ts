@@ -31,14 +31,15 @@ const THIRD_PARTY_DEFAULT = '0x0000000000000000000000000000000000000000';
 // if no split third party % set - use default address
 const THIRD_PARTY = SETTINGS.SPLIT[2] > 0 ? SETTINGS.THIRD_PARTY : THIRD_PARTY_DEFAULT;
 
-// owner_: { id: "${OWNER.toLowerCase()}" }
 const aavegotchiQuery = `{
   aavegotchis(
     first: 1000,
     where:{
       lending: null,
       activeListing: null,
-      owner_in: ${JSON.stringify(SETTINGS.ADDRESSES_TO_MANAGE)},
+      locked: false,
+      owner_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}],
+      ${SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0 ? `id_in: [${SETTINGS.HARDCODED_IDS}],` : ''}
     }
   ) {
     id
@@ -49,6 +50,10 @@ const aavegotchiQuery = `{
 }`;
 
 console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
+
+if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
+  console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
+}
 
 const lend = async () => {
   if (!OPERATOR_PRIVATE_KEY) {
@@ -144,7 +149,7 @@ const lend = async () => {
     console.log('👻', tuples.length);
 
     if (tuples.length === 0) {
-      console.log(paint('no gotchis to claim :(', CONSOLE_COLORS.Red));
+      console.log(paint('no gotchis to lend :(', CONSOLE_COLORS.Red));
     }
 
     if (tuples.length > 0 && !SETTINGS.CHECK_BALANCE) {

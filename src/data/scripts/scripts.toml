@@ -7,6 +7,9 @@ PET_ADDRESS = '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667'
 
 # -->lendings<--
 
+# hardcoded gotchis ids (eg. [8005, 915, 24322, ...])
+HARDCODED_IDS = []
+
 # addresses to manage [lend, claim, agree]
 ADDRESSES_TO_MANAGE = ['0xc46d3c9d93febdd5027c9b696fe576dc654c66de','0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0']
 # whitelist id [agree, lend]
@@ -15,7 +18,7 @@ WHITELIST = 6329
 SPLIT = [85, 10, 5] # [owner, borrower, third_party]
 COST = 0 # ghst
 PERIOD = 1 # hours
-THIRD_PARTY = '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a' # used only if SPLIT % for third party set
+THIRD_PARTY = '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a' # used only if SPLIT for third party > 0
 
 # tokens for lendings or check the balances [lend, claim]
 TOKENS = [
