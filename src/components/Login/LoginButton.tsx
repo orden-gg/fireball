@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useSafeAppsSDK } from '@safe-global/safe-apps-react-sdk';
+import { useEffect, useMemo } from 'react';
 
 import { Backdrop, Typography } from '@mui/material';
 
+import { SafeAppProvider } from '@safe-global/safe-apps-provider';
 import classNames from 'classnames';
 import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
@@ -13,7 +15,9 @@ import { DONATE_ADDRESS } from 'shared/constants';
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 
 import { EthAddress } from 'components/EthAddress/EthAddress';
-import { MetamaskIcon } from 'components/Icons/Icons';
+import { GnosisIcon, MetamaskIcon } from 'components/Icons/Icons';
+
+import { CommonUtils } from 'utils';
 
 import { useLocalStorage } from 'hooks/useLocalStorage';
 
@@ -29,7 +33,8 @@ const donateAddress: LoginAddressModel = {
 export function LoginButton() {
   const classes = styles();
 
-  const { connect, getAccounts, metaState } = useMetamask();
+  const { connect, metaState } = useMetamask();
+  const { sdk, safe } = useSafeAppsSDK();
 
   const [isDonateAddressShown, setIsDonateAddressShown] = useLocalStorage(
     'DONATE_ADDRESS_SHOWN',
@@ -42,34 +47,91 @@ export function LoginButton() {
   const storeLoggedAddresses: LoginAddressModel[] = useAppSelector(fromLoginStore.getLoggedAddresses);
   const isDropdownOpen: boolean = useAppSelector(fromLoginStore.getIsDropdownOpen);
 
-  useEffect(() => {
-    // connect metamask on load
-    if (metaState.isAvailable) {
-      (async () => {
-        try {
-          if (getAccounts) {
-            const accounts: string[] = await getAccounts();
-
-            if (accounts.length) {
-              connectMetamask();
-            }
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+  const safeProvider = useMemo(() => {
+    if (safe.safeAddress) {
+      return new ethers.providers.Web3Provider(new SafeAppProvider(safe, sdk));
     }
-  }, []);
+  }, [sdk, safe]);
+
+  // useEffect(() => {
+  //   // connect metamask on load
+  //   if (metaState.isAvailable) {
+  //     (async () => {
+  //       try {
+  //         if (getAccounts) {
+  //           const accounts: string[] = await getAccounts();
+
+  //           console.log(
+  //             'connectMetamask trigger',
+  //             `safe: ${safe.safeAddress}`,
+  //             safe?.safeAddress.length,
+  //             !safe?.safeAddress.length
+  //           );
+  //           if (accounts.length && !safe?.safeAddress.length) {
+  //             connectMetamask();
+  //           }
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     })();
+  //   }
+
+  //   setTimeout(() => {
+  //     if (metaState.isAvailable) {
+  //       (async () => {
+  //         try {
+  //           if (getAccounts) {
+  //             const accounts: string[] = await getAccounts();
+
+  //             console.log(
+  //               'connectMetamask setTimeout',
+  //               `safe: ${safe.safeAddress}`,
+  //               safe?.safeAddress.length,
+  //               !safe?.safeAddress.length
+  //             );
+  //             console.log('accounts', accounts);
+  //           }
+  //         } catch (error) {
+  //           console.log(error);
+  //         }
+  //       })();
+  //     }
+  //   }, 2000);
+  // }, []);
+
+  useEffect(() => {
+    if (safe.safeAddress) {
+      connectSafe();
+    }
+  }, [safe]);
 
   useEffect(() => {
     // TODO this logic should be double checked! There are no bugs, but from functional perspective it runs too much times.
     // handle metamask accounts
+    console.log('metaState trigger!', `safe: ${safe.safeAddress}`);
     if (metaState.account[0]) {
+      console.log('metaState trigger!', 'metaState.account[0]', metaState.account[0], `safe: ${safe.safeAddress}`);
       if (metaState.account[0] === activeAddress || !activeAddress?.length) {
+        console.log(
+          'metaState trigger!',
+          'metaState.account[0]',
+          metaState.account[0],
+          'dispatch!',
+          `safe: ${safe.safeAddress}`
+        );
         dispatch(fromLoginStore.selectActiveAddress(metaState.account[0]));
       }
+      dispatch(fromLoginStore.updateMetamaskLoggedAddress(metaState.account[0]));
     } else if (metaState.account[0] === activeAddress) {
       // on metamask logout
+      console.log(
+        'metaState trigger!',
+        'metaState.account[0] === activeAddress',
+        metaState.account[0],
+        activeAddress,
+        `safe: ${safe.safeAddress}`
+      );
       dispatch(fromLoginStore.selectActiveAddress(storeLoggedAddresses.length ? storeLoggedAddresses[0].address : ''));
     }
   }, [metaState]);
@@ -81,17 +143,34 @@ export function LoginButton() {
     }
   }, [isDonateAddressShown]);
 
-  const connectMetamask = async (): Promise<CustomAny> => {
-    if (metaState.isAvailable && !metaState.isConnected) {
-      try {
-        if (connect) {
-          await connect(ethers.providers.Web3Provider, 'any');
+  // const connectMetamask = async (): Promise<CustomAny> => {
+  //   if (metaState.isAvailable && !metaState.isConnected) {
+  //     console.log('trying to connect MM...', `safe: ${safe.safeAddress}`);
+  //     try {
+  //       if (connect) {
+  //         await connect(ethers.providers.Web3Provider, 'any');
+  //         console.log('MM connected with provider', ethers.providers.Web3Provider);
 
-          return true;
-        }
-      } catch (error) {
-        return false;
+  //         return true;
+  //       }
+  //     } catch (error) {
+  //       return false;
+  //     }
+  //   }
+  // };
+
+  const connectSafe = async (): Promise<CustomAny> => {
+    console.log('trying to connect safe...', `safe: ${safe.safeAddress}`);
+
+    try {
+      if (connect) {
+        await connect(safeProvider, 'any');
+        console.log('safe connected with provider', safeProvider);
+
+        return true;
       }
+    } catch (error) {
+      return false;
     }
   };
 
@@ -132,6 +211,12 @@ export function LoginButton() {
     <>
       <div className={classNames(classes.button, isDropdownOpen && 'opened')}>
         <div className={classes.buttonInner} onClick={onToggleDropdown}>
+          {safe.safeAddress && (
+            <div>
+              <GnosisIcon height={20} width={20} />
+              {CommonUtils.cutAddress(safe.safeAddress, '..')}
+            </div>
+          )}
           {activeAddress ? (
             metaState.account[0] === activeAddress && (
               <div className={classes.buttonIcon}>

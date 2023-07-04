@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.svg" alt="fireball" style="width:150px;"/>
+  <img src="public/logo.svg" alt="fireball" style="width:150px;"/>
 </p>
 
 <br/>

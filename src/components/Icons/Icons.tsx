@@ -9,6 +9,7 @@ import gotchi from 'assets/images/gotchi-placeholder.svg';
 // icons
 import activity from 'assets/images/icons/activity.svg';
 import alpha from 'assets/images/icons/alpha.svg';
+import altarLevelNine from 'assets/images/icons/altar-lvl-nine.png';
 import anvil from 'assets/images/icons/anvil.svg';
 import baazar from 'assets/images/icons/baazar.svg';
 import badge from 'assets/images/icons/badge.svg';
@@ -16,7 +17,7 @@ import channelActive from 'assets/images/icons/channel-active.svg';
 import channel from 'assets/images/icons/channel.svg';
 import consumable from 'assets/images/icons/consumable.svg';
 import craft from 'assets/images/icons/craft.svg';
-import discord from 'assets/images/icons/discord.svg';
+import { ReactComponent as Discord } from 'assets/images/icons/discord.svg';
 import fakeGotchisCard from 'assets/images/icons/fake-gotchis-card.png';
 import fakeGotchis from 'assets/images/icons/fake-gotchis.svg';
 import firegem from 'assets/images/icons/firegem.svg';
@@ -24,7 +25,9 @@ import fomo from 'assets/images/icons/fomo.svg';
 import fud from 'assets/images/icons/fud.svg';
 import ghst from 'assets/images/icons/ghst.svg';
 import glossary from 'assets/images/icons/glossary.svg';
+import gnosis from 'assets/images/icons/gnosis.svg';
 import gotchiland from 'assets/images/icons/gotchiland.png';
+import gotchiverse from 'assets/images/icons/gotchiverse.png';
 import { ReactComponent as Guild } from 'assets/images/icons/guild.svg';
 import kek from 'assets/images/icons/kek.svg';
 import land from 'assets/images/icons/land.svg';
@@ -37,7 +40,9 @@ import purchase from 'assets/images/icons/purchase.svg';
 import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
+import tile from 'assets/images/icons/tile.png';
 import twitch from 'assets/images/icons/twitch.svg';
+import vote from 'assets/images/icons/vote.svg';
 // card icons
 import anvilCard from 'assets/images/navigation/anvil.jpg';
 import clientCard from 'assets/images/navigation/client.jpg';
@@ -75,7 +80,7 @@ import spookiness from 'assets/images/traits/spk.png';
 import warehouse from 'assets/images/wearables/15.svg';
 import controller from 'assets/images/wearables/204.svg';
 
-interface IconProps {
+export interface IconProps {
   className?: string;
   width?: number | string;
   height?: number | string;
@@ -110,6 +115,10 @@ export const RealmGif = ({ className, width, height }: IconProps) => {
 // icons
 export const ActivityIcon = ({ width, height }: IconProps) => {
   return <img width={width} height={height} src={activity} alt='activity' />;
+};
+
+export const AltarIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={altarLevelNine} alt='alter' />;
 };
 
 export const AlphaIcon = ({ width, height }: IconProps) => {
@@ -161,7 +170,7 @@ export const CraftIcon = ({ width, height }: IconProps) => {
 };
 
 export const DiscordIcon = ({ className, width, height }: IconProps) => {
-  return <img className={className} width={width} height={height} src={discord} alt='discord' />;
+  return <Discord className={className} width={width} height={height} />;
 };
 
 export const GotchiIcon = ({ className, width, height }: IconProps) => {
@@ -174,6 +183,14 @@ export const GuildIcon = ({ className, width, height }: IconProps) => {
 
 export const GotchilandIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={gotchiland} alt='gotchiland logo' />;
+};
+
+export const GotchiverseIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={gotchiverse} alt='gotchiverse' />;
+};
+
+export const GnosisIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={gnosis} alt='gnosis logo' />;
 };
 
 export const LendingIcon = ({ className, width, height }: IconProps) => {
@@ -192,8 +209,16 @@ export const GhstIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={ghst} alt='ghst' />;
 };
 
+export const TileIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={tile} alt='tile' />;
+};
+
 export const TwitchIcon = ({ className, width, height }: IconProps) => {
   return <img className={className} width={width} height={height} src={twitch} alt='twitch' />;
+};
+
+export const VoteIcon = ({ className, width, height }: IconProps) => {
+  return <img className={className} width={width} height={height} src={vote} alt='vote' />;
 };
 
 export const RareTicketIcon = ({ width, height }: IconProps) => {

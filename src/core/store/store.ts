@@ -4,9 +4,11 @@ import { baazarReducers } from 'pages/Baazaar/store';
 import { clientReducers } from 'pages/Client/store';
 import { fakeGotchiReducers } from 'pages/FakeGotchisGallery/store';
 import { glossaryReducer } from 'pages/Glossary/store';
+import { guildsReducers } from 'pages/Guilds/store/slices';
 
 import { dataReloadReducer } from './data-reload';
 import { loginReducer } from './login';
+import { snackbarReducer } from './snackbar';
 import { tokensPricesReducers } from './tokens-prices';
 
 export const store = configureStore({
@@ -14,10 +16,12 @@ export const store = configureStore({
     dataReload: dataReloadReducer,
     login: loginReducer,
     glossary: glossaryReducer,
+    snackbar: snackbarReducer,
     baazaar: baazarReducers,
     client: clientReducers,
     fake: fakeGotchiReducers,
-    tokensPrices: tokensPricesReducers
+    tokensPrices: tokensPricesReducers,
+    guilds: guildsReducers
   }
 });
 

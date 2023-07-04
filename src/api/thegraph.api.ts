@@ -99,44 +99,9 @@ const getGraphData = async (client: CustomAny, query: string): Promise<CustomAny
 };
 
 // multi query requests
-const graphJoin = async (client: CustomAny, queries: CustomAny[]): Promise<CustomAny> => {
+const graphJoin = async (graph: CustomAny, queries: string[]): Promise<CustomAny[]> => {
   try {
-    return await new Promise((resolve) => {
-      const queriesCounter = queries.length;
-      let requestCounter: number = 0;
-      const responseArray: CustomAny[] = [];
-
-      for (let i = 0; i < queriesCounter; i++) {
-        raiseCounter();
-        responseArray.push(
-          client
-            .query({
-              query: gql`
-                ${queries[i]}
-              `
-            })
-            .then((response: CustomAny) => {
-              responseArray[i] = response;
-              lowerCounter();
-              checkRequestsResult();
-            })
-        );
-      }
-
-      function checkRequestsResult() {
-        if (requestCounter === 0 && responseArray.length === queries.length) {
-          resolve(responseArray);
-        }
-      }
-
-      function raiseCounter() {
-        requestCounter++;
-      }
-
-      function lowerCounter() {
-        requestCounter--;
-      }
-    });
+    return await Promise.all(queries.map((query) => getGraphData(graph, query)));
   } catch (error) {
     console.error(error);
 
@@ -277,7 +242,7 @@ export class TheGraphApi {
 
   public static async getGotchisByAddress(address: string): Promise<CustomAny> {
     const getQueries = () => {
-      const queries: CustomAny = [];
+      const queries: string[] = [];
 
       for (let i = 0; i < 5; i++) {
         queries.push(userQuery(address.toLowerCase(), i * 1000));
@@ -299,9 +264,8 @@ export class TheGraphApi {
 
   public static getGotchisByAddresses(addresses: string[]): Promise<CustomAny[]> {
     const promises: Promise<CustomAny>[] = addresses.map((address) => TheGraphApi.getGotchisByAddress(address));
-    const ownedPromises: Promise<CustomAny>[] = addresses.map((address) => TheGraphApi.getOwnedGotchis(address));
 
-    return Promise.all(promises.concat(ownedPromises)).then((response: CustomAny[]) =>
+    return Promise.all(promises).then((response: CustomAny[]) =>
       response.reduce((result, current) => result.concat(current), [])
     );
   }

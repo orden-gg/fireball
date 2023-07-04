@@ -14,3 +14,8 @@ export const getIsDropdownOpen = createSelector(loginStateSelector, (state: Logi
 export const getActiveAddress = createSelector(loginStateSelector, (state: LoginState) => state.activeAddress);
 
 export const getLoggedAddresses = createSelector(loginStateSelector, (state: LoginState) => state.loggedAddresses);
+
+export const getMetamaskLoggedAddress = createSelector(
+  loginStateSelector,
+  (state: LoginState) => state.metamaskLoggedAddress
+);

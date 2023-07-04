@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-import { DEFAULT_COLLATERAL_DECIMALS, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
+import { DEFAULT_COLLATERAL_DECIMALS, GEORLI_RPC, LOCALHOST_RPC, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
 export class EthersApi {
   public static isEthAddress(address: CustomAny): CustomAny {
@@ -58,13 +58,22 @@ export class EthersApi {
     const provider: CustomAny = new ethers.providers.Web3Provider((window as CustomAny).ethereum);
     const signer: CustomAny = provider.getSigner();
 
+    console.log('makeContractWithSigner provider', provider);
+    console.log('makeContractWithSigner signer', signer);
+
     return new ethers.Contract(contract, abi, signer);
   }
 
   public static getProvider(network?: CustomAny): CustomAny {
     switch (network) {
+      case 'localhost':
+        return new ethers.providers.JsonRpcProvider(LOCALHOST_RPC);
+      case 'georli':
+        return new ethers.providers.JsonRpcProvider(GEORLI_RPC);
       case 'test':
         return new ethers.providers.JsonRpcProvider(RINKEBY_RPC);
+      case 'no_provider':
+        return new ethers.providers.JsonRpcProvider();
       default:
         return new ethers.providers.JsonRpcProvider(POLYGON_RPC);
     }

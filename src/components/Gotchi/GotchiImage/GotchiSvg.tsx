@@ -17,9 +17,10 @@ interface GotchiSvgProps {
   id: string;
   size: string;
   view?: string;
+  className?: string;
 }
 
-export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) {
+export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0], className }: GotchiSvgProps) {
   const classes = styles();
 
   const [loadingSvg, setLoadingSvg] = useState<boolean>(true);
@@ -74,7 +75,7 @@ export function GotchiSvg({ id, size, view = GOTCHI_SIDES[0] }: GotchiSvgProps) 
   };
 
   return (
-    <div className={classes.svgWrapper} style={{ width: size }}>
+    <div className={classNames(classes.svgWrapper, className)} style={{ width: size }}>
       {!loadingSvg ? (
         <div className={classNames(`gotchi-${id}`)} dangerouslySetInnerHTML={{ __html: svgs && svgs[view] }}></div>
       ) : (

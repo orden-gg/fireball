@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Fireball",
+  "name": "Fireball",
+  "description": "#1 portal for aavegotchi protocol",
+  "iconPath": "logo.svg",
   "icons": [
     {
       "src": "favicon.ico",

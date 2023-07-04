@@ -8,5 +8,8 @@ export enum IconName {
   Fud = 'Fud',
   Fomo = 'Fomo',
   Alpha = 'Alpha',
-  Kek = 'Kek'
+  Kek = 'Kek',
+  Twitter = 'twitter',
+  Discord = 'discord',
+  WebIcon = 'web'
 }

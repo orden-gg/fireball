@@ -90,3 +90,12 @@ export interface RealmVM extends RealmBase {
   cooldown: number;
   nextChannel: number;
 }
+
+export interface RealmGroup<RealmType> {
+  parcels: RealmType[];
+  icon: JSX.Element;
+  tooltip: string;
+  type: string;
+  active: boolean;
+  animate: boolean;
+}

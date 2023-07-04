@@ -8,7 +8,7 @@ export class CommonUtils {
   public static formatPrice(number: number | string): string {
     return Number(number) % 1 === 0
       ? this.formatNumberWithCommas(number)
-      : number < 100
+      : Number(number) < 100
       ? Number(number).toFixed(2)
       : this.formatNumberWithCommas(Number(number).toFixed(0));
   }

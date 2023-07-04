@@ -96,9 +96,9 @@ export const gotchiByIdBatchQuery = (id: number): string => {
   `;
 };
 
-export const userQuery = (id: CustomAny, skip: CustomAny): string => {
+export const userQuery = (address: string, skip: number): string => {
   return `{
-    user(id: "${id}") {
+    user(id: "${address}") {
       id
       gotchisOriginalOwned(
         first: 1000
@@ -752,13 +752,13 @@ export const parcelsOwnerGotchiverseQuery = (owner: CustomAny): string => {
 
 export const portalsQueryByAddress = (owner: string): string => {
   return `{
-        portals(
-            where: { owner: "${owner}" }
-        ) {
-          openedAt
-          hauntId
-          historicalPrices
-          id
-        }
-      }`;
+    portals(
+        where: { owner: "${owner}" }
+    ) {
+      openedAt
+      hauntId
+      historicalPrices
+      id
+    }
+  }`;
 };

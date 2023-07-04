@@ -15,12 +15,15 @@
     "@mui/material": "^5.11.1",
     "@mui/styles": "^5.11.1",
     "@reduxjs/toolkit": "1.8.3",
+    "@safe-global/safe-apps-provider": "^0.17.1",
+    "@safe-global/safe-apps-react-sdk": "^4.6.7",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "classnames": "^2.2.6",
     "ethers": "^5.4.6",
+    "formik": "^2.2.9",
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "luxon": "^2.3.1",
@@ -39,7 +42,8 @@
     "react-virtuoso": "^2.16.1",
     "serve": "^12.0.1",
     "use-metamask": "^1.3.2",
-    "web-vitals": "^1.1.0"
+    "web-vitals": "^1.1.0",
+    "yup": "^1.0.2"
   },
   "scripts": {
     "commit": "cz",
@@ -63,18 +67,11 @@
       "types/*.d.ts"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
+  ],
   "resolutions": {
     "immer": "9.0.6",
     "glob-parent": "5.1.2",

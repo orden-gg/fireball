@@ -7,6 +7,7 @@ export * from './gotchi-dto.model';
 export * from './gotchi.model';
 export * from './graph-filters.model';
 export * from './sales-history.model';
+export * from './snackbar-data.model';
 export * from './erc-721.model';
 export * from './erc-1155-item.model';
 export * from './erc-1155-listings-batch.model';

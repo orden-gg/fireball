@@ -1,17 +1,15 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { GuildsContextProvider } from './GuildsContext';
-import { Guild } from './routes/Guild';
-import { GuildsPreview } from './routes/GuildsPreview';
+import { Guild, GuildCreate, GuildEdit, GuildsPreview } from './routes';
 
 export function Guilds() {
   return (
-    <GuildsContextProvider>
-      <Routes>
-        <Route path='' element={<GuildsPreview />} />
-        <Route path=':name/*' element={<Guild />} />
-        <Route path='*' element={<Navigate to='' replace />} />
-      </Routes>
-    </GuildsContextProvider>
+    <Routes>
+      <Route path='create' element={<GuildCreate />} />
+      <Route path=':id/edit' element={<GuildEdit />} />
+      <Route path=':id/*' element={<Guild />} />
+      <Route path='' element={<GuildsPreview />} />
+      <Route path='*' element={<Navigate to='' replace />} />
+    </Routes>
   );
 }
