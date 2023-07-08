@@ -75,6 +75,16 @@ export const paint = (text: string, color: string) => {
   return `${color}${text}${CONSOLE_COLORS.White}`;
 };
 
+export const isEthAddress = (address: CustomAny): CustomAny => {
+  return ethers.utils.isAddress(address);
+};
+
+export const delay = (s: number) => {
+  // Return a promise that resolves after 'ms' milliseconds
+  console.log(paint(`delaying script for ${s} s...`, CONSOLE_COLORS.Yellow));
+  return new Promise((resolve) => setTimeout(resolve, s * 1000));
+};
+
 export const getTokenName = (token: string) => {
   switch (token) {
     case FUD_CONTRACT:

@@ -17,6 +17,7 @@ import {
   chunkArray,
   getGasPrice,
   getTokenName,
+  isEthAddress,
   paint // @ts-ignore
 } from './api/scripts.api.ts';
 
@@ -25,7 +26,7 @@ import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
 const { OPERATOR_PRIVATE_KEY } = process.env;
 
-const LEND_OWNER = SCRIPT_WALLET_ADDRESS;
+let LEND_OWNER: string;
 
 const THIRD_PARTY_DEFAULT = '0x0000000000000000000000000000000000000000';
 // if no split third party % set - use default address
@@ -37,7 +38,6 @@ const aavegotchiQuery = `{
     where:{
       lending: null,
       activeListing: null,
-      locked: false,
       owner_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}],
       ${SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0 ? `id_in: [${SETTINGS.HARDCODED_IDS}],` : ''}
     }
@@ -49,10 +49,64 @@ const aavegotchiQuery = `{
   }
 }`;
 
+const lendingsQuery = `{
+  gotchiLendings(
+    first: 1000,
+    orderBy: gotchiKinship,
+    orderDir: desc,
+    where:{
+      lender_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}],
+      borrower: null,
+      cancelled: false,
+      completed: false,
+      ${
+        SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0
+          ? `gotchiTokenId_in: [${SETTINGS.HARDCODED_IDS}],`
+          : ''
+      }
+    }
+  ) {
+    id
+    lastClaimed
+    gotchiTokenId
+    gotchiKinship
+    whitelistId
+    gotchi {
+      escrow
+    }
+  }
+}`;
+
 console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
 
 if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
   console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
+}
+
+if (
+  isEthAddress(SETTINGS.LENDING_OWNER) ||
+  SETTINGS.LENDING_OWNER === 'owner' ||
+  SETTINGS.LENDING_OWNER === 'operator'
+) {
+  if (isEthAddress(SETTINGS.LENDING_OWNER)) {
+    LEND_OWNER = SETTINGS.LENDING_OWNER;
+  } else if (SETTINGS.LENDING_OWNER === 'owner') {
+    LEND_OWNER = SETTINGS.ADDRESSES_TO_MANAGE[0];
+  } else {
+    LEND_OWNER = SCRIPT_WALLET_ADDRESS;
+  }
+
+  console.log(
+    paint(`LENDING_OWNER =>`, CONSOLE_COLORS.Yellow),
+    paint(
+      isEthAddress(SETTINGS.LENDING_OWNER) ? SETTINGS.LENDING_OWNER : `${SETTINGS.LENDING_OWNER}: ${LEND_OWNER}`,
+      CONSOLE_COLORS.Green
+    )
+  );
+} else {
+  console.log(paint('please provide valid value for LENDING_OWNER', CONSOLE_COLORS.Red));
+  console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
+  exit();
 }
 
 const lend = async () => {
@@ -61,13 +115,26 @@ const lend = async () => {
     exit();
   }
 
-  return await axios.post(GRAPH_CORE_API, { query: aavegotchiQuery }).then(async (response) => {
-    if (response.data.errors) {
-      console.log(paint('error!', CONSOLE_COLORS.Red), response.data.errors);
+  const promises = [
+    axios.post(GRAPH_CORE_API, { query: aavegotchiQuery }),
+    axios.post(GRAPH_CORE_API, { query: lendingsQuery })
+  ];
+
+  await Promise.all(promises).then(async ([aavegotchis_res, lendings_res]) => {
+    if (aavegotchis_res.data.errors || lendings_res.data.error) {
+      console.log(paint('error!', CONSOLE_COLORS.Red), aavegotchis_res.data.errors);
+      console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
     }
 
-    const gotchis = response.data.data.aavegotchis;
+    let gotchis = aavegotchis_res.data.data.aavegotchis;
+    const lendings = lendings_res.data.data.gotchiLendings;
     const toLend: CustomAny = [];
+
+    if (!SETTINGS.LENDING_RELIST && lendings.length) {
+      gotchis = aavegotchis_res.data.data.aavegotchis.filter(
+        (gotchi) => !lendings.some((lending) => Object.values(lending).includes(gotchi.id))
+      );
+    }
 
     console.log('sumonned', gotchis.length, 'gotchis');
 
@@ -79,9 +146,9 @@ const lend = async () => {
 
     if (SETTINGS.CHECK_BALANCE) {
       console.log('retriewing', gotchis.length, 'gotchis balances');
-      console.log('balance chank size', SETTINGS.BALANCE_CHUNK_SIZE);
+      console.log('balance chank size', SETTINGS.TRANSACTION_CHUNK_SIZE);
 
-      const chunk = chunkArray(gotchis, SETTINGS.BALANCE_CHUNK_SIZE);
+      const chunk = chunkArray(gotchis, SETTINGS.TRANSACTION_CHUNK_SIZE);
       let processed = 0;
 
       for (let i = 0; i < chunk.length; i++) {
@@ -141,7 +208,7 @@ const lend = async () => {
         SETTINGS.SPLIT,
         LEND_OWNER,
         THIRD_PARTY,
-        SETTINGS.WHITELIST,
+        SETTINGS.WHITELIST ? SETTINGS.WHITELIST : 0,
         SETTINGS.TOKENS
       ];
     });
@@ -175,6 +242,18 @@ const lend = async () => {
 
       console.log('tx chank size', SETTINGS.TRANSACTION_CHUNK_SIZE);
       const chunk = chunkArray(tuples, SETTINGS.TRANSACTION_CHUNK_SIZE);
+
+      console.log('💰', SETTINGS.COST, 'ghst');
+      console.log('🕜', SETTINGS.PERIOD, 'hour');
+      console.log('SPLIT(owner)', SETTINGS.SPLIT[0], '%');
+      console.log('SPLIT(borrower)', SETTINGS.SPLIT[1], '%');
+      console.log('SPLIT(third_party)', SETTINGS.SPLIT[2], '%');
+      console.log('WL', SETTINGS.WHITELIST ? SETTINGS.WHITELIST : false);
+      console.log(
+        'TOKENS',
+        SETTINGS.TOKENS.map((token: string) => getTokenName(token))
+      );
+
       let processed = 0;
 
       // loop through chunks

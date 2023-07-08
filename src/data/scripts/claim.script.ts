@@ -79,9 +79,9 @@ const claim = async () => {
 
     if (SETTINGS.CHECK_BALANCE) {
       console.log('retriewing', lendings.length, 'gotchis balances');
-      console.log('balance chank size', SETTINGS.BALANCE_CHUNK_SIZE);
+      console.log('balance chank size', SETTINGS.TRANSACTION_CHUNK_SIZE);
 
-      const chunk = chunkArray(lendings, SETTINGS.BALANCE_CHUNK_SIZE);
+      const chunk = chunkArray(lendings, SETTINGS.TRANSACTION_CHUNK_SIZE);
       let processed = 0;
 
       for (let i = 0; i < chunk.length; i++) {
