@@ -97,7 +97,7 @@ if (
   }
 
   console.log(
-    paint(`LENDING_OWNER =>`, CONSOLE_COLORS.Yellow),
+    paint('LENDING_OWNER =>', CONSOLE_COLORS.Yellow),
     paint(
       isEthAddress(SETTINGS.LENDING_OWNER) ? SETTINGS.LENDING_OWNER : `${SETTINGS.LENDING_OWNER}: ${LEND_OWNER}`,
       CONSOLE_COLORS.Green

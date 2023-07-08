@@ -122,13 +122,14 @@ const agree = async () => {
           );
         });
 
-        processed += chunk[i].length;
-
         await Promise.all(promises).then(async (txsRes: ContractTransaction[]) => {
           for (const [index, tx] of txsRes.entries()) {
-            console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+            const txIndex = processed + index;
+
+            console.log(`${paint(`Tx ${txIndex} sent!`, CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
           }
 
+          processed += chunk[i].length;
           console.log('done', processed, 'of', lendings.length);
 
           if (processed !== lendings.length) {

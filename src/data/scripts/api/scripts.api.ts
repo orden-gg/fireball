@@ -82,6 +82,7 @@ export const isEthAddress = (address: CustomAny): CustomAny => {
 export const delay = (s: number) => {
   // Return a promise that resolves after 'ms' milliseconds
   console.log(paint(`delaying script for ${s} s...`, CONSOLE_COLORS.Yellow));
+
   return new Promise((resolve) => setTimeout(resolve, s * 1000));
 };
 
