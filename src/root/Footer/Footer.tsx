@@ -26,22 +26,14 @@ export function Footer() {
     <Box className={classes.footerWrapper}>
       <Toolbar className={classes.toolbar}>
         <div>
-          <span className={classes.highlight}>v0.5</span>
+          <span className={classes.highlight}>v0.5.1</span>
           <span className={classes.footerCopyright}>
-            © fireball.gg ||{' '}
-            <a href='https://github.com/orden-gg/fireball' rel='noreferrer' target='_blank'>
-              #1 aavegotchi portal
+            © {' '}
+            <a href='https://fireball.gg' rel='noreferrer' target='_blank'>
+              fireball.gg
             </a>{' '}
-            maintained by ordengg and frens || donate alchemica and items{' '}
-            <a href={`https://fireball.gg/client/${DONATE_ADDRESS}`}>here</a> ||{' '}
-            <a
-              href='https://fireball-gg.notion.site/fireball-gamedao-litepaper-b26d07a1cae041db82f4237f876828b9'
-              rel='noreferrer'
-              target='_blank'
-            >
-              {' '}
-              ❤️‍🔥 fireball gamedao litepaper
-            </a>
+            maintained by fireball ally || donate alchemica and items{' '}
+            <a href={`https://fireball.gg/client/${DONATE_ADDRESS}`}> { '>>'} here {'<< '} </a>
           </span>
         </div>
 
@@ -75,12 +67,12 @@ export function Footer() {
           <div className={classes.btnsGroup}>
             <IconButton
               className={classNames(classes.btn, classes.discordIcon)}
-              href='https://discord.gg/orden'
+              href='https://discord.gg/etvDAXtTrg'
               target='_blank'
             >
               <DiscordIcon />
             </IconButton>
-            <IconButton className={classes.btn} href='https://twitter.com/orden_gg' target='_blank'>
+            <IconButton className={classes.btn} href='https://twitter.com/fireball_gg' target='_blank'>
               <TwitterIcon />
             </IconButton>
             <IconButton className={classes.btn} href='https://github.com/orden-gg/fireball' target='_blank'>
