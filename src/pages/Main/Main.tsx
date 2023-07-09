@@ -1,4 +1,4 @@
-import { About } from './components/About';
+import { AboutButton } from './components/AboutButton';
 import { NavigationCards } from './components/NavigationCards/NavigationCards';
 import { bgStyles, styles } from './styles';
 
@@ -11,7 +11,7 @@ export function Main() {
   return (
     <div className={classes.content}>
       <NavigationCards />
-      <About />
+      <AboutButton />
     </div>
   );
 }
