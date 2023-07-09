@@ -8,25 +8,30 @@ import bg from 'assets/images/bgs/cover.jpg';
 export const styles = makeStyles(() =>
   createStyles({
     content: {
-      overflow: 'hidden'
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+      minHeight: 'calc(100vh - 74px)',
+      background: '#282537',
+      backgroundImage: 'radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%)'
     }
   })
 );
 
 export const aboutStyles = makeStyles((theme) =>
   createStyles({
+    aboutCointainer: {
+      margin: '20px 0',
+      textAlign: 'center'
+    },
     aboutButton: {
-      position: 'absolute',
-      bottom: '15%',
-      left: '50%',
-      transform: 'translateX(-50%)',
       fontFamily: 'Amatic SC, cursive',
       fontSize: '30px',
       fontWeight: 700,
       padding: '6px 24px',
       lineHeught: 1.5,
       color: '#ff6b7c',
-      backgroundColor: 'transparent',
+      backgroundColor: alpha('#000', 0.1),
       textShadow: `0 0 2px ${alpha(theme.palette.secondary.dark, 0.75)},
                         0 0 2px ${alpha(theme.palette.secondary.dark, 0.75)},
                         0 0 2px ${alpha(theme.palette.secondary.dark, 0.75)}`,

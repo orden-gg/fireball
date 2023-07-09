@@ -16,7 +16,7 @@ export function About() {
   };
 
   return (
-    <>
+    <div className={classes.aboutCointainer}>
       <Button className={classes.aboutButton} variant='contained' onClick={() => handleButtonClick(!isOpened)}>
         About fireball.gg
       </Button>
@@ -71,6 +71,6 @@ export function About() {
           </Typography>
         </div>
       </CustomModal>
-    </>
+    </div>
   );
 }
