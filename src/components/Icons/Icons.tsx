@@ -38,6 +38,7 @@ import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import twitch from 'assets/images/icons/twitch.svg';
+import aboutCard from 'assets/images/navigation/about.jpg';
 // card icons
 import anvilCard from 'assets/images/navigation/anvil.jpg';
 import clientCard from 'assets/images/navigation/client.jpg';
@@ -366,4 +367,8 @@ export const MarketCardIcon = ({ width, height }: IconProps) => {
 
 export const RafflesCardIcon = ({ width, height }: IconProps) => {
   return <img width={width} height={height} src={rafflesCard} alt='raffles' />;
+};
+
+export const AboutCardIcon = ({ width, height }: IconProps) => {
+  return <img width={width} height={height} src={aboutCard} alt='about' />;
 };

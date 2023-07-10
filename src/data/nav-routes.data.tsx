@@ -1,6 +1,7 @@
 import { NavRoute } from 'shared/models';
 
 import {
+  AboutCardIcon,
   AnvilCardIcon,
   ClientCardIcon,
   CraftCardIcon,
@@ -66,9 +67,8 @@ export const navRoutes: NavRoute[] = [
     icon: <GlossaryCardIcon />
   },
   {
-    name: 'fake gallery',
-    path: 'fake-gotchis-gallery',
-    description: 'fake gotchis art gallery',
-    icon: <FakeGalleryCardIcon />
+    name: 'about',
+    description: 'about fireball.gg',
+    icon: <AboutCardIcon />
   }
 ];
