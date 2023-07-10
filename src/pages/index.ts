@@ -1,3 +1,4 @@
+export * from './About/About.page';
 export * from './Anvil/Anvil';
 export * from './Autopet/Autopet';
 export * from './Baazaar/containers';

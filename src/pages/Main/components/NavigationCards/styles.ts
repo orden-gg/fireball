@@ -4,14 +4,12 @@ import { createStyles, makeStyles } from '@mui/styles';
 export const styles = makeStyles((theme) =>
   createStyles({
     navContainer: {
-      minHeight: '100vh',
+      flexGrow: 1,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontSize: `${(16 / 1920) * 100}vw`,
-      padding: '55px 10px',
-      background: '#282537',
-      backgroundImage: 'radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%)',
+      padding: '55px 10px 0',
       [theme.breakpoints.down('lg')]: {
         fontSize: `${(22 / 1920) * 100}vw`
       },

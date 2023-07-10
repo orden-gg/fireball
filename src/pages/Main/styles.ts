@@ -8,86 +8,35 @@ import bg from 'assets/images/bgs/cover.jpg';
 export const styles = makeStyles(() =>
   createStyles({
     content: {
-      overflow: 'hidden'
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+      minHeight: 'calc(100vh - 74px)',
+      background: '#282537',
+      backgroundImage: 'radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%)'
     }
   })
 );
 
 export const aboutStyles = makeStyles((theme) =>
   createStyles({
+    aboutCointainer: {
+      margin: '20px 0',
+      textAlign: 'center'
+    },
     aboutButton: {
-      position: 'absolute',
-      bottom: '15%',
-      left: '50%',
-      transform: 'translateX(-50%)',
       fontFamily: 'Amatic SC, cursive',
       fontSize: '30px',
       fontWeight: 700,
       padding: '6px 24px',
       lineHeught: 1.5,
       color: '#ff6b7c',
-      backgroundColor: 'transparent',
+      backgroundColor: alpha('#000', 0.1),
       textShadow: `0 0 2px ${alpha(theme.palette.secondary.dark, 0.75)},
                         0 0 2px ${alpha(theme.palette.secondary.dark, 0.75)},
                         0 0 2px ${alpha(theme.palette.secondary.dark, 0.75)}`,
       '&:hover': {
         background: '#ff6b7c'
-      }
-    },
-    modal: {
-      maxWidth: 1000,
-      padding: theme.spacing(3, 0)
-    },
-    container: {
-      maxHeight: 400,
-      overflow: 'auto',
-      padding: theme.spacing(0, 2)
-    },
-    title: {
-      textAlign: 'center',
-      color: theme.palette.primary.main,
-      fontWeight: 700,
-      marginBottom: theme.spacing(2)
-    },
-    text: {
-      margin: theme.spacing(2, 0),
-      lineHeight: 1.6,
-      textAlign: 'center',
-      padding: theme.spacing(0, 2)
-    },
-    subText: {
-      marginTop: theme.spacing(4),
-      padding: theme.spacing(0, 2)
-    },
-    list: {
-      backgroundColor: theme.palette.background.default,
-      listStyle: 'none',
-      padding: theme.spacing(2),
-      margin: theme.spacing(1, 0)
-    },
-    listItem: {
-      margin: theme.spacing(1, 0),
-      position: 'relative',
-      color: theme.palette.common.white,
-      paddingLeft: theme.spacing(4),
-      lineHeight: 1.8,
-
-      '&:before': {
-        content: '""',
-        position: 'absolute',
-        left: 3,
-        top: 9,
-        width: 8,
-        height: 8,
-        borderRadius: '50%',
-        backgroundColor: theme.palette.primary.main
-      }
-    },
-    link: {
-      color: theme.palette.primary.main,
-
-      '&:hover': {
-        textDecoration: 'none'
       }
     }
   })

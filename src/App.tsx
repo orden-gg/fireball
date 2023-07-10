@@ -7,6 +7,7 @@ import { Box } from '@mui/system';
 import classNames from 'classnames';
 
 import {
+  About,
   Anvil,
   Autopet,
   Baazaar,
@@ -73,6 +74,7 @@ export function App() {
         <Box className={classes.content}>
           <Routes>
             <Route path='' element={<Main />} />
+            <Route path='about' element={<About />} />
             <Route path='anvil' element={<Anvil />} />
             <Route path='market/*' element={<Baazaar />} />
             <Route path='lendings' element={<Lend />} />
