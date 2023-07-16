@@ -10,10 +10,6 @@ import REALM_ABI from 'data/abi/realm.abi.json';
 const realmContract = EthersApi.makeContract(REALM_CONTRACT, REALM_ABI, 'polygon');
 
 export class RealmApi {
-  public static getGotchiLastChanneled(id: CustomAny): CustomAny {
-    // !TODO: find a better solution for BigNumber parcing (default method doesn't work)
-    return realmContract.getLastChanneled(id).then((response: CustomAny) => response - 0);
-  }
 
   public static getRealmCapacities(id: CustomAny): ParcelAlchemica {
     return realmContract.getCapacities(id).then((response: BigNumber[]) => {
@@ -54,13 +50,4 @@ export class RealmApi {
     });
   }
 
-  public static getParcelUpgradeQueueLength(id: CustomAny): CustomAny {
-    // !TODO: find a better solution for BigNumber parcing (default method doesn't work)
-    return realmContract.getParcelUpgradeQueueLength(id).then((response: CustomAny) => response - 0);
-  }
-
-  public static getParcelUpgradeQueueCapacity(id: CustomAny): CustomAny {
-    // !TODO: find a better solution for BigNumber parcing (default method doesn't work)
-    return realmContract.getParcelUpgradeQueueCapacity(id).then((response: CustomAny) => response - 0);
-  }
 }

@@ -4,7 +4,15 @@ import { gql } from '@apollo/client';
 import { EthersApi } from './ethers.api';
 import { TheGraphCoreApi } from './the-graph-core.api';
 
-import { GRAPH_CORE_API, GRAPH_FIREBALL_API, GRAPH_FIREBALL_MAIN_API, MAX_BATCH_QUERIES } from 'shared/constants';
+import {
+  GRAPH_CORE_API,
+  GRAPH_FIREBALL_API,
+  GRAPH_FIREBALL_MAIN_API,
+  GRAPH_GOTCHIVERSE_API,
+  GRAPH_GOTCHI_SVG_API,
+  GRAPH_RAFFLE_API,
+  MAX_BATCH_QUERIES
+} from 'shared/constants';
 import {
   Erc1155ListingsBatch,
   FireballErc1155Item,
@@ -47,11 +55,6 @@ import {
   userQuery
 } from './common/queries';
 
-const raffleAPI = 'https://api.thegraph.com/subgraphs/name/froid1911/aavegotchi-raffles';
-const gotchiSvgAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-svg';
-const realmAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/aavegotchi-realm-matic';
-const gotchiverseAPI = 'https://api.thegraph.com/subgraphs/name/aavegotchi/gotchiverse-matic';
-
 const defaultOptions: DefaultOptions = {
   watchQuery: {
     fetchPolicy: 'no-cache',
@@ -74,10 +77,10 @@ const clientFactory = (() => {
 
   return {
     client: createClient(GRAPH_CORE_API),
-    raffleClient: createClient(raffleAPI),
-    svgsClient: createClient(gotchiSvgAPI),
-    realmClient: createClient(realmAPI),
-    gotchiverseClient: createClient(gotchiverseAPI),
+    raffleClient: createClient(GRAPH_RAFFLE_API),
+    svgsClient: createClient(GRAPH_GOTCHI_SVG_API),
+    realmClient: createClient(GRAPH_CORE_API),
+    gotchiverseClient: createClient(GRAPH_GOTCHIVERSE_API),
     fireballClient: createClient(GRAPH_FIREBALL_API),
     fireballMainClient: createClient(GRAPH_FIREBALL_MAIN_API)
   };

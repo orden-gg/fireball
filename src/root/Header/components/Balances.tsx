@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ContentLoader from 'react-content-loader';
 
+import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { IconButton, Link, useTheme } from '@mui/material';
+
 import classNames from 'classnames';
 
 import { BalancesContext } from 'contexts/BalancesContext';
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
-import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined';
 
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
@@ -50,7 +51,7 @@ export function Balances() {
   const handleCheck = (event) => {
     var updatedList = [...checked];
 
-    if (event.target.checked) {
+    if (!event.target.checked) {
       updatedList = [...checked, event.target.value];
     } else {
       updatedList.splice(checked.indexOf(event.target.value), 1);
@@ -64,15 +65,11 @@ export function Balances() {
     const hide = ishiden?.includes(inputToken);
 
     if (hide) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   };
-
-  if (!tokens.length) {
-    return <></>;
-  }
 
   return (
     <div className={classes.balancesWrapper}>

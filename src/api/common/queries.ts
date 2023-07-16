@@ -298,6 +298,9 @@ export const realmQuery = (address: CustomAny, skip: CustomAny): string => {
       }
       installations(first: 1000) {
         installationId
+        upgrading
+        lastUpgradeReady
+        lastUpgradeInitiated
       }
       tiles(first: 1000) {
         tileId
@@ -369,6 +372,9 @@ export const parcelQuery = (id: CustomAny): string => {
             installationId
             x
             y
+            upgrading
+            lastUpgradeReady
+            lastUpgradeInitiated
         }
         tiles {
             id

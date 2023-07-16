@@ -138,6 +138,9 @@ export class InstallationsUtils {
       .filter((item: ParcelInstallationDTO) => InstallationsUtils.getIsInstallationExist(item.installationId))
       .map((inst: ParcelInstallationDTO) => ({
         id: inst.installationId,
+        upgrading: inst.upgrading,
+        lastUpgradeReady: inst.lastUpgradeReady,
+        lastUpgradeInitiated: inst.lastUpgradeInitiated,
         name: InstallationsUtils.getNameById(inst.installationId),
         level: InstallationsUtils.getLevelById(inst.installationId),
         type: InstallationsUtils.getTypeById(inst.installationId) as InstallationTypeNames

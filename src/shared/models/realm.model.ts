@@ -4,6 +4,9 @@ export declare type AlchemicaBag = [string, string, string, string];
 
 export interface ParcelInstallationDTO {
   installationId: number;
+  upgrading: boolean;
+  lastUpgradeReady: number;
+  lastUpgradeInitiated: number;
 }
 
 export interface ParcelTileDTO {
@@ -16,6 +19,9 @@ export interface ParcelInstallationVM {
   name: string;
   quantity: number;
   type: InstallationTypeNames;
+  upgrading: boolean;
+  lastUpgradeReady: number;
+  lastUpgradeInitiated: number;
 }
 
 export interface ParcelTileVM {
@@ -93,6 +99,5 @@ export interface RealmVM extends RealmBase {
   capacities: ParcelAlchemica;
   harvestRates: ParcelAlchemica;
   claimAvailableAlchemica: ParcelAlchemica;
-  upgradeCap: number;
-  upgradeQueue: number;
+  lastUpgradeReady: number;
 }

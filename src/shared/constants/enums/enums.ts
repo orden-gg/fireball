@@ -136,7 +136,8 @@ export enum InstallationTypeNames {
   Wall = 'wall',
   NFTDisplay = 'NFT display',
   BuildqueueBooster = 'buildqueue booster',
-  Decoration = 'decoration'
+  Decoration = 'decoration',
+  Maaker = 'maaker'
 }
 
 export enum TileTypes {

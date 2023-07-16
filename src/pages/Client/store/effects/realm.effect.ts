@@ -34,22 +34,25 @@ export const onLoadRealm =
         const realmCapacitiesPromise = RealmApi.getRealmCapacities(parcel.id);
         const realmHarvestRatesPromise = RealmApi.getRealmHarvestRates(parcel.id);
         const realmAvailableAlchemicaPromise = RealmApi.getRealmAvailableAlchemica(parcel.id);
-        const realmGetParcelUpgradeQueueLengthPromise = RealmApi.getParcelUpgradeQueueLength(parcel.id);
-        const realmGetParcelUpgradeQueueCapacityPromise = RealmApi.getParcelUpgradeQueueCapacity(parcel.id);
 
-        const [
-          realmCapacities,
-          realmHarvestRates,
-          realmAvailableAlchemica,
-          realmGetParcelUpgradeQueueLength,
-          realmGetParcelUpgradeQueueCapacity
-        ] = await Promise.all([
+        const [realmCapacities, realmHarvestRates, realmAvailableAlchemica] = await Promise.all([
           realmCapacitiesPromise,
           realmHarvestRatesPromise,
-          realmAvailableAlchemicaPromise,
-          realmGetParcelUpgradeQueueLengthPromise,
-          realmGetParcelUpgradeQueueCapacityPromise
+          realmAvailableAlchemicaPromise
         ]);
+
+        const getParcelUpgradeQueueCapacitytemp = installations.filter(
+          (installation: ParcelInstallationVM) => installation.id > 128 && installation.id < 138
+        );
+
+        // const getParcelUpgradeQueueCapacity = getParcelUpgradeQueueCapacitytemp[0]?.level + 1;
+        const getParcelUpgradeQueueCapacity = getParcelUpgradeQueueCapacitytemp.reduce(
+          (sum, item) => sum + item.level,
+          0
+        );
+        const getParcelUpgradeQueueLength = parcel.installations.filter(
+          (installation) => installation.upgrading === true
+        ).length;
 
         return {
           ...parcel,
@@ -62,8 +65,8 @@ export const onLoadRealm =
           capacities: realmCapacities,
           harvestRates: realmHarvestRates,
           claimAvailableAlchemica: realmAvailableAlchemica,
-          upgradeCap: realmGetParcelUpgradeQueueLength,
-          upgradeQueue: realmGetParcelUpgradeQueueCapacity
+          upgradeCap: getParcelUpgradeQueueCapacity + 1,
+          upgradeQueue: getParcelUpgradeQueueLength
         };
       });
 

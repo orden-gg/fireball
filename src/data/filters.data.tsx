@@ -3,6 +3,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PercentIcon from '@mui/icons-material/Percent';
 import { Avatar, Chip } from '@mui/material';
 
+import { now } from 'lodash';
 import { DateTime } from 'luxon';
 
 import { EthersApi } from 'api';
@@ -432,13 +433,41 @@ export const filtersData = {
     isFilterActive: false,
     getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
     resetFilterFn: FiltersHelper.checkboxResetFilterFn,
-    predicateFn: (filter: CustomAny, compareItem: CustomAny, key: CustomAny) => {
+    predicateFn: (filter: CustomAny, compareItem: CustomAny) => {
       let predicate: boolean;
-
-      if (!filter.value || !compareItem[key]) {
+      if (!filter.value) {
         predicate = false;
       } else {
-        if (compareItem.upgradeQueue - compareItem.upgradeCap > 0) {
+        if (compareItem.upgradeQueue < compareItem.upgradeCap) {
+          return (predicate = true);
+        } else {
+          predicate = false;
+        }
+      }
+
+      return predicate;
+    },
+    updateFromQueryFn: FiltersHelper.checkboxUpdateFromQueryFn,
+    updateFromFilterFn: FiltersHelper.checkboxUpdateFromFilterFn,
+    getQueryParamsFn: FiltersHelper.checkboxGetQueryParamsFn,
+    getActiveFiltersCountFn: FiltersHelper.checkboxGetActiveFiltersCount
+  },
+
+  claimUpgrade: {
+    key: 'lastUpgradeReady',
+    queryParamKey: 'lastUpgradeReady',
+    title: 'Is upgrade ready',
+    value: false,
+    componentType: FilterComponentType.Checkbox,
+    isFilterActive: false,
+    getIsFilterValidFn: FiltersHelper.checkboxGetIsFilterValidFn,
+    resetFilterFn: FiltersHelper.checkboxResetFilterFn,
+    predicateFn: (filter: CustomAny, compareItem: CustomAny) => {
+      let predicate: boolean;
+      if (!filter.value) {
+        predicate = false;
+      } else {
+        if (compareItem.lastUpgradeReady < now()) {
           return (predicate = true);
         } else {
           predicate = false;
