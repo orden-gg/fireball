@@ -12,6 +12,7 @@ import {
   SETTINGS,
   TX_COST_LIMIT,
   chunkArray,
+  delay,
   getGasPrice,
   paint // @ts-ignore
 } from './api/scripts.api.ts';
@@ -104,6 +105,7 @@ const agree = async () => {
       const chunk = chunkArray(lendings, SETTINGS.TRANSACTION_CHUNK_SIZE);
 
       let txNonce = nonce - 1; // hacky way to prepare nonce number for txs iteration
+      let processed = 0;
 
       // loop through chunks
       for (let i = 0; i < chunk.length; i++) {
@@ -122,23 +124,16 @@ const agree = async () => {
 
         await Promise.all(promises).then(async (txsRes: ContractTransaction[]) => {
           for (const [index, tx] of txsRes.entries()) {
-            console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+            const txIndex = processed + index;
 
-            tx.wait()
-              .then(() =>
-                console.log(
-                  paint('=>', CONSOLE_COLORS.Green),
-                  paint(lendings[index].gotchiTokenId, CONSOLE_COLORS.Pink),
-                  paint('transaction confirmed!', CONSOLE_COLORS.Green)
-                )
-              )
-              .catch(() =>
-                console.log(
-                  paint('=>', CONSOLE_COLORS.Red),
-                  paint(lendings[index].gotchiTokenId, CONSOLE_COLORS.Pink),
-                  paint('transaction failed :(', CONSOLE_COLORS.Red)
-                )
-              );
+            console.log(`${paint(`Tx ${txIndex} sent!`, CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+          }
+
+          processed += chunk[i].length;
+          console.log('done', processed, 'of', lendings.length);
+
+          if (processed !== lendings.length) {
+            await delay(7);
           }
         });
       }

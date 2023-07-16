@@ -13,12 +13,21 @@ HARDCODED_IDS = []
 # addresses to manage [lend, claim, agree]
 ADDRESSES_TO_MANAGE = ['0xc46d3c9d93febdd5027c9b696fe576dc654c66de','0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0']
 # whitelist id [agree, lend]
-WHITELIST = 6329
+WHITELIST = 6329 # possible values: number or false
 # lendings options [lend]
 SPLIT = [85, 10, 5] # [owner, borrower, third_party]
 COST = 0 # ghst
 PERIOD = 1 # hours
-THIRD_PARTY = '0x6865ae680c92Bf047D08Aa7F40CA2Ec5a4f01C5a' # used only if SPLIT for third party > 0
+THIRD_PARTY = '0x1840248b0c642b9E317F7451FCafc04aA9275550' # used only if SPLIT for third party > 0
+
+# the address where owner's % of SPLIT tokens will be distributed [lend]
+# could be one of the following values:
+# 'owner' - gotchi owner (BEWARE: if you use multiple addresses will take the first one)
+# 'operator' - lending operator
+# '0x13...0667' - custom address (any valid ETH address)
+LENDING_OWNER = 'owner'
+# if true will re-list all current active lendings which are not yet agreed
+LENDING_RELIST = false
 
 # tokens for lendings or check the balances [lend, claim]
 TOKENS = [
@@ -34,7 +43,5 @@ FINISH_LENDING = false
 # retrieve gotchis balance [claim, lend]
 # BEWARE => if true the scripts will execute only balance check [claim, lend]
 CHECK_BALANCE = true
-# chunk size for retrieving balance requests [claim, lend]
-BALANCE_CHUNK_SIZE = 20
-# chunk size for batch requests [claim, lend]
+# transactions chunk size for batch requests [claim, lend, agree]
 TRANSACTION_CHUNK_SIZE = 20
