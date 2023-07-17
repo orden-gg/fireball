@@ -25,6 +25,7 @@ export const onLoadClientData =
     dispatch(clientEffects.onLoadRealm(address));
     dispatch(clientEffects.onLoadFakeGotchis(address));
     dispatch(clientEffects.onLoadItemsForSale(address));
+    dispatch(clientEffects.onLoadForge(address));
   };
 
 export const onUpdateClientLoadingStates = (): AppThunk => (dispatch, getState) => {

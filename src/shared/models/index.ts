@@ -27,3 +27,4 @@ export * from './token.model';
 export * from './token-prices.model';
 export * from './traits.model';
 export * from './wearable.model';
+export * from './forge.model';

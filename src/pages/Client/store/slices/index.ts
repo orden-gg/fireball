@@ -2,6 +2,7 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 import * as fromBorrowedGotchis from './borrowed-gotchis.slice';
 import * as fromFakeGotchis from './fake-gotchis.slice';
+import * as fromForge from './forge.slice';
 import * as fromInstallations from './installations.slice';
 import * as fromItemsForSale from './items-for-sale.slice';
 import * as fromLentGotchis from './lent-gotchis.slice';
@@ -24,6 +25,7 @@ export interface ClientModuleState {
   tickets: fromTickets.TicketsState;
   tiles: fromTiles.TilesState;
   warehouse: fromWarehouse.WarehouseState;
+  forge: fromForge.ClientForgeState;
 }
 
 export const clientReducers = combineReducers({
@@ -37,7 +39,8 @@ export const clientReducers = combineReducers({
   realm: fromRealm.realmReducer,
   tickets: fromTickets.ticketsReducer,
   tiles: fromTiles.tilesReducer,
-  warehouse: fromWarehouse.warehouseReducer
+  warehouse: fromWarehouse.warehouseReducer,
+  forge: fromForge.forgeReducer
 });
 
 export * from './borrowed-gotchis.slice';
@@ -51,3 +54,4 @@ export * from './realm.slice';
 export * from './tickets.slice';
 export * from './tiles.slice';
 export * from './warehouse.slice';
+export * from './forge.slice';
