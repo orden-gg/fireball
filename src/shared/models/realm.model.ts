@@ -61,6 +61,9 @@ export interface Parcel {
   historicalPrices?: string[];
   timesTraded?: number;
   timePurchased?: number;
+  capacities: ParcelAlchemica;
+  harvestRates: ParcelAlchemica;
+  claimAvailableAlchemica: ParcelAlchemica;
 }
 
 export interface ParcelDTO extends Parcel {
@@ -96,8 +99,5 @@ export interface RealmVM extends RealmBase {
   cooldown: number;
   nextChannel: number;
   nextClaim: number;
-  capacities: ParcelAlchemica;
-  harvestRates: ParcelAlchemica;
-  claimAvailableAlchemica: ParcelAlchemica;
   lastUpgradeReady: number;
 }
