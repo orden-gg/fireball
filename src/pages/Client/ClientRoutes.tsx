@@ -141,16 +141,10 @@ export function ClientRoutes() {
       count: warehouseCount
     },
     {
-      path: 'installations',
-      icon: <AltarIcon width={24} height={24} />,
-      isLoading: isInitialInstallationsLoading || isInitialTilesLoading,
-      count: installationsCount + tilesCount
-    },
-    {
-      path: 'tickets',
-      icon: <RareTicketIcon width={24} height={24} />,
-      isLoading: isInitialTicketsLoading,
-      count: ticketsCount
+      path: 'forge',
+      icon: <AnvilIcon width={24} height={20} />,
+      isLoading: getIsInitialForgeLoading,
+      count: forgeItemsCount
     },
     {
       path: 'realm',
@@ -159,16 +153,22 @@ export function ClientRoutes() {
       count: realmCount
     },
     {
+      path: 'installations',
+      icon: <AltarIcon width={24} height={24} />,
+      isLoading: isInitialInstallationsLoading || isInitialTilesLoading,
+      count: installationsCount + tilesCount
+    },
+    {
       path: 'fake-gotchis',
       icon: <FakeGotchisIcon width={24} height={24} />,
       isLoading: isInitialFakeGotchisLoading,
       count: fakeGotchisCount
     },
     {
-      path: 'forge',
-      icon: <AnvilIcon width={24} height={20} />,
-      isLoading: getIsInitialForgeLoading,
-      count: forgeItemsCount
+      path: 'tickets',
+      icon: <RareTicketIcon width={24} height={24} />,
+      isLoading: isInitialTicketsLoading,
+      count: ticketsCount
     },
     {
       path: 'for-sale',
