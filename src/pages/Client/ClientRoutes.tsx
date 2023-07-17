@@ -18,7 +18,7 @@ import { PageNavLink } from 'shared/models';
 import { RealmSwitchButton } from 'pages/Client/components/RealmSwitchButton/RealmSwitchButton';
 
 import {
-  AlloyIcon,
+  AltarIcon,
   AnvilIcon,
   BaazarIcon,
   FakeGotchisIcon,
@@ -142,7 +142,7 @@ export function ClientRoutes() {
     },
     {
       path: 'installations',
-      icon: <AnvilIcon width={24} height={24} />,
+      icon: <AltarIcon width={24} height={24} />,
       isLoading: isInitialInstallationsLoading || isInitialTilesLoading,
       count: installationsCount + tilesCount
     },
@@ -166,7 +166,7 @@ export function ClientRoutes() {
     },
     {
       path: 'forge',
-      icon: <AlloyIcon width={24} height={20} />,
+      icon: <AnvilIcon width={24} height={20} />,
       isLoading: getIsInitialForgeLoading,
       count: forgeItemsCount
     },
