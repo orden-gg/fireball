@@ -5,6 +5,9 @@ import gotchiLoadingGif from 'assets/images/animated/gotchi-loading.gif';
 import gotchiverseGif from 'assets/images/animated/gotchiverse.gif';
 import h1OpenedPortalGif from 'assets/images/animated/h1-opened.gif';
 import realmGif from 'assets/images/animated/realm.gif';
+// forge
+import alloy from 'assets/images/forge/alloy.svg';
+// placeholder
 import gotchi from 'assets/images/gotchi-placeholder.svg';
 // icons
 import activity from 'assets/images/icons/activity.svg';
@@ -38,6 +41,7 @@ import purpleGrass from 'assets/images/icons/purple_grass.svg';
 import { ReactComponent as Reload } from 'assets/images/icons/reload.svg';
 import sold from 'assets/images/icons/sold.svg';
 import twitch from 'assets/images/icons/twitch.svg';
+import altar from 'assets/images/installations/9.png';
 // card icons
 import anvilCard from 'assets/images/navigation/anvil.jpg';
 import clientCard from 'assets/images/navigation/client.jpg';
@@ -114,6 +118,10 @@ export const ActivityIcon = ({ width, height }: IconProps) => {
 
 export const AlphaIcon = ({ width, height }: IconProps) => {
   return <img width={width} height={height} src={alpha} alt='alpha' />;
+};
+
+export const AltarIcon = ({ width, height }: IconProps) => {
+  return <img width={width} height={height} src={altar} alt='altar' />;
 };
 
 export const BaazarIcon = ({ className, width, height }: IconProps) => {
@@ -366,4 +374,9 @@ export const MarketCardIcon = ({ width, height }: IconProps) => {
 
 export const RafflesCardIcon = ({ width, height }: IconProps) => {
   return <img width={width} height={height} src={rafflesCard} alt='raffles' />;
+};
+
+// forge icons
+export const AlloyIcon = ({ width, height }: IconProps) => {
+  return <img width={width} height={height} src={alloy} alt='alloy' />;
 };

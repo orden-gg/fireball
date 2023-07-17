@@ -26,6 +26,13 @@ declare module '@mui/material/styles/createPalette' {
       kek: string;
       gltr: string;
     };
+    forge: {
+      alloy: string;
+      essence: string;
+      geode: string;
+      core: string;
+      schematic: string;
+    };
     customColors: {
       lightGray: string;
       grayBorder: string;
@@ -61,6 +68,13 @@ declare module '@mui/material/styles/createPalette' {
       alpha: string;
       kek: string;
       gltr: string;
+    };
+    forge: {
+      alloy: string;
+      essence: string;
+      geode: string;
+      core: string;
+      schematic: string;
     };
     customColors: {
       lightGray: string;
@@ -127,6 +141,13 @@ export const theme = createTheme({
       alpha: 'rgb(55, 255, 255)',
       kek: '#fa34f3',
       gltr: '#ffc800'
+    },
+    forge: {
+      alloy: '#78498b',
+      essence: '#8af3e2',
+      geode: '#6d6e97',
+      core: '#266f86',
+      schematic: '#c79559'
     },
     customColors: {
       lightGray: '#9A9EAA',

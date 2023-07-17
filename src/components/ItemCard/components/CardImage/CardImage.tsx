@@ -12,9 +12,11 @@ interface CardImageProps {
   id: number | string;
   category?: string;
   className?: string;
+  itemName?: string;
+  path?: string;
 }
 
-export function CardImage({ id, category, className }: CardImageProps) {
+export function CardImage({ id, category, path, itemName, className }: CardImageProps) {
   const classes = styles();
 
   const [src, setSrc] = useState<string>('');
@@ -36,6 +38,10 @@ export function CardImage({ id, category, className }: CardImageProps) {
       case Erc1155Categories.Installation:
         name = InstallationsUtils.getNameById(id);
         url = InstallationsUtils.getImageById(id);
+        break;
+      case Erc1155Categories.Forge:
+        name = itemName!;
+        url = path!;
         break;
       default:
         name = ItemUtils.getNameById(id);

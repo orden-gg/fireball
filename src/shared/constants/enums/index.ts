@@ -4,3 +4,4 @@ export * from './graph.enums';
 export * from './icon-name.enums';
 export * from './traits.enums';
 export * from './wearable.enums';
+export * from './forge.enums';

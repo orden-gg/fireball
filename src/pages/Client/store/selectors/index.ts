@@ -1,6 +1,7 @@
 export * from './borrowed-gotchis.selector';
 export * from './client.selector';
 export * from './fake-gotchis.selector';
+export * from './forge.selector';
 export * from './items-for-sale.selector';
 export * from './installations.selector';
 export * from './lent-gotchis.selector';
