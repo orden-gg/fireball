@@ -50,7 +50,11 @@ export enum Erc1155Categories {
   Installation = '4',
   Tile = '5',
   FakeGotchiCard = '6',
-  Forge = '7'
+  Alloy = '7',
+  Forge = '8',
+  Geodes = '9',
+  Essence = '10',
+  Cores = '11'
 }
 
 export enum Erc1155NumberCategories {
