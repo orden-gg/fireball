@@ -1,17 +1,16 @@
 import axios from 'axios';
 import 'dotenv/config';
 import { BigNumber, ContractTransaction, ethers } from 'ethers';
-import { exit } from 'process';
 
 // @ts-ignore
 import {
   CONSOLE_COLORS,
   MAIN_CONTRACT_WITH_SIGNER,
-  SCRIPT_WALLET_ADDRESS,
   SCRIPT_WALLET_NONCE,
   SETTINGS,
   TX_COST_LIMIT,
   chunkArray,
+  coreChecks,
   delay,
   getGasPrice,
   paint // @ts-ignore
@@ -19,8 +18,6 @@ import {
 
 // @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
-
-const { OPERATOR_PRIVATE_KEY } = process.env;
 
 // TODO: batch claim
 const lendingsQuery = `{
@@ -33,9 +30,12 @@ const lendingsQuery = `{
       cancelled: false,
       completed: false,
       timeAgreed: null,
+      gotchiKinship_gt: ${SETTINGS.KINSHIP_GT},
+      gotchiKinship_lt: ${SETTINGS.KINSHIP_LT},
+      ${SETTINGS.GOTCHI_IDS && SETTINGS.GOTCHI_IDS.length > 0 ? `gotchiTokenId_in: [${SETTINGS.GOTCHI_IDS}],` : ''}
       ${
-        SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0
-          ? `gotchiTokenId_in: [${SETTINGS.HARDCODED_IDS}],`
+        SETTINGS.GOTCHI_IGNORE_IDS && SETTINGS.GOTCHI_IGNORE_IDS.length > 0
+          ? `gotchiTokenId_not_in: [${SETTINGS.GOTCHI_IGNORE_IDS}],`
           : ''
       }
     }
@@ -52,18 +52,9 @@ const lendingsQuery = `{
   }
 }`;
 
-console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
-
-if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
-  console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
-}
+coreChecks();
 
 const agree = async () => {
-  if (!OPERATOR_PRIVATE_KEY) {
-    console.log('Please specify OPERTOR_PRIVATE_KEY in .env');
-    exit();
-  }
-
   return await axios.post(GRAPH_CORE_API, { query: lendingsQuery }).then(async (response) => {
     if (response.data.errors) {
       console.log(paint('error!', CONSOLE_COLORS.Red), response.data.errors);
@@ -92,7 +83,7 @@ const agree = async () => {
             CONSOLE_COLORS.Red
           )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
         );
-        console.log(paint('Terminated!', CONSOLE_COLORS.Red));
+        console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
 
         return;
       }

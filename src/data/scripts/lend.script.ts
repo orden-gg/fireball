@@ -15,6 +15,7 @@ import {
   TX_COST_LIMIT,
   callWithRetries,
   chunkArray,
+  coreChecks,
   getGasPrice,
   getTokenName,
   isEthAddress,
@@ -23,8 +24,6 @@ import {
 
 // @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
-
-const { OPERATOR_PRIVATE_KEY } = process.env;
 
 let LEND_OWNER: string;
 
@@ -38,8 +37,15 @@ const aavegotchiQuery = `{
     where:{
       lending: null,
       activeListing: null,
+      kinship_gt: ${SETTINGS.KINSHIP_GT},
+      kinship_lt: ${SETTINGS.KINSHIP_LT},
       owner_in: [${SETTINGS.ADDRESSES_TO_MANAGE.map((address: string) => `"${address.toLowerCase()}"`)}],
-      ${SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0 ? `id_in: [${SETTINGS.HARDCODED_IDS}],` : ''}
+      ${SETTINGS.GOTCHI_IDS && SETTINGS.GOTCHI_IDS.length > 0 ? `id_in: [${SETTINGS.GOTCHI_IDS}],` : ''}
+      ${
+        SETTINGS.GOTCHI_IGNORE_IDS && SETTINGS.GOTCHI_IGNORE_IDS.length > 0
+          ? `id_not_in: [${SETTINGS.GOTCHI_IGNORE_IDS}],`
+          : ''
+      }
     }
   ) {
     id
@@ -59,9 +65,10 @@ const lendingsQuery = `{
       borrower: null,
       cancelled: false,
       completed: false,
+      ${SETTINGS.GOTCHI_IDS && SETTINGS.GOTCHI_IDS.length > 0 ? `gotchiTokenId_in: [${SETTINGS.GOTCHI_IDS}],` : ''}
       ${
-        SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0
-          ? `gotchiTokenId_in: [${SETTINGS.HARDCODED_IDS}],`
+        SETTINGS.GOTCHI_IGNORE_IDS && SETTINGS.GOTCHI_IGNORE_IDS.length > 0
+          ? `gotchiTokenId_not_in: [${SETTINGS.GOTCHI_IGNORE_IDS}],`
           : ''
       }
     }
@@ -77,11 +84,7 @@ const lendingsQuery = `{
   }
 }`;
 
-console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
-
-if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
-  console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
-}
+coreChecks();
 
 if (
   isEthAddress(SETTINGS.LENDING_OWNER) ||
@@ -110,11 +113,6 @@ if (
 }
 
 const lend = async () => {
-  if (!OPERATOR_PRIVATE_KEY) {
-    console.log('Please specify OPERTOR_PRIVATE_KEY in .env');
-    exit();
-  }
-
   const promises = [
     axios.post(GRAPH_CORE_API, { query: aavegotchiQuery }),
     axios.post(GRAPH_CORE_API, { query: lendingsQuery })
@@ -232,7 +230,7 @@ const lend = async () => {
             CONSOLE_COLORS.Red
           )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
         );
-        console.log(paint('Terminated!', CONSOLE_COLORS.Red));
+        console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
 
         return;
       }

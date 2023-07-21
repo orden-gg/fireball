@@ -1,7 +1,6 @@
 import axios from 'axios';
 import 'dotenv/config';
 import { BigNumber, ContractTransaction, ethers } from 'ethers';
-import { exit } from 'process';
 // @ts-ignore
 import { CustomAny } from 'types/global.js';
 
@@ -9,12 +8,12 @@ import { CustomAny } from 'types/global.js';
 import {
   CONSOLE_COLORS,
   MAIN_CONTRACT_WITH_SIGNER,
-  SCRIPT_WALLET_ADDRESS,
   SETTINGS,
   TOKEN_CONTRACT_WITH_SIGNER,
   TX_COST_LIMIT,
   callWithRetries,
   chunkArray,
+  coreChecks,
   getGasPrice,
   getTokenName,
   paint // @ts-ignore
@@ -23,10 +22,6 @@ import {
 // @ts-ignore
 import { GRAPH_CORE_API } from '../../shared/constants/the-graph.constants.ts';
 
-const { OPERATOR_PRIVATE_KEY } = process.env;
-
-// borrower_not: "0x0000000000000000000000000000000000000000",
-// borrower: "0x8ba922eb891a734f17b14e7ff8800e6626912e5d",
 const lendingsQuery = `{
   gotchiLendings(
     first: 1000,
@@ -37,9 +32,12 @@ const lendingsQuery = `{
       borrower_not: "0x0000000000000000000000000000000000000000",
       cancelled: false,
       completed: false,
+      gotchiKinship_gt: ${SETTINGS.KINSHIP_GT},
+      gotchiKinship_lt: ${SETTINGS.KINSHIP_LT},
+      ${SETTINGS.GOTCHI_IDS && SETTINGS.GOTCHI_IDS.length > 0 ? `gotchiTokenId_in: [${SETTINGS.GOTCHI_IDS}],` : ''},
       ${
-        SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length > 0
-          ? `gotchiTokenId_in: [${SETTINGS.HARDCODED_IDS}],`
+        SETTINGS.GOTCHI_IGNORE_IDS && SETTINGS.GOTCHI_IGNORE_IDS.length > 0
+          ? `gotchiTokenId_not_in: [${SETTINGS.GOTCHI_IGNORE_IDS}],`
           : ''
       }
     }
@@ -55,18 +53,9 @@ const lendingsQuery = `{
   }
 }`;
 
-console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
-
-if (SETTINGS.HARDCODED_IDS && SETTINGS.HARDCODED_IDS.length) {
-  console.log(paint(`BEWARE => using ${SETTINGS.HARDCODED_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Red));
-}
+coreChecks();
 
 const claim = async () => {
-  if (!OPERATOR_PRIVATE_KEY) {
-    console.log('Please specify OPERTOR_PRIVATE_KEY in .env');
-    exit();
-  }
-
   return await axios.post(GRAPH_CORE_API, { query: lendingsQuery }).then(async (response) => {
     if (response.data.errors) {
       console.log(paint('error!', CONSOLE_COLORS.Red), response.data.errors);
@@ -91,7 +80,11 @@ const claim = async () => {
           .then((tokensResponse) => {
             tokensResponse.forEach((tokens, gotchiIndex) => {
               const index = processed + gotchiIndex;
-              const obj = { lendingId: lendings[index].id, gotchiId: lendings[index].gotchiTokenId };
+              const obj = {
+                lendingId: lendings[index].id,
+                gotchiId: lendings[index].gotchiTokenId,
+                kinship: lendings[index].gotchiKinship
+              };
 
               for (const tkn of tokens) {
                 obj[tkn.name] = tkn.amount;
@@ -156,7 +149,7 @@ const claim = async () => {
             CONSOLE_COLORS.Red
           )} current ${paint(gasPriceGwei, CONSOLE_COLORS.Pink)}`
         );
-        console.log(paint('Terminated!', CONSOLE_COLORS.Red));
+        console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
 
         return;
       }
@@ -176,34 +169,28 @@ const claim = async () => {
           3,
           5,
           [chunk[i], { gasPrice: gasBoosted }]
-        )
-          // await MAIN_CONTRACT_WITH_SIGNER[SETTINGS.FINISH_LENDING ? 'batchClaimAndEndGotchiLending' : 'batchClaimGotchiLending'](
-          //   chunk[i],
-          //   // { gasPrice: gasBoosted, gasLimit: 9000000 } // TODO: gas limit is required when you ending lending
-          //   { gasPrice: gasBoosted }
-          // )
-          .then(async (tx: ContractTransaction) => {
-            console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
-            console.log('waiting Tx approval...');
+        ).then(async (tx: ContractTransaction) => {
+          console.log(`${paint('Tx sent!', CONSOLE_COLORS.Green)} https://polygonscan.com/tx/${tx.hash}`);
+          console.log('waiting Tx approval...');
 
-            // wait for transaction to display result
-            await tx
-              .wait()
-              .then(() => {
-                console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), chunk[i].length);
-                console.log(chunk[i]);
+          // wait for transaction to display result
+          await tx
+            .wait()
+            .then(() => {
+              console.log(paint('Happy folks:', CONSOLE_COLORS.Pink), chunk[i].length);
+              console.log(chunk[i]);
 
-                processed += chunk[i].length;
-                console.log('done', processed, 'of', gotchiIds.length);
+              processed += chunk[i].length;
+              console.log('done', processed, 'of', gotchiIds.length);
 
-                return true;
-              })
-              .catch((error: CustomAny) => {
-                console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
+              return true;
+            })
+            .catch((error: CustomAny) => {
+              console.log(`${paint('Tx failed!', CONSOLE_COLORS.Red)}, reason: ${error.reason}, ${error.code}`);
 
-                return false;
-              });
-          });
+              return false;
+            });
+        });
       }
     }
   });

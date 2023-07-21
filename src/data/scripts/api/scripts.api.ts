@@ -37,6 +37,30 @@ export const TX_COST_LIMIT = SETTINGS.TX_COST_LIMIT * 1e9;
 export const SCRIPT_WALLET: Wallet = new ethers.Wallet(process.env.OPERATOR_PRIVATE_KEY as string, provider);
 export const SCRIPT_WALLET_ADDRESS = SCRIPT_WALLET.address.toLowerCase();
 
+export const coreChecks = () => {
+  console.log(`🧑 operator: ${paint(SCRIPT_WALLET_ADDRESS, CONSOLE_COLORS.Pink)}`);
+
+  if (!process.env.OPERATOR_PRIVATE_KEY) {
+    console.log(paint('Please specify OPERTOR_PRIVATE_KEY in .env', CONSOLE_COLORS.Yellow));
+    console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
+    process.exit();
+  }
+
+  if (SETTINGS.GOTCHI_IDS && SETTINGS.GOTCHI_IDS.length) {
+    console.log(paint(`BEWARE => using ${SETTINGS.GOTCHI_IDS.length} hardcoded gotchi ids`, CONSOLE_COLORS.Yellow));
+  }
+
+  if (SETTINGS.GOTCHI_IGNORE_IDS && SETTINGS.GOTCHI_IGNORE_IDS.length) {
+    console.log(paint(`BEWARE => ignoring ${SETTINGS.GOTCHI_IGNORE_IDS.length} gotchi ids`, CONSOLE_COLORS.Yellow));
+  }
+
+  if (SETTINGS.KINSHIP_LT < SETTINGS.KINSHIP_GT) {
+    console.log(paint('KINSHIP_LT cannot be lower that KINSHIP_GT', CONSOLE_COLORS.Red));
+    console.log(paint('> t_e.r,m!i/n*a^t>e"d <', CONSOLE_COLORS.Red));
+    process.exit();
+  }
+};
+
 export const getGasPrice = async () => {
   return await provider.getGasPrice();
 };

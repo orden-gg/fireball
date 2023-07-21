@@ -7,8 +7,11 @@ PET_ADDRESS = '0x1315B9510Cd7f75A63BB59bA7d9D1FAd083d0667'
 
 # -->lendings<--
 
-# hardcoded gotchis ids (eg. [8005, 915, 24322, ...])
-HARDCODED_IDS = []
+# BEWARE => GOTCHI_IDS and GOTCHI_IGNORE_IDS should not be used simultaneously!
+# hardcoded gotchis ids [agree, claim, lend]
+GOTCHI_IDS = [] # (eg. [8005, 915, 24322, ...])
+# hardcoded gotchis ignore ids [agree, claim, lend]
+GOTCHI_IGNORE_IDS = [] # (eg. [8005, 915, 24322, ...])
 
 # addresses to manage [lend, claim, agree]
 ADDRESSES_TO_MANAGE = ['0xc46d3c9d93febdd5027c9b696fe576dc654c66de','0xdcf4dbd159afc0fd71bcf1bfa97ccf23646eabc0']
@@ -28,6 +31,11 @@ THIRD_PARTY = '0x1840248b0c642b9E317F7451FCafc04aA9275550' # used only if SPLIT 
 LENDING_OWNER = 'owner'
 # if true will re-list all current active lendings which are not yet agreed
 LENDING_RELIST = false
+
+# gotchi kinship greater than
+KINSHIP_GT = 0 # (KINSHIP_GT > KINSHIP_LT not possible)
+# gotchi kinship lower than
+KINSHIP_LT = 99999 # (KINSHIP_LT < KINSHIP_GT not possible)
 
 # tokens for lendings or check the balances [lend, claim]
 TOKENS = [
