@@ -587,6 +587,7 @@ export const lendingsQuery = (skip: CustomAny, orderDir: CustomAny): string => {
         splitOther
         splitBorrower
         splitOwner
+        channellingAllowed
       }
     }`;
 };
@@ -642,6 +643,7 @@ export const lendingsByAddressQuery = (address: CustomAny, skip: CustomAny): str
       splitOther
       splitBorrower
       splitOwner
+      channellingAllowed
     }
   }`;
 };
@@ -696,6 +698,7 @@ export const borrowedByAddressQuery = (address: CustomAny, skip: CustomAny): str
       splitOther
       splitBorrower
       splitOwner
+      channellingAllowed
     }
   }`;
 };

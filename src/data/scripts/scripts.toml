@@ -23,6 +23,9 @@ COST = 0 # ghst
 PERIOD = 1 # hours
 THIRD_PARTY = '0x1840248b0c642b9E317F7451FCafc04aA9275550' # used only if SPLIT for third party > 0
 
+# allow rented gotchis to channel [lend]
+CHANNELING_ALLOWED = false
+
 # the address where owner's % of SPLIT tokens will be distributed [lend]
 # could be one of the following values:
 # 'owner' - gotchi owner (BEWARE: if you use multiple addresses will take the first one)

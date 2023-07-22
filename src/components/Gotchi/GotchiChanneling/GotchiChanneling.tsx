@@ -20,7 +20,7 @@ const countdownFormat: CountdownShortFormat = {
   minutes: { key: CountdownFormatNonZeroType.M, value: 'm', isShown: true, shownIfZero: false }
 };
 
-export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
+export function GotchiChanelling({ gotchi }: { gotchi: CustomAny }) {
   const classes = styles();
 
   const [lastChanneling, setLastChanneling] = useState<number>(0);
@@ -31,7 +31,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
 
     setLastChanellingLoading(true);
 
-    RealmApi.getGotchiLastChanneled(gotchiId)
+    RealmApi.getGotchiLastChanneled(gotchi.id)
       .then((res: CustomAny) => {
         if (mounted) {
           setLastChanneling(res * 1000);
@@ -46,7 +46,7 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
     return () => {
       mounted = false;
     };
-  }, [gotchiId]);
+  }, [gotchi.id]);
 
   const atLeastOneTimeChanneled = (date: number) => {
     return date > 0;
@@ -80,48 +80,63 @@ export function GotchiChanelling({ gotchiId }: { gotchiId: string }) {
 
   return (
     <div className={classes.container}>
-      {lastChannelingLoading ? (
-        <ContentLoader
-          speed={2}
-          viewBox='0 0 28 28'
-          backgroundColor='#2c2f36'
-          foregroundColor='#16181a'
-          className={classes.placeholder}
-        >
-          <rect x='0' y='0' width='28' height='28' />
-        </ContentLoader>
-      ) : (
-        <CustomTooltip
-          title={
-            atLeastOneTimeChanneled(lastChanneling) ? (
-              <div className={classes.tooltipRow}>
-                <span>
-                  <Countdown targetDate={lastChanneling} shortFormat={countdownFormat} />
-                </span>
-                {'('}
-                <div style={{ color: chanelledBeforeCd(lastChanneling) ? 'lime' : 'orange' }}>
-                  {chanelledBeforeCd(lastChanneling) ? 'ready' : 'cooldown'}
+      <div className={classes.channelingIcon}>
+        {lastChannelingLoading ? (
+          <ContentLoader
+            speed={2}
+            viewBox='0 0 28 28'
+            backgroundColor='#2c2f36'
+            foregroundColor='#16181a'
+            className={classes.placeholder}
+          >
+            <rect x='0' y='0' width='28' height='28' />
+          </ContentLoader>
+        ) : (
+          <CustomTooltip
+            title={
+              atLeastOneTimeChanneled(lastChanneling) ? (
+                <div className={classes.tooltipRow}>
+                  <span>
+                    <Countdown targetDate={lastChanneling} shortFormat={countdownFormat} />
+                  </span>
+                  {'('}
+                  <div style={{ color: chanelledBeforeCd(lastChanneling) ? 'lime' : 'orange' }}>
+                    {chanelledBeforeCd(lastChanneling) ? 'ready' : 'cooldown'}
+                  </div>
+                  {')'}
                 </div>
-                {')'}
-              </div>
-            ) : (
-              <span>
-                <span className='highlight'>never</span> channeled!
-              </span>
-            )
-          }
+              ) : (
+                <span>
+                  <span className='highlight'>never</span> channeled!
+                </span>
+              )
+            }
+            placement='top'
+            followCursor
+          >
+            <div>
+              {chanelledBeforeCd(lastChanneling) ? (
+                <ChannelActiveIcon className={classes.activeIcon} height={20} width={20} />
+              ) : (
+                <ChannelIcon className={classes.unactiveIcon} height={20} width={20} />
+              )}
+            </div>
+          </CustomTooltip>
+        )}
+      </div>
+      <div className={classes.channelingStatus}>
+        <CustomTooltip
+          title={`channeling is ${gotchi.channellingAllowed ? 'enabled' : 'disabled'}`}
           placement='top'
           followCursor
         >
-          <div>
-            {chanelledBeforeCd(lastChanneling) ? (
-              <ChannelActiveIcon className={classes.activeIcon} height={20} width={20} />
-            ) : (
-              <ChannelIcon className={classes.unactiveIcon} height={20} width={20} />
-            )}
-          </div>
+          {gotchi.channellingAllowed ? (
+            <span className={classes.channelingStatusEnabled}>Enabled</span>
+          ) : (
+            <span className={classes.channelingStatusDisabled}>Disabled</span>
+          )}
         </CustomTooltip>
-      )}
+      </div>
     </div>
   );
 }

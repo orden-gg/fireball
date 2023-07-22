@@ -35,7 +35,7 @@ const aavegotchiQuery = `{
   aavegotchis(
     first: 1000,
     where:{
-      lending: null,
+      ${SETTINGS.LENDING_RELIST ? 'lending_not: null,' : 'lending: null,'}
       activeListing: null,
       kinship_gt: ${SETTINGS.KINSHIP_GT},
       kinship_lt: ${SETTINGS.KINSHIP_LT},
@@ -207,7 +207,14 @@ const lend = async () => {
         LEND_OWNER,
         THIRD_PARTY,
         SETTINGS.WHITELIST ? SETTINGS.WHITELIST : 0,
-        SETTINGS.TOKENS
+        SETTINGS.TOKENS,
+
+        SETTINGS.CHANNELING_ALLOWED
+          ? constructPermissionsBitMap({
+              permissionsAllowed: 1,
+              channellingAllowed: 1
+            })
+          : 0
       ];
     });
 
@@ -302,3 +309,36 @@ const tokensPromises = async (address: string) => {
 const calculateToken = (array: CustomAny[], token: string) => {
   return Number(array.reduce((acc, gotchi) => acc + Number(gotchi[token]), 0).toFixed(0));
 };
+
+interface LendingPermissions {
+  permissionsAllowed: 0 | 1;
+  channellingAllowed: 0 | 1;
+
+  //new lending permissions can be added here up to 32
+}
+
+function constructPermissionsBitMap(permissions: LendingPermissions) {
+  let permissionsBitMap = BigInt(0);
+
+  if (permissions.permissionsAllowed == 0) {
+    return 0;
+  } else {
+    //loop through all object keys and set the permissions
+    const totalKeys = Object.keys(permissions).length;
+
+    for (let i = 0; i < totalKeys; i++) {
+      permissionsBitMap = storeValueInBitmap(Object.values(permissions)[i], i, permissionsBitMap);
+    }
+  }
+
+  return permissionsBitMap;
+}
+
+function storeValueInBitmap(value: number, position: number, bitmap: any) {
+  bitmap &= ~(BigInt(0xff) << (BigInt(position) * BigInt(8)));
+
+  // Set the value in the specified position
+  bitmap |= BigInt(value) << (BigInt(position) * BigInt(8));
+
+  return bitmap;
+}
