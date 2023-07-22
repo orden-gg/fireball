@@ -320,7 +320,7 @@ interface LendingPermissions {
 function constructPermissionsBitMap(permissions: LendingPermissions) {
   let permissionsBitMap = BigInt(0);
 
-  if (permissions.permissionsAllowed == 0) {
+  if (permissions.permissionsAllowed === 0) {
     return 0;
   } else {
     //loop through all object keys and set the permissions
@@ -334,11 +334,13 @@ function constructPermissionsBitMap(permissions: LendingPermissions) {
   return permissionsBitMap;
 }
 
-function storeValueInBitmap(value: number, position: number, bitmap: any) {
-  bitmap &= ~(BigInt(0xff) << (BigInt(position) * BigInt(8)));
+function storeValueInBitmap(value: number, position: number, bitmap: CustomAny) {
+  /* eslint-disable no-param-reassign */
+  bitmap &= ~(BigInt(0xff) << (BigInt(position) * BigInt(8))); // @ts-ignore
 
   // Set the value in the specified position
-  bitmap |= BigInt(value) << (BigInt(position) * BigInt(8));
+  /* eslint-disable no-param-reassign */
+  bitmap |= BigInt(value) << (BigInt(position) * BigInt(8)); // @ts-ignore
 
   return bitmap;
 }
