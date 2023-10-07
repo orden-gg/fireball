@@ -14,9 +14,8 @@ import * as fromLoginStore from 'core/store/login';
 
 import { LoginAddress as LoginAddressModel } from 'shared/models';
 
+import { EthEnsAddress } from 'components/EthAddress/EthEnsAddress';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
-
-import { CommonUtils } from 'utils';
 
 import { styles } from './styles';
 
@@ -148,7 +147,7 @@ export function LoginAddress({ address, isMetamask, onLogout }: LoginAddressProp
             onClick={(event) => copyAddress(event)}
             onMouseLeave={() => setCopyTooltipText('Copy address')}
           >
-            {CommonUtils.cutAddress(address.address, '..')}
+            <EthEnsAddress address={address.address} />
           </Typography>
         </CustomTooltip>
       </Box>

@@ -1,8 +1,10 @@
 import { ethers } from 'ethers';
 
-import { DEFAULT_COLLATERAL_DECIMALS, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
+import { DEFAULT_COLLATERAL_DECIMALS, ETH_RPC, POLYGON_RPC, RINKEBY_RPC } from 'shared/constants';
 
 export class EthersApi {
+  private static cache: { [address: string]: string } = {};
+
   public static isEthAddress(address: CustomAny): CustomAny {
     return ethers.utils.isAddress(address);
   }
@@ -22,6 +24,23 @@ export class EthersApi {
 
   public static hexToNumber(hex: string): number {
     return Number(ethers.utils.formatUnits(hex));
+  }
+
+  public static async getENS(address: string): Promise<string> {
+    const provider = EthersApi.getProvider('eth');
+
+    // Check if the address is already in the cache
+    if (this.cache[address]) {
+      return this.cache[address];
+    }
+
+    // If not, make the on-chain query
+    const ensName = await provider.lookupAddress(address);
+
+    // Store the result in the cache
+    this.cache[address] = ensName;
+
+    return ensName;
   }
 
   public static async getBlockByNumber(blockNumber: number, network?: CustomAny): Promise<CustomAny> {
@@ -65,6 +84,8 @@ export class EthersApi {
     switch (network) {
       case 'test':
         return new ethers.providers.JsonRpcProvider(RINKEBY_RPC);
+      case 'eth':
+        return new ethers.providers.JsonRpcProvider(ETH_RPC);
       default:
         return new ethers.providers.JsonRpcProvider(POLYGON_RPC);
     }

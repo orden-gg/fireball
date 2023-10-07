@@ -100,7 +100,7 @@ export function ClientLendings() {
         currentFiltersCacheCopy.borrower = {
           ...currentFiltersCacheCopy.borrower,
           items: uniqueBorrowers.map((borrower: string) => ({
-            title: CommonUtils.cutAddress(borrower),
+            title: CommonUtils.cutAddress(borrower, '..'),
             value: borrower,
             queryParamValue: borrower,
             isSelected: false

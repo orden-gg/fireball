@@ -8,8 +8,7 @@ import { EthersApi } from 'api';
 import { CopyToClipboard } from 'components/CopyToClipboard/CopyToClipboard';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
-import { CommonUtils } from 'utils';
-
+import { EthEnsAddress } from './EthEnsAddress';
 import { styles } from './styles';
 
 interface EthAddressProps {
@@ -33,10 +32,10 @@ export function EthAddress({ address, isShowIcon, isClientLink, isPolygonButton,
 
       {isClientLink ? (
         <Link href={`/client/${address}`} target='_blank' className={classes.link}>
-          {CommonUtils.cutAddress(address, '..')}
+          <EthEnsAddress address={address} />
         </Link>
       ) : (
-        <span className={classes.text}>{CommonUtils.cutAddress(address, '..')}</span>
+        <EthEnsAddress address={address} />
       )}
 
       {isCopyButton && (

@@ -51,7 +51,7 @@ export const gotchiPreviewModalStyles = makeStyles((theme) =>
       flexBasis: '15%'
     },
     address: {
-      flexBasis: 200
+      flexBasis: 230
     },
     wearables: {
       flexBasis: 450
