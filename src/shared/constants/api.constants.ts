@@ -1,3 +1,4 @@
+export const ETH_RPC: string = 'https://rpc.ankr.com/eth';
 export const POLYGON_RPC: string = 'https://polygon-rpc.com/';
 export const RINKEBY_RPC: string = 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161';
 

@@ -148,6 +148,7 @@ export const styles = makeStyles((theme) =>
     loginAddressName: {
       fontSize: 16,
       fontWeight: 500,
+      pointerEvents: 'none',
       '&.Mui-disabled::before': {
         borderColor: 'transparent'
       },
