@@ -3,6 +3,59 @@ import { alpha } from '@mui/system';
 
 export const styles = makeStyles((theme) =>
   createStyles({
+    gotchi: {
+      display: 'flex',
+      flexDirection: 'column',
+      color: '#fff',
+      textAlign: 'center',
+      height: '100%',
+      position: 'relative',
+      border: '3px solid gray',
+      alignItem: 'space-between',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'none',
+        zIndex: 1
+      },
+      '&.haunt1': {
+        backgroundColor: theme.palette.haunts.h1
+      },
+      '&.haunt2': {
+        backgroundColor: theme.palette.haunts.h2
+      },
+      '&.narrowed': {
+        background: 'none',
+        border: 'none'
+      },
+      '&.vertical': {
+        padding: '0 5px 5px'
+      },
+      '&.horizontal': {
+        display: 'flex',
+        flexDirection: 'unset',
+        padding: theme.spacing(0, 1)
+      },
+      '&.common': {
+        borderColor: theme.palette.rarity.common
+      },
+      '&.rare': {
+        borderColor: theme.palette.rarity.rare
+      },
+      '&.mythical': {
+        borderColor: theme.palette.rarity.mythical
+      },
+      '&.godlike': {
+        borderColor: theme.palette.rarity.godlike
+      },
+      '&.lended': {
+        overflow: 'hidden',
+        '&:hover': {
+          '& $statusBadge': {
+            opacity: 0
+          }
+        }
+      }
+    },
     container: {
       padding: '10px 24px 0',
       display: 'flex',

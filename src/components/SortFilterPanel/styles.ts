@@ -39,6 +39,21 @@ export const styles = makeStyles((theme) =>
         borderRadius: '4px 4px 0 0'
       }
     },
+    additionalButton: {
+      marginLeft: 4,
+      lineHeight: 1,
+      padding: '9px 16px',
+      background: alpha('#fff', 0.06),
+      color: '#fff',
+      '&:hover': {
+        background: alpha('#fff', 0.12)
+      },
+      '&.active': {
+        background: alpha(theme.palette.primary.main, 0.8),
+        color: '#000',
+        borderRadius: '4px 4px 0 0'
+      }
+    },
     filtersCount: {
       position: 'absolute',
       top: -2,

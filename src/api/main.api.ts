@@ -69,4 +69,10 @@ export class MainApi {
       return null;
     }
   }
+
+  public static batchLend(listings: CustomAny[]): Promise<CustomAny> {
+    const writeContract = EthersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
+
+    return writeContract.batchAddGotchiListing(listings);
+  }
 }

@@ -190,6 +190,10 @@ export function ClientOwned() {
         resetFilters={onResetFilters}
         exportData={onExportData}
         filtersCount={activeFiltersCount}
+        additionalButtonText='Lend'
+        additionalButtonCb={() => {
+          navigate('../../lend');
+        }}
       />
 
       <ContentInner dataLoading={isInitialOwnedGotchisLoading}>
