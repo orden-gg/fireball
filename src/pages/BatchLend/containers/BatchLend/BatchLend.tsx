@@ -2,12 +2,13 @@ import { useContext, useEffect, useState } from 'react';
 
 import { Button } from '@mui/material';
 
-import styled from '@emotion/styled';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import { EthersApi, MainApi } from 'api';
-import { ClientApi } from 'pages/Client/api';
+import { EthersApi, MainApi, TheGraphCoreApi } from 'api';
+
+import { GRAPH_CORE_API } from 'shared/constants';
+import { BatchLend as BatchLendModel, TheGraphResponse } from 'shared/models';
 
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
@@ -24,13 +25,10 @@ import { CustomTooltip } from 'components/custom/CustomTooltip';
 import { GotchiverseUtils } from 'utils';
 
 import { LendConfirmationModal } from '../../components/LendConfirmationModal/LendConfirmationModal';
+import { BatchLendGotchi } from '../../models';
+import { getGotchisForLendByAddressQuery } from '../../queries/gotchis-for-lend.query';
+import { batchLendInitialValues } from '../../utils/batch-lend.utils';
 import { styles } from './styles';
-
-const ListContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
-  grid-gap: 12px;
-`;
 
 export function BatchLend() {
   const classes = styles();
@@ -39,15 +37,17 @@ export function BatchLend() {
   const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
 
   const [isLoading, setIsloading] = useState<boolean>(true);
-  const [gotchisForLend, setGotchisForLend] = useState<CustomAny[]>([]);
+  const [gotchisForLend, setGotchisForLend] = useState<BatchLendGotchi[]>([]);
   const [selectedGotchisIds, setSelectedGotchisIds] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const loadGotchis = (address: string): void => {
     setIsloading(true);
 
-    ClientApi.getGothisForLendByAddress(address)
-      .then((res) => setGotchisForLend(res.data.aavegotchis))
+    TheGraphCoreApi.getGraphData(GRAPH_CORE_API, getGotchisForLendByAddressQuery(address))
+      .then((response: TheGraphResponse<{ aavegotchis: BatchLendGotchi[] }>) =>
+        setGotchisForLend(response.data.aavegotchis)
+      )
       .catch((err) => console.log('err', err))
       .finally(() => setIsloading(false));
   };
@@ -76,32 +76,23 @@ export function BatchLend() {
   };
 
   const onBatchLend = (): void => {
-    const batchGotchis = selectedGotchisIds.map((id) => ({
+    const batchGotchis: BatchLendModel[] = selectedGotchisIds.map((id) => ({
+      ...batchLendInitialValues,
       tokenId: Number(id),
-      initialCost: 0,
-      period: 1 * 60 * 60,
-      revenueSplit: [65, 15, 20],
-      originalOwner: metaState.account[0],
-      thirdParty: '0x1840248b0c642b9E317F7451FCafc04aA9275550',
-      whitelistId: 717,
-      revenueTokens: [
-        '0x403E967b044d4Be25170310157cB1A4Bf10bdD0f',
-        '0x44A6e0BE76e1D9620A7F76588e4509fE4fa8E8C8',
-        '0x6a3E7C3c6EF65Ee26975b12293cA1AAD7e1dAeD2',
-        '0x42E5E06EF5b90Fe15F853F59299Fc96259209c5C'
-      ],
-      permissions: 0
+      originalOwner: metaState.account[0]
     }));
 
     MainApi.batchLend(batchGotchis)
       .then((transaction) => {
         showSnackbar('success', 'Transaction created');
 
+        setIsModalOpen(false);
+        setSelectedGotchisIds([]);
+
         EthersApi.waitForTransaction(transaction.hash, 'polygon')
           .then(() => {
             showSnackbar('success', 'Batch Lend succeeded');
 
-            setSelectedGotchisIds([]);
             loadGotchis(metaState.account[0]);
           })
           .catch(() => showSnackbar('error', 'Batch Lend failed'));
@@ -116,23 +107,18 @@ export function BatchLend() {
       <ContentWrapper>
         <ContentInner dataLoading={isLoading}>
           <div className={classes.infoPanel}>
-            {/* <div>You can select up to 20 Gotchis (click on them for selection)</div> */}
-            <div>Click to select a Gotchi. You may choose up to 20 of them.</div>
+            <div className={classes.infoPanelMessage}>Click to select a Gotchi. You may choose up to 20 of them.</div>
             <div className={classes.countWrapper}>
               <span>{gotchisForLend.length}</span>
               <GotchiIcon width={20} height={20} />({selectedGotchisIds.length})
             </div>
           </div>
 
-          <ListContainer>
+          <div className={classes.listContainer}>
             {gotchisForLend.map((gotchi) => (
               <div key={gotchi.id} onClick={(event) => onSelectGotchi(event, `${gotchi.id}`)}>
                 <div
-                  className={classNames(
-                    classes.gotchi,
-                    `haunt${gotchi.hauntId}`,
-                    GotchiverseUtils.getRarityNameByRS(gotchi.modifiedRarityScore)
-                  )}
+                  className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`)}
                   style={{
                     borderColor: selectedGotchisIds.find((selectedId) => selectedId === gotchi.id) ? '#fd9af9' : ''
                   }}
@@ -158,7 +144,7 @@ export function BatchLend() {
                 </div>
               </div>
             ))}
-          </ListContainer>
+          </div>
         </ContentInner>
         <div className={classes.settingsContainer}>
           <div className={classes.settingWrapper}>

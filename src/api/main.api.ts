@@ -1,7 +1,7 @@
 import { EthersApi } from './ethers.api';
 
 import { AUTOPET_OPERATOR, MAIN_CONTRACT } from 'shared/constants';
-import { Inventory } from 'shared/models';
+import { BatchLend, Inventory } from 'shared/models';
 
 import MAIN_ABI from 'data/abi/main.abi.json';
 
@@ -70,7 +70,7 @@ export class MainApi {
     }
   }
 
-  public static batchLend(listings: CustomAny[]): Promise<CustomAny> {
+  public static batchLend(listings: BatchLend[]): Promise<CustomAny> {
     const writeContract = EthersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
 
     return writeContract.batchAddGotchiListing(listings);

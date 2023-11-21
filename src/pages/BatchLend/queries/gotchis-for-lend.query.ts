@@ -2,7 +2,7 @@ export const getGotchisForLendByAddressQuery = (address: string) => {
   return `{
     aavegotchis(
       first: 1000,
-      where:{
+      where: {
         lending: null,
         activeListing: null,
         owner: "${address.toLowerCase()}"
@@ -14,7 +14,6 @@ export const getGotchisForLendByAddressQuery = (address: string) => {
       kinship
       level
       hauntId
-      escrow
     }
   }`;
 };

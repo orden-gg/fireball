@@ -16,9 +16,17 @@ export const styles = makeStyles((theme) =>
       background: alpha('#000', 0.2),
       borderRadius: '4px 4px 0 0'
     },
+    infoPanelMessage: {
+      paddingLeft: '4px'
+    },
     countWrapper: {
       display: 'flex',
       alignItems: 'center'
+    },
+    listContainer: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(192px, 1fr))',
+      gridGap: '12px'
     },
     gotchi: {
       display: 'flex',
