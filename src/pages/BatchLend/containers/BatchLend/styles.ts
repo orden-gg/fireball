@@ -3,6 +3,23 @@ import { createStyles, makeStyles } from '@mui/styles';
 
 export const styles = makeStyles((theme) =>
   createStyles({
+    batchLendContainer: {
+      display: 'flex'
+    },
+    infoPanel: {
+      height: 40,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingRight: 8,
+      fontWeight: 'bold',
+      background: alpha('#000', 0.2),
+      borderRadius: '4px 4px 0 0'
+    },
+    countWrapper: {
+      display: 'flex',
+      alignItems: 'center'
+    },
     gotchi: {
       display: 'flex',
       flexDirection: 'column',

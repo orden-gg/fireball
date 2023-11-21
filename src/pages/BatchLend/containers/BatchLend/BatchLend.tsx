@@ -6,8 +6,8 @@ import styled from '@emotion/styled';
 import classNames from 'classnames';
 import { useMetamask } from 'use-metamask';
 
-import { ClientApi } from '../../../../api';
 import { EthersApi, MainApi } from 'api';
+import { ClientApi } from 'pages/Client/api';
 
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
@@ -18,7 +18,7 @@ import { EthAddress } from 'components/EthAddress/EthAddress';
 import { GotchiImage } from 'components/Gotchi/GotchiImage/GotchiImage';
 import { GotchiKinshipTooltip } from 'components/Gotchi/GotchiKinship/GotchiKinshitTooltip';
 import { GotchiName } from 'components/Gotchi/GotchiName/GotchiName';
-import { GotchiHeartGif } from 'components/Icons/Icons';
+import { GotchiHeartGif, GotchiIcon } from 'components/Icons/Icons';
 import { CustomTooltip } from 'components/custom/CustomTooltip';
 
 import { GotchiverseUtils } from 'utils';
@@ -32,7 +32,7 @@ const ListContainer = styled.div`
   grid-gap: 12px;
 `;
 
-export function ClientLend() {
+export function BatchLend() {
   const classes = styles();
 
   const { metaState } = useMetamask();
@@ -65,7 +65,9 @@ export function ClientLend() {
     const gotchiIdIndex = currentGotchisIds.findIndex((currId) => currId === id);
 
     if (gotchiIdIndex === -1) {
-      currentGotchisIds.push(id);
+      if (currentGotchisIds.length < 20) {
+        currentGotchisIds.push(id);
+      }
     } else {
       currentGotchisIds.splice(gotchiIdIndex, 1);
     }
@@ -113,6 +115,15 @@ export function ClientLend() {
     <>
       <ContentWrapper>
         <ContentInner dataLoading={isLoading}>
+          <div className={classes.infoPanel}>
+            {/* <div>You can select up to 20 Gotchis (click on them for selection)</div> */}
+            <div>Click to select a Gotchi. You may choose up to 20 of them.</div>
+            <div className={classes.countWrapper}>
+              <span>{gotchisForLend.length}</span>
+              <GotchiIcon width={20} height={20} />({selectedGotchisIds.length})
+            </div>
+          </div>
+
           <ListContainer>
             {gotchisForLend.map((gotchi) => (
               <div key={gotchi.id} onClick={(event) => onSelectGotchi(event, `${gotchi.id}`)}>

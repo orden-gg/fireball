@@ -192,7 +192,7 @@ export function ClientOwned() {
         filtersCount={activeFiltersCount}
         additionalButtonText='Lend'
         additionalButtonCb={() => {
-          navigate('../../lend');
+          navigate('/batch-lend');
         }}
       />
 

@@ -24,6 +24,7 @@ import {
   ParcelPage,
   Raffle
 } from 'pages';
+import { BatchLend } from 'pages/BatchLend/containers/BatchLend/BatchLend';
 
 import { BalancesContextProvider } from 'contexts/BalancesContext';
 import { SnackbarContextProvider } from 'contexts/SnackbarContext';
@@ -87,6 +88,7 @@ export function App() {
             <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
             <Route path='glossary/*' element={<Glossary />} />
             <Route path='fake-gotchis-gallery/*' element={<FakeGotchisGallery />} />
+            <Route path='batch-lend' element={<BatchLend />} />
             <Route path='404' element={<NotFound />} />
             <Route path='*' element={<Navigate to='404' replace />}></Route>
           </Routes>
