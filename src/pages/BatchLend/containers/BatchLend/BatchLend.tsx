@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 
 import classNames from 'classnames';
+import { ethers } from 'ethers';
 import { useMetamask } from 'use-metamask';
 
 import { EthersApi, MainApi, TheGraphCoreApi } from 'api';
@@ -33,9 +34,11 @@ import { styles } from './styles';
 export function BatchLend() {
   const classes = styles();
 
-  const { metaState } = useMetamask();
+  const { metaState, connect } = useMetamask();
   const { showSnackbar } = useContext<CustomAny>(SnackbarContext);
 
+  const [isWalletConnected, setIsWalletConnected] = useState<boolean>(false);
+  const [isWalletConnecting, setIsWalletConnecting] = useState<boolean>(false);
   const [isLoading, setIsloading] = useState<boolean>(true);
   const [gotchisForLend, setGotchisForLend] = useState<BatchLendGotchi[]>([]);
   const [selectedGotchisIds, setSelectedGotchisIds] = useState<string[]>([]);
@@ -51,6 +54,10 @@ export function BatchLend() {
       .catch((err) => console.log('err', err))
       .finally(() => setIsloading(false));
   };
+
+  useEffect(() => {
+    setIsWalletConnected(metaState.isConnected);
+  }, [metaState]);
 
   useEffect(() => {
     if (metaState.account[0]) {
@@ -106,51 +113,99 @@ export function BatchLend() {
     return Boolean(selectedGotchisIds.find((selectedId) => selectedId === id));
   };
 
+  const connectWallet = (): void => {
+    setIsWalletConnecting(true);
+
+    connectMetamask()
+      .then((isConnected: boolean) => {
+        if (isConnected) {
+          showSnackbar('success', 'Wallet connected!');
+        } else {
+          showSnackbar('error', 'Wallet connect failed :( please reload page and try again');
+        }
+      })
+      .catch((error) => console.log(error))
+      .finally(() => setIsWalletConnecting(false));
+  };
+
+  const connectMetamask = async (): Promise<CustomAny> => {
+    if (metaState.isAvailable && !metaState.isConnected) {
+      try {
+        if (connect) {
+          await connect(ethers.providers.Web3Provider, 'any');
+
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    }
+  };
+
   return (
     <>
       <ContentWrapper>
-        <ContentInner dataLoading={isLoading}>
-          <div className={classes.infoPanel}>
-            <div className={classes.infoPanelMessage}>Click to select a Gotchi. You may choose up to 20 of them.</div>
-            <div className={classes.countWrapper}>
-              <span>{gotchisForLend.length}</span>
-              <GotchiIcon width={20} height={20} />({selectedGotchisIds.length})
-            </div>
-          </div>
-
-          <div className={classes.listContainer}>
-            {gotchisForLend.map((gotchi) => (
-              <div key={gotchi.id} onClick={(event) => onSelectGotchi(event, `${gotchi.id}`)}>
-                <div
-                  className={classNames(
-                    classes.gotchi,
-                    `haunt${gotchi.hauntId}`,
-                    getIsGotchiSelected(gotchi.id) && 'selected'
-                  )}
-                >
-                  <div className={classes.gotchiHeader}>
-                    <CustomTooltip
-                      title={<GotchiKinshipTooltip kinship={gotchi.kinship} />}
-                      placement='bottom'
-                      arrow={true}
-                    >
-                      <div className={classes.gotchiKinship}>
-                        <span>
-                          <GotchiHeartGif width={12} height={12} className={classes.gotchiKinshipIcon} />x
-                          {GotchiverseUtils.countKinshipChannelingBoost(gotchi.kinship)}
-                        </span>
-                      </div>
-                    </CustomTooltip>
+        {isWalletConnected ? (
+          <ContentInner dataLoading={isLoading}>
+            {gotchisForLend.length ? (
+              <>
+                <div className={classes.infoPanel}>
+                  <div className={classes.infoPanelMessage}>
+                    Click to select a Gotchi. You may choose up to 20 of them.
                   </div>
-                  <div className={classes.imageContainer}>
-                    <GotchiImage gotchi={gotchi} renderSvgByStats={false} />
+                  <div className={classes.countWrapper}>
+                    <span>{gotchisForLend.length}</span>
+                    <GotchiIcon width={20} height={20} />({selectedGotchisIds.length})
                   </div>
-                  <GotchiName gotchi={gotchi} />
                 </div>
+
+                <div className={classes.listContainer}>
+                  {gotchisForLend.map((gotchi) => (
+                    <div key={gotchi.id} onClick={(event) => onSelectGotchi(event, `${gotchi.id}`)}>
+                      <div
+                        className={classNames(
+                          classes.gotchi,
+                          `haunt${gotchi.hauntId}`,
+                          getIsGotchiSelected(gotchi.id) && 'selected'
+                        )}
+                      >
+                        <div className={classes.gotchiHeader}>
+                          <CustomTooltip
+                            title={<GotchiKinshipTooltip kinship={gotchi.kinship} />}
+                            placement='bottom'
+                            arrow={true}
+                          >
+                            <div className={classes.gotchiKinship}>
+                              <span>
+                                <GotchiHeartGif width={12} height={12} className={classes.gotchiKinshipIcon} />x
+                                {GotchiverseUtils.countKinshipChannelingBoost(gotchi.kinship)}
+                              </span>
+                            </div>
+                          </CustomTooltip>
+                        </div>
+                        <div className={classes.imageContainer}>
+                          <GotchiImage gotchi={gotchi} renderSvgByStats={false} />
+                        </div>
+                        <GotchiName gotchi={gotchi} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className={classes.noGotchisContainer}>
+                <span>There are no Gotchis to Lend:(</span>
+                <span>Please connect another address</span>
               </div>
-            ))}
+            )}
+          </ContentInner>
+        ) : (
+          <div className={classes.connectButtonContainer}>
+            <Button size='large' variant='contained' onClick={connectWallet} disabled={isWalletConnecting}>
+              Connect Wallet {isWalletConnecting && <CircularProgress size={20} className={classes.progress} />}
+            </Button>
           </div>
-        </ContentInner>
+        )}
         <div className={classes.settingsContainer}>
           <div className={classes.settingWrapper}>
             <div className={classes.settingLabel}>Upfront Cost:</div>

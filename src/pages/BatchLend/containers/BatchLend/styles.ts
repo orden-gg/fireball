@@ -6,6 +6,13 @@ export const styles = makeStyles((theme) =>
     batchLendContainer: {
       display: 'flex'
     },
+    noGotchisContainer: {
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column'
+    },
     infoPanel: {
       height: 40,
       display: 'flex',
@@ -165,6 +172,16 @@ export const styles = makeStyles((theme) =>
       '& > button': {
         width: '100%'
       }
+    },
+    connectButtonContainer: {
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    progress: {
+      color: 'inherit',
+      marginLeft: theme.spacing(1)
     }
   })
 );
