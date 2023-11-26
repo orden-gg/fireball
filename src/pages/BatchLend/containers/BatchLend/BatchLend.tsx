@@ -102,6 +102,10 @@ export function BatchLend() {
       });
   };
 
+  const getIsGotchiSelected = (id: string): boolean => {
+    return Boolean(selectedGotchisIds.find((selectedId) => selectedId === id));
+  };
+
   return (
     <>
       <ContentWrapper>
@@ -118,10 +122,11 @@ export function BatchLend() {
             {gotchisForLend.map((gotchi) => (
               <div key={gotchi.id} onClick={(event) => onSelectGotchi(event, `${gotchi.id}`)}>
                 <div
-                  className={classNames(classes.gotchi, `haunt${gotchi.hauntId}`)}
-                  style={{
-                    borderColor: selectedGotchisIds.find((selectedId) => selectedId === gotchi.id) ? '#fd9af9' : ''
-                  }}
+                  className={classNames(
+                    classes.gotchi,
+                    `haunt${gotchi.hauntId}`,
+                    getIsGotchiSelected(gotchi.id) && 'selected'
+                  )}
                 >
                   <div className={classes.gotchiHeader}>
                     <CustomTooltip

@@ -34,7 +34,7 @@ export const styles = makeStyles((theme) =>
       color: '#fff',
       textAlign: 'center',
       position: 'relative',
-      border: '3px solid gray',
+      border: '1px solid gray',
       alignItem: 'space-between',
       cursor: 'pointer',
       padding: '0 5px 5px',
@@ -47,6 +47,9 @@ export const styles = makeStyles((theme) =>
       },
       '&.haunt2': {
         backgroundColor: theme.palette.haunts.h2
+      },
+      '&.selected': {
+        border: `5px solid ${theme.palette.primary.main}`
       }
     },
     gotchiHeader: {
@@ -157,9 +160,11 @@ export const styles = makeStyles((theme) =>
       textAlign: 'center'
     },
     settingsButtonWrapper: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      paddingRight: '12px'
+      padding: '0 36px',
+
+      '& > button': {
+        width: '100%'
+      }
     }
   })
 );
