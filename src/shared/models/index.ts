@@ -1,4 +1,5 @@
 export * from './alchemica.model';
+export * from './batch-lend.model';
 export * from './big-number.model';
 export * from './contdown-format.model';
 export * from './custom-parsed-query.model';

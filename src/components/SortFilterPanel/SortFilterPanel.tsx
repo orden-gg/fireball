@@ -22,6 +22,8 @@ interface SortFilterPanelProps {
   isShowFilters?: boolean;
   filtersCount?: number;
   isPanelDisabled?: boolean;
+  additionalButtonText?: string;
+  additionalButtonCb?: () => void;
 }
 
 export function SortFilterPanel({
@@ -34,7 +36,9 @@ export function SortFilterPanel({
   resetFilters,
   filtersCount,
   exportData,
-  isPanelDisabled = false
+  isPanelDisabled = false,
+  additionalButtonText,
+  additionalButtonCb = () => {}
 }: SortFilterPanelProps) {
   const classes = styles();
 
@@ -100,6 +104,11 @@ export function SortFilterPanel({
             </div>
           )}
         </div>
+      )}
+      {additionalButtonText && (
+        <Button className={classNames(classes.additionalButton)} color='primary' onClick={() => additionalButtonCb()}>
+          {additionalButtonText}
+        </Button>
       )}
 
       {
