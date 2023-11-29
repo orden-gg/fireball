@@ -178,4 +178,20 @@ export class CommonUtils {
   public static isNumberInRange(x: number, min: number, max: number) {
     return x >= min && x <= max;
   }
+
+  public static stringToBoolean(string: string) {
+    switch (string.toLowerCase().trim()) {
+      case 'true':
+      case 'yes':
+      case '1':
+        return true;
+      case 'false':
+      case 'no':
+      case '0':
+      case '':
+        return false;
+      default:
+        return Boolean(string);
+    }
+  }
 }

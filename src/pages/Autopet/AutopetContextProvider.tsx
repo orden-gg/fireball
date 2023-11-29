@@ -7,6 +7,8 @@ import { useMetamask } from 'use-metamask';
 
 import { AutopetApi, GhstApi, MainApi } from 'api';
 
+import { AUTOPET_OPERATOR } from 'shared/constants';
+
 import { SnackbarContext } from 'contexts/SnackbarContext';
 
 import { tabStyles } from './styles';
@@ -86,7 +88,7 @@ export const AutopetContextProvider = (props: CustomAny) => {
     setPetState('approving');
 
     try {
-      const isApproved: boolean = await MainApi.approvePet(approval);
+      const isApproved: boolean = await MainApi.approvePet(approval, AUTOPET_OPERATOR);
 
       if (isApproved) {
         setIsPetApproved(approval);
