@@ -96,7 +96,7 @@ export function PetOperator() {
                       onChange={(e) => setOperatorChecked(e.target.checked)}
                     />
                   }
-                  label='true'
+                  label={operatorChecked ? 'true' : 'false'}
                 />
               </div>
               <Button variant='contained' type='submit' disabled={isCheckingSet}>
