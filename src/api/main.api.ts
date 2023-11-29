@@ -8,17 +8,19 @@ import MAIN_ABI from 'data/abi/main.abi.json';
 const contract = EthersApi.makeContract(MAIN_CONTRACT, MAIN_ABI, 'polygon');
 
 export class MainApi {
-  public static isPetApproved(address: CustomAny): CustomAny {
+  public static isPetApproved(address: string): CustomAny {
     return contract.isPetOperatorForAll(address, AUTOPET_OPERATOR);
   }
 
-  public static async approvePet(isApproved: boolean): Promise<CustomAny> {
-    const writeContract = EthersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
-    const transaction = await writeContract.setPetOperatorForAll(AUTOPET_OPERATOR, isApproved);
+  public static isPetOperator(address: string, operator: string): CustomAny {
+    return contract.isPetOperatorForAll(address, operator);
+  }
 
-    return EthersApi.waitForTransaction(transaction.hash, 'polygon').then((response: CustomAny) =>
-      Boolean(response.status)
-    );
+  public static async approvePet(isApproved: boolean, operator: string): Promise<CustomAny> {
+    const writeContract = EthersApi.makeContractWithSigner(MAIN_CONTRACT, MAIN_ABI);
+    const transaction = await writeContract.setPetOperatorForAll(operator, isApproved);
+
+    return EthersApi.waitForTransaction(transaction.hash, 'polygon');
   }
 
   public static getAavegotchiById(id: number): Promise<CustomAny[]> {

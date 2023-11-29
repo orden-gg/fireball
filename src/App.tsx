@@ -22,6 +22,7 @@ import {
   Map,
   NotFound,
   ParcelPage,
+  PetOperator,
   Raffle
 } from 'pages';
 import { BatchLend } from 'pages/BatchLend/containers/BatchLend/BatchLend';
@@ -83,6 +84,7 @@ export function App() {
             <Route path='client/*' element={<Client />} />
             <Route path='craft' element={<Craft />} />
             <Route path='parcel/:parcelId' element={<ParcelPage />} />
+            <Route path='pet-operator' element={<PetOperator />} />
             <Route path='raffles/*' element={<Raffle />} />
             <Route path='map' element={<Map />} />
             <Route path='gotchi/:gotchiId' element={<GotchiPage />} />
