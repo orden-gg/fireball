@@ -107,7 +107,8 @@ export function BaazaarActivityGotchis() {
             component={(gotchiListing: ActivityGotchiListingVM) => (
               <Gotchi
                 gotchi={gotchiListing.gotchi}
-                renderSvgByStats={true}
+                // TODO: temprorary disabled due to baazar numericTraits issue (when modified to [0,0,0,0,0,0])
+                // renderSvgByStats={true}
                 render={[
                   {
                     className: 'gotchiHeader',
